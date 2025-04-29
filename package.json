@@ -1,7 +1,7 @@
 {
-    "name": "netskys-extensions",
-    "repositoryName": "Netsky's Extensions (0.9)",
-    "description": "Netsky's extensions for 0.9!",
+    "name": "tnrd-extensions",
+    "repositoryName": "TNRD's Extensions (0.9)",
+    "description": "TNRD's extensions for 0.9!",
     "private": true,
     "type": "module",
     "scripts": {
