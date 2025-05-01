@@ -1,8 +1,10 @@
 "use strict";
 var source = (() => {
+  var __create = Object.create;
   var __defProp = Object.defineProperty;
   var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
   var __getOwnPropNames = Object.getOwnPropertyNames;
+  var __getProtoOf = Object.getPrototypeOf;
   var __hasOwnProp = Object.prototype.hasOwnProperty;
   var __esm = (fn, res) => function __init() {
     return fn && (res = (0, fn[__getOwnPropNames(fn)[0]])(fn = 0)), res;
@@ -22,6 +24,14 @@ var source = (() => {
     }
     return to;
   };
+  var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+    // If the importer is in node compatibility mode or this is not an ESM
+    // file that has been converted to a CommonJS file using a Babel-
+    // compatible transform (i.e. "__esModule" has not been set), then set
+    // "default" to the CommonJS "module.exports" for node compatibility.
+    isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+    mod
+  ));
   var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
   // node_modules/base64-js/index.js
@@ -1811,6 +1821,1211 @@ var source = (() => {
     }
   });
 
+  // node_modules/@paperback/types/lib/impl/SettingsUI/Form.js
+  var require_Form = __commonJS({
+    "node_modules/@paperback/types/lib/impl/SettingsUI/Form.js"(exports) {
+      "use strict";
+      init_buffer();
+      Object.defineProperty(exports, "__esModule", { value: true });
+      exports.Form = void 0;
+      var Form2 = class {
+        reloadForm() {
+          const formId = this["__underlying_formId"];
+          if (!formId)
+            return;
+          Application.formDidChange(formId);
+        }
+        // If this returns true, the app will display `Submit` and `Cancel` buttons
+        // and call the relevant methods when they are pressed
+        get requiresExplicitSubmission() {
+          return false;
+        }
+      };
+      exports.Form = Form2;
+    }
+  });
+
+  // node_modules/@paperback/types/lib/impl/SettingsUI/FormItemElement.js
+  var require_FormItemElement = __commonJS({
+    "node_modules/@paperback/types/lib/impl/SettingsUI/FormItemElement.js"(exports) {
+      "use strict";
+      init_buffer();
+      Object.defineProperty(exports, "__esModule", { value: true });
+      exports.LabelRow = LabelRow;
+      exports.InputRow = InputRow2;
+      exports.ToggleRow = ToggleRow;
+      exports.SelectRow = SelectRow;
+      exports.ButtonRow = ButtonRow2;
+      exports.WebViewRow = WebViewRow;
+      exports.NavigationRow = NavigationRow2;
+      exports.OAuthButtonRow = OAuthButtonRow;
+      exports.DeferredItem = DeferredItem;
+      function LabelRow(id, props) {
+        return { ...props, id, type: "labelRow", isHidden: props.isHidden ?? false };
+      }
+      function InputRow2(id, props) {
+        return { ...props, id, type: "inputRow", isHidden: props.isHidden ?? false };
+      }
+      function ToggleRow(id, props) {
+        return { ...props, id, type: "toggleRow", isHidden: props.isHidden ?? false };
+      }
+      function SelectRow(id, props) {
+        return { ...props, id, type: "selectRow", isHidden: props.isHidden ?? false };
+      }
+      function ButtonRow2(id, props) {
+        return { ...props, id, type: "buttonRow", isHidden: props.isHidden ?? false };
+      }
+      function WebViewRow(id, props) {
+        return { ...props, id, type: "webViewRow", isHidden: props.isHidden ?? false };
+      }
+      function NavigationRow2(id, props) {
+        return {
+          ...props,
+          id,
+          type: "navigationRow",
+          isHidden: props.isHidden ?? false
+        };
+      }
+      function OAuthButtonRow(id, props) {
+        return {
+          ...props,
+          id,
+          type: "oauthButtonRow",
+          isHidden: props.isHidden ?? false
+        };
+      }
+      function DeferredItem(work) {
+        return work();
+      }
+    }
+  });
+
+  // node_modules/@paperback/types/lib/impl/SettingsUI/FormSection.js
+  var require_FormSection = __commonJS({
+    "node_modules/@paperback/types/lib/impl/SettingsUI/FormSection.js"(exports) {
+      "use strict";
+      init_buffer();
+      Object.defineProperty(exports, "__esModule", { value: true });
+      exports.Section = Section2;
+      function Section2(params, items) {
+        let info;
+        if (typeof params === "string") {
+          info = { id: params };
+        } else {
+          info = params;
+        }
+        return {
+          ...info,
+          items: items.filter((x) => x)
+        };
+      }
+    }
+  });
+
+  // node_modules/@paperback/types/lib/impl/SettingsUI/index.js
+  var require_SettingsUI = __commonJS({
+    "node_modules/@paperback/types/lib/impl/SettingsUI/index.js"(exports) {
+      "use strict";
+      init_buffer();
+      var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
+        if (k2 === void 0) k2 = k;
+        var desc = Object.getOwnPropertyDescriptor(m, k);
+        if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+          desc = { enumerable: true, get: function() {
+            return m[k];
+          } };
+        }
+        Object.defineProperty(o, k2, desc);
+      } : function(o, m, k, k2) {
+        if (k2 === void 0) k2 = k;
+        o[k2] = m[k];
+      });
+      var __exportStar = exports && exports.__exportStar || function(m, exports2) {
+        for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports2, p)) __createBinding(exports2, m, p);
+      };
+      Object.defineProperty(exports, "__esModule", { value: true });
+      __exportStar(require_Form(), exports);
+      __exportStar(require_FormItemElement(), exports);
+      __exportStar(require_FormSection(), exports);
+    }
+  });
+
+  // node_modules/@paperback/types/lib/impl/interfaces/ChapterProviding.js
+  var require_ChapterProviding = __commonJS({
+    "node_modules/@paperback/types/lib/impl/interfaces/ChapterProviding.js"(exports) {
+      "use strict";
+      init_buffer();
+      Object.defineProperty(exports, "__esModule", { value: true });
+    }
+  });
+
+  // node_modules/@paperback/types/lib/impl/interfaces/CloudflareBypassRequestProviding.js
+  var require_CloudflareBypassRequestProviding = __commonJS({
+    "node_modules/@paperback/types/lib/impl/interfaces/CloudflareBypassRequestProviding.js"(exports) {
+      "use strict";
+      init_buffer();
+      Object.defineProperty(exports, "__esModule", { value: true });
+    }
+  });
+
+  // node_modules/@paperback/types/lib/impl/interfaces/DiscoverSectionProviding.js
+  var require_DiscoverSectionProviding = __commonJS({
+    "node_modules/@paperback/types/lib/impl/interfaces/DiscoverSectionProviding.js"(exports) {
+      "use strict";
+      init_buffer();
+      Object.defineProperty(exports, "__esModule", { value: true });
+    }
+  });
+
+  // node_modules/@paperback/types/lib/impl/interfaces/ManagedCollectionProviding.js
+  var require_ManagedCollectionProviding = __commonJS({
+    "node_modules/@paperback/types/lib/impl/interfaces/ManagedCollectionProviding.js"(exports) {
+      "use strict";
+      init_buffer();
+      Object.defineProperty(exports, "__esModule", { value: true });
+    }
+  });
+
+  // node_modules/@paperback/types/lib/impl/interfaces/MangaProgressProviding.js
+  var require_MangaProgressProviding = __commonJS({
+    "node_modules/@paperback/types/lib/impl/interfaces/MangaProgressProviding.js"(exports) {
+      "use strict";
+      init_buffer();
+      Object.defineProperty(exports, "__esModule", { value: true });
+    }
+  });
+
+  // node_modules/@paperback/types/lib/impl/interfaces/MangaProviding.js
+  var require_MangaProviding = __commonJS({
+    "node_modules/@paperback/types/lib/impl/interfaces/MangaProviding.js"(exports) {
+      "use strict";
+      init_buffer();
+      Object.defineProperty(exports, "__esModule", { value: true });
+    }
+  });
+
+  // node_modules/@paperback/types/lib/impl/interfaces/SearchResultsProviding.js
+  var require_SearchResultsProviding = __commonJS({
+    "node_modules/@paperback/types/lib/impl/interfaces/SearchResultsProviding.js"(exports) {
+      "use strict";
+      init_buffer();
+      Object.defineProperty(exports, "__esModule", { value: true });
+    }
+  });
+
+  // node_modules/@paperback/types/lib/impl/interfaces/SettingsFormProviding.js
+  var require_SettingsFormProviding = __commonJS({
+    "node_modules/@paperback/types/lib/impl/interfaces/SettingsFormProviding.js"(exports) {
+      "use strict";
+      init_buffer();
+      Object.defineProperty(exports, "__esModule", { value: true });
+    }
+  });
+
+  // node_modules/@paperback/types/lib/impl/interfaces/index.js
+  var require_interfaces = __commonJS({
+    "node_modules/@paperback/types/lib/impl/interfaces/index.js"(exports) {
+      "use strict";
+      init_buffer();
+      var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
+        if (k2 === void 0) k2 = k;
+        var desc = Object.getOwnPropertyDescriptor(m, k);
+        if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+          desc = { enumerable: true, get: function() {
+            return m[k];
+          } };
+        }
+        Object.defineProperty(o, k2, desc);
+      } : function(o, m, k, k2) {
+        if (k2 === void 0) k2 = k;
+        o[k2] = m[k];
+      });
+      var __exportStar = exports && exports.__exportStar || function(m, exports2) {
+        for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports2, p)) __createBinding(exports2, m, p);
+      };
+      Object.defineProperty(exports, "__esModule", { value: true });
+      __exportStar(require_ChapterProviding(), exports);
+      __exportStar(require_CloudflareBypassRequestProviding(), exports);
+      __exportStar(require_DiscoverSectionProviding(), exports);
+      __exportStar(require_ManagedCollectionProviding(), exports);
+      __exportStar(require_MangaProgressProviding(), exports);
+      __exportStar(require_MangaProviding(), exports);
+      __exportStar(require_SearchResultsProviding(), exports);
+      __exportStar(require_SettingsFormProviding(), exports);
+    }
+  });
+
+  // node_modules/@paperback/types/lib/impl/Application.js
+  var require_Application = __commonJS({
+    "node_modules/@paperback/types/lib/impl/Application.js"(exports) {
+      "use strict";
+      init_buffer();
+      Object.defineProperty(exports, "__esModule", { value: true });
+    }
+  });
+
+  // node_modules/@paperback/types/lib/impl/PaperbackInterceptor.js
+  var require_PaperbackInterceptor = __commonJS({
+    "node_modules/@paperback/types/lib/impl/PaperbackInterceptor.js"(exports) {
+      "use strict";
+      init_buffer();
+      Object.defineProperty(exports, "__esModule", { value: true });
+      exports.PaperbackInterceptor = void 0;
+      var PaperbackInterceptor = class {
+        id;
+        constructor(id) {
+          this.id = id;
+        }
+        registerInterceptor() {
+          Application.registerInterceptor(this.id, Application.Selector(this, "interceptRequest"), Application.Selector(this, "interceptResponse"));
+        }
+        unregisterInterceptor() {
+          Application.unregisterInterceptor(this.id);
+        }
+      };
+      exports.PaperbackInterceptor = PaperbackInterceptor;
+    }
+  });
+
+  // node_modules/@paperback/types/lib/impl/Selector.js
+  var require_Selector = __commonJS({
+    "node_modules/@paperback/types/lib/impl/Selector.js"(exports) {
+      "use strict";
+      init_buffer();
+      Object.defineProperty(exports, "__esModule", { value: true });
+    }
+  });
+
+  // node_modules/@paperback/types/lib/impl/Extension.js
+  var require_Extension = __commonJS({
+    "node_modules/@paperback/types/lib/impl/Extension.js"(exports) {
+      "use strict";
+      init_buffer();
+      Object.defineProperty(exports, "__esModule", { value: true });
+    }
+  });
+
+  // node_modules/@paperback/types/lib/impl/Lock.js
+  var require_Lock = __commonJS({
+    "node_modules/@paperback/types/lib/impl/Lock.js"(exports) {
+      "use strict";
+      init_buffer();
+      Object.defineProperty(exports, "__esModule", { value: true });
+      exports.unlock = exports.lock = void 0;
+      var promises = {};
+      var resolvers = {};
+      var lock = async (uid) => {
+        if (promises[uid]) {
+          await promises[uid];
+          await (0, exports.lock)(uid);
+          return;
+        }
+        promises[uid] = new Promise((resolve) => resolvers[uid] = () => {
+          delete promises[uid];
+          resolve();
+        });
+      };
+      exports.lock = lock;
+      var unlock = (uid) => {
+        if (resolvers[uid]) {
+          resolvers[uid]();
+        }
+      };
+      exports.unlock = unlock;
+    }
+  });
+
+  // node_modules/@paperback/types/lib/impl/BasicRateLimiter.js
+  var require_BasicRateLimiter = __commonJS({
+    "node_modules/@paperback/types/lib/impl/BasicRateLimiter.js"(exports) {
+      "use strict";
+      init_buffer();
+      Object.defineProperty(exports, "__esModule", { value: true });
+      exports.BasicRateLimiter = void 0;
+      var Lock_1 = require_Lock();
+      var PaperbackInterceptor_1 = require_PaperbackInterceptor();
+      var BasicRateLimiter = class extends PaperbackInterceptor_1.PaperbackInterceptor {
+        options;
+        promise;
+        currentRequestsMade = 0;
+        lastReset = Date.now();
+        imageRegex = new RegExp(/\.(png|gif|jpeg|jpg|webp)(\?|$)/gi);
+        constructor(id, options) {
+          super(id);
+          this.options = options;
+        }
+        async interceptRequest(request) {
+          if (this.options.ignoreImages && this.imageRegex.test(request.url)) {
+            return request;
+          }
+          await (0, Lock_1.lock)(this.id);
+          await this.incrementRequestCount();
+          (0, Lock_1.unlock)(this.id);
+          return request;
+        }
+        async interceptResponse(request, response, data) {
+          return data;
+        }
+        async incrementRequestCount() {
+          await this.promise;
+          const secondsSinceLastReset = (Date.now() - this.lastReset) / 1e3;
+          if (secondsSinceLastReset > this.options.bufferInterval) {
+            this.currentRequestsMade = 0;
+            this.lastReset = Date.now();
+          }
+          this.currentRequestsMade += 1;
+          if (this.currentRequestsMade >= this.options.numberOfRequests) {
+            if (secondsSinceLastReset <= this.options.bufferInterval) {
+              const sleepTime = this.options.bufferInterval - secondsSinceLastReset;
+              console.log(`[BasicRateLimiter] rate limit hit, sleeping for ${sleepTime}`);
+              this.promise = Application.sleep(sleepTime);
+              await this.promise;
+            }
+          }
+        }
+      };
+      exports.BasicRateLimiter = BasicRateLimiter;
+    }
+  });
+
+  // node_modules/@paperback/types/lib/impl/CloudflareError.js
+  var require_CloudflareError = __commonJS({
+    "node_modules/@paperback/types/lib/impl/CloudflareError.js"(exports) {
+      "use strict";
+      init_buffer();
+      Object.defineProperty(exports, "__esModule", { value: true });
+      exports.CloudflareError = void 0;
+      var CloudflareError = class extends Error {
+        resolutionRequest;
+        type = "cloudflareError";
+        constructor(resolutionRequest, message = "Cloudflare bypass is required") {
+          super(message);
+          this.resolutionRequest = resolutionRequest;
+        }
+      };
+      exports.CloudflareError = CloudflareError;
+    }
+  });
+
+  // node_modules/@paperback/types/lib/impl/URL.js
+  var require_URL = __commonJS({
+    "node_modules/@paperback/types/lib/impl/URL.js"(exports) {
+      "use strict";
+      init_buffer();
+      Object.defineProperty(exports, "__esModule", { value: true });
+      exports.URL = void 0;
+      exports.parseURL = parseURL;
+      function parseURL(url) {
+        const components = {};
+        const regex = /^(?:([a-zA-Z][a-zA-Z\d+\-.]*):)?(?:\/\/([^\/?#]*))?([^?#]*)(?:\?([^#]*))?(?:#(.*))?$/;
+        const match = url.match(regex);
+        if (!match) {
+          throw new Error("Invalid URL string provided.");
+        }
+        if (match[1] !== void 0 && match[1] !== "") {
+          components.protocol = match[1];
+        }
+        if (match[2] !== void 0 && match[2] !== "") {
+          let authority = match[2];
+          let userInfo = "";
+          let hostPort = "";
+          const atIndex = authority.indexOf("@");
+          if (atIndex !== -1) {
+            userInfo = authority.substring(0, atIndex);
+            hostPort = authority.substring(atIndex + 1);
+            if (userInfo !== "") {
+              const colonIndex = userInfo.indexOf(":");
+              if (colonIndex !== -1) {
+                components.username = userInfo.substring(0, colonIndex);
+                components.password = userInfo.substring(colonIndex + 1);
+              } else {
+                components.username = userInfo;
+                components.password = "";
+              }
+            }
+          } else {
+            hostPort = authority;
+          }
+          if (hostPort !== "") {
+            if (hostPort.startsWith("[")) {
+              const closingBracketIndex = hostPort.indexOf("]");
+              if (closingBracketIndex === -1) {
+                throw new Error("Invalid IPv6 address in URL update.");
+              }
+              components.hostname = hostPort.substring(0, closingBracketIndex + 1);
+              const portPart = hostPort.substring(closingBracketIndex + 1);
+              if (portPart.startsWith(":")) {
+                components.port = portPart.substring(1);
+              }
+            } else {
+              const colonIndex = hostPort.lastIndexOf(":");
+              if (colonIndex !== -1 && hostPort.indexOf(":") === colonIndex) {
+                components.hostname = hostPort.substring(0, colonIndex);
+                components.port = hostPort.substring(colonIndex + 1);
+              } else {
+                components.hostname = hostPort;
+                components.port = "";
+              }
+            }
+          }
+        }
+        if (match[3] !== void 0 && match[3] !== "") {
+          components.path = match[3].startsWith("/") ? match[3] : `/${match[3]}`;
+        }
+        if (match[4] !== void 0) {
+          const query = {};
+          const pairs = match[4].split("&");
+          for (const pair of pairs) {
+            if (!pair)
+              continue;
+            const [rawKey, rawValue = ""] = pair.split("=");
+            const key = decodeURIComponent(rawKey);
+            const value = decodeURIComponent(rawValue);
+            if (key in query) {
+              const existing = query[key];
+              if (Array.isArray(existing)) {
+                existing.push(value);
+              } else {
+                query[key] = [existing, value];
+              }
+            } else {
+              query[key] = value;
+            }
+          }
+          components.queryItems = query;
+        }
+        if (match[5] !== void 0) {
+          components.fragment = match[5];
+        }
+        return components;
+      }
+      var URL = class {
+        protocol;
+        hostname;
+        path;
+        username;
+        password;
+        port;
+        queryItems = {};
+        fragment;
+        /**
+         * Creates a new SimpleURL instance.
+         * @param url - (Optional) A URL string to initialize the instance.
+         */
+        constructor(url) {
+          const components = parseURL(url);
+          if (!components.hostname || !components.protocol) {
+            throw new Error("URL Hostname and Protocol are required");
+          }
+          this.hostname = components.hostname;
+          this.protocol = components.protocol;
+          this.path = components.path ?? "";
+          this.username = components.username;
+          this.password = components.password;
+          this.port = components.port;
+          this.queryItems = components.queryItems;
+          this.fragment = components.fragment;
+        }
+        /**
+         * Returns the full URL string built from the current components.
+         */
+        toString() {
+          let url = `${this.protocol}://`;
+          if (this.username !== void 0 && this.username !== "") {
+            url += this.username;
+            if (this.password !== void 0 && this.password !== "") {
+              url += `:${this.password}`;
+            }
+            url += "@";
+          }
+          url += this.hostname;
+          if (this.port !== void 0 && this.port !== "") {
+            url += `:${this.port}`;
+          }
+          if (this.path !== "") {
+            url += this.path.startsWith("/") ? this.path : `/${this.path}`;
+          }
+          if (this.queryItems !== void 0) {
+            const queryKeys = Object.keys(this.queryItems);
+            const params = [];
+            if (queryKeys.length > 0) {
+              for (const key of queryKeys) {
+                const value = this.queryItems[key];
+                if (Array.isArray(value)) {
+                  for (const v of value) {
+                    params.push(`${encodeURIComponent(key)}=${encodeURIComponent(v)}`);
+                  }
+                } else {
+                  params.push(`${encodeURIComponent(key)}=${encodeURIComponent(value)}`);
+                }
+              }
+            }
+            url += `?${params.join("&")}`;
+          }
+          if (this.fragment !== void 0) {
+            url += `#${this.fragment}`;
+          }
+          return url;
+        }
+        /**
+         * Convenience method to update the protocol.
+         */
+        setProtocol(newProtocol) {
+          if (newProtocol === "")
+            throw new Error("Protocol is required");
+          this.protocol = newProtocol;
+          return this;
+        }
+        /**
+         * Convenience method to update the username.
+         */
+        setUsername(newUsername) {
+          if (newUsername === "")
+            this.username = void 0;
+          else
+            this.username = newUsername;
+          return this;
+        }
+        /**
+         * Convenience method to update the password.
+         */
+        setPassword(newPassword) {
+          if (newPassword === "")
+            this.password = void 0;
+          else
+            this.password = newPassword;
+          return this;
+        }
+        /**
+         * Convenience method to update the hostname.
+         */
+        setHostname(newHostname) {
+          if (newHostname === "")
+            throw new Error("Hostname is required");
+          this.hostname = newHostname;
+          return this;
+        }
+        /**
+         * Convenience method to update the port.
+         */
+        setPort(newPort) {
+          if (newPort === "")
+            this.port = void 0;
+          else
+            this.port = newPort;
+          return this;
+        }
+        /**
+         * Convenience method to update the pathname.
+         */
+        setPath(newPathname) {
+          this.path = newPathname.startsWith("/") ? newPathname : `/${newPathname}`;
+          return this;
+        }
+        addPathComponent(component) {
+          this.path = (this.path ?? "") + (component.startsWith("/") ? component : `/${component}`);
+          return this;
+        }
+        /**
+         * Replace the entire query object.
+         */
+        setQueryItems(newQuery) {
+          this.queryItems = newQuery;
+          return this;
+        }
+        /**
+         * Update or add a single query parameter.
+         */
+        setQueryItem(key, value) {
+          if (this.queryItems === void 0)
+            this.queryItems = {};
+          this.queryItems[key] = value;
+          return this;
+        }
+        /**
+         * Remove a query parameter.
+         */
+        removeQueryItem(key) {
+          delete this.queryItems?.[key];
+          return this;
+        }
+        /**
+         * Convenience method to update the hash (fragment).
+         */
+        setFragment(newHash) {
+          this.fragment = newHash;
+          return this;
+        }
+        /**
+         * Update the current URL components.
+         *
+         * Accepts either:
+         * - A URL string, which may be a full URL (e.g., "https://example.com/path?foo=bar")
+         *   or a partial URL (e.g., "/new/path?foo=bar#section"). In this case, only the components
+         *   present in the string will be updated.
+         * - A partial UrlComponents object.
+         *
+         * @param input - A URL string or a partial UrlComponents object.
+         */
+        update(input) {
+          let components;
+          if (typeof input === "string") {
+            components = parseURL(input);
+          } else {
+            components = input;
+          }
+          if (components.protocol !== void 0)
+            this.setProtocol(components.protocol);
+          if (components.username !== void 0)
+            this.setUsername(components.username);
+          if (components.password !== void 0)
+            this.setPassword(components.password);
+          if (components.hostname !== void 0)
+            this.setHostname(components.hostname);
+          if (components.port !== void 0)
+            this.setPort(components.port);
+          if (components.path !== void 0)
+            this.setPath(components.path);
+          if (components.queryItems !== void 0)
+            this.setQueryItems(components.queryItems);
+          if (components.fragment !== void 0)
+            this.setFragment(components.fragment);
+          return this;
+        }
+      };
+      exports.URL = URL;
+    }
+  });
+
+  // node_modules/@paperback/types/lib/impl/CookieStorageInterceptor.js
+  var require_CookieStorageInterceptor = __commonJS({
+    "node_modules/@paperback/types/lib/impl/CookieStorageInterceptor.js"(exports) {
+      "use strict";
+      init_buffer();
+      Object.defineProperty(exports, "__esModule", { value: true });
+      exports.CookieStorageInterceptor = void 0;
+      var PaperbackInterceptor_1 = require_PaperbackInterceptor();
+      var URL_1 = require_URL();
+      var cookieStateKey = "cookie_store_cookies";
+      var CookieStorageInterceptor = class extends PaperbackInterceptor_1.PaperbackInterceptor {
+        options;
+        _cookies = {};
+        get cookies() {
+          return Object.freeze(Object.values(this._cookies));
+        }
+        set cookies(newValue) {
+          const cookies = {};
+          for (const cookie of newValue) {
+            if (this.isCookieExpired(cookie)) {
+              continue;
+            }
+            cookies[this.cookieIdentifier(cookie)] = cookie;
+          }
+          this._cookies = cookies;
+          this.saveCookiesToStorage();
+        }
+        constructor(options) {
+          super("cookie_store");
+          this.options = options;
+          this.loadCookiesFromStorage();
+        }
+        async interceptRequest(request) {
+          request.cookies = {
+            // Already set cookies
+            ...request.cookies ?? {},
+            // Inject all the cookies as { name: value }
+            ...this.cookiesForUrl(request.url).reduce((v, c) => {
+              v[c.name] = c.value;
+              return v;
+            }, {})
+          };
+          return request;
+        }
+        async interceptResponse(request, response, data) {
+          const cookies = this._cookies;
+          for (const cookie of response.cookies) {
+            const identifier = this.cookieIdentifier(cookie);
+            if (this.isCookieExpired(cookie)) {
+              delete cookies[identifier];
+              continue;
+            }
+            cookies[identifier] = cookie;
+          }
+          this._cookies = cookies;
+          this.saveCookiesToStorage();
+          return data;
+        }
+        setCookie(cookie) {
+          if (this.isCookieExpired(cookie)) {
+            return;
+          }
+          this._cookies[this.cookieIdentifier(cookie)] = cookie;
+          this.saveCookiesToStorage();
+        }
+        deleteCookie(cookie) {
+          delete this._cookies[this.cookieIdentifier(cookie)];
+        }
+        cookiesForUrl(urlString) {
+          console.log("[COMPAT] COOKIES FOR URL");
+          const url = new URL_1.URL(urlString);
+          const hostname = url.hostname;
+          if (!hostname) {
+            return [];
+          }
+          const matchedCookies = {};
+          const pathname = url.path.startsWith("/") ? url.path : `/${url.path}`;
+          const splitHostname = hostname.split(".");
+          const splitUrlPath = pathname.split("/");
+          splitUrlPath.shift();
+          const cookies = this.cookies;
+          for (const cookie of cookies) {
+            if (this.isCookieExpired(cookie)) {
+              delete this._cookies[this.cookieIdentifier(cookie)];
+              continue;
+            }
+            const cookieDomain = this.cookieSanitizedDomain(cookie);
+            const splitCookieDomain = cookieDomain.split(".");
+            if (splitHostname.length < splitCookieDomain.length || splitCookieDomain.length == 0) {
+              continue;
+            }
+            let cookieDomainMatches = true;
+            for (let i = 0; i < splitCookieDomain.length; i++) {
+              let splitCookieIndex = splitCookieDomain.length - 1 - i;
+              let splitHostnameIndex = splitHostname.length - 1 - i;
+              if (splitCookieDomain[splitCookieIndex] != splitHostname[splitHostnameIndex]) {
+                cookieDomainMatches = false;
+                break;
+              }
+            }
+            if (!cookieDomainMatches) {
+              continue;
+            }
+            const cookiePath = this.cookieSanitizedPath(cookie);
+            const splitCookiePath = cookiePath.split("/");
+            splitCookiePath.shift();
+            let pathMatches = 0;
+            if (pathname === cookiePath) {
+              pathMatches = Number.MAX_SAFE_INTEGER;
+            } else if (splitCookiePath.length === 0 || cookiePath === "/") {
+              pathMatches = 1;
+            } else if (pathname.startsWith(cookiePath) && splitUrlPath.length >= splitCookiePath.length) {
+              for (let i = 0; i < splitCookiePath.length; i++) {
+                if (splitCookiePath[i] === splitUrlPath[i]) {
+                  pathMatches += 1;
+                } else {
+                  break;
+                }
+              }
+            }
+            if (pathMatches <= 0) {
+              continue;
+            }
+            if ((matchedCookies[cookie.name]?.pathMatches ?? 0) < pathMatches) {
+              matchedCookies[cookie.name] = { cookie, pathMatches };
+            }
+          }
+          return Object.values(matchedCookies).map((x) => x.cookie);
+        }
+        cookieIdentifier(cookie) {
+          return `${cookie.name}-${this.cookieSanitizedDomain(cookie)}-${this.cookieSanitizedPath(cookie)}`;
+        }
+        cookieSanitizedPath(cookie) {
+          return cookie.path?.startsWith("/") ? cookie.path : "/" + (cookie.path ?? "");
+        }
+        cookieSanitizedDomain(cookie) {
+          return cookie.domain.replace(/^(www)?\.?/gi, "").toLowerCase();
+        }
+        isCookieExpired(cookie) {
+          if (cookie.expires && cookie.expires.getTime() <= Date.now()) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+        loadCookiesFromStorage() {
+          if (this.options.storage == "memory")
+            return;
+          const cookieData = Application.getState(cookieStateKey);
+          if (!cookieData) {
+            this._cookies = {};
+            return;
+          }
+          const cookies = {};
+          for (const cookie of cookieData) {
+            if (!cookie.expires || this.isCookieExpired(cookie))
+              continue;
+            cookies[this.cookieIdentifier(cookie)] = cookie;
+          }
+          this._cookies = cookies;
+        }
+        saveCookiesToStorage() {
+          if (this.options.storage == "memory")
+            return;
+          Application.setState(this.cookies.filter((x) => x.expires), cookieStateKey);
+        }
+      };
+      exports.CookieStorageInterceptor = CookieStorageInterceptor;
+    }
+  });
+
+  // node_modules/@paperback/types/lib/impl/FormState.js
+  var require_FormState = __commonJS({
+    "node_modules/@paperback/types/lib/impl/FormState.js"(exports) {
+      "use strict";
+      init_buffer();
+      Object.defineProperty(exports, "__esModule", { value: true });
+      exports.createFormState = createFormState;
+      var FormState = class {
+        form;
+        _value;
+        _selector;
+        /**
+         * Creates a new FormState instance.
+         * @param {Form} form - The parent form instance
+         * @param {T} initialValue - The initial value of the form field
+         */
+        constructor(form, initialValue) {
+          this.form = form;
+          this._value = initialValue;
+          this._selector = Application.Selector(this, "updateValue");
+        }
+        /**
+         * Gets the current value of the form field.
+         * @returns {T} The current value
+         */
+        get value() {
+          return this._value;
+        }
+        /**
+         * Gets the selector ID for the update function.
+         * @returns {SelectorID<(value: T) => Promise<void>>} The selector ID
+         */
+        get selector() {
+          return this._selector;
+        }
+        /**
+         * Updates the form field value and triggers a form reload.
+         * @param {T} value - The new value to set
+         * @returns {Promise<void>} A promise that resolves when the update is complete
+         */
+        async updateValue(value) {
+          this._value = value;
+          this.form.reloadForm();
+        }
+      };
+      function createFormState(form, initialValue) {
+        const state = new FormState(form, initialValue);
+        return [() => state.value, state.updateValue.bind(state), state.selector];
+      }
+    }
+  });
+
+  // node_modules/@paperback/types/lib/impl/index.js
+  var require_impl = __commonJS({
+    "node_modules/@paperback/types/lib/impl/index.js"(exports) {
+      "use strict";
+      init_buffer();
+      var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
+        if (k2 === void 0) k2 = k;
+        var desc = Object.getOwnPropertyDescriptor(m, k);
+        if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+          desc = { enumerable: true, get: function() {
+            return m[k];
+          } };
+        }
+        Object.defineProperty(o, k2, desc);
+      } : function(o, m, k, k2) {
+        if (k2 === void 0) k2 = k;
+        o[k2] = m[k];
+      });
+      var __exportStar = exports && exports.__exportStar || function(m, exports2) {
+        for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports2, p)) __createBinding(exports2, m, p);
+      };
+      Object.defineProperty(exports, "__esModule", { value: true });
+      __exportStar(require_SettingsUI(), exports);
+      __exportStar(require_interfaces(), exports);
+      __exportStar(require_Application(), exports);
+      __exportStar(require_PaperbackInterceptor(), exports);
+      __exportStar(require_Selector(), exports);
+      __exportStar(require_Extension(), exports);
+      __exportStar(require_BasicRateLimiter(), exports);
+      __exportStar(require_CloudflareError(), exports);
+      __exportStar(require_CookieStorageInterceptor(), exports);
+      __exportStar(require_FormState(), exports);
+      __exportStar(require_URL(), exports);
+    }
+  });
+
+  // node_modules/@paperback/types/lib/Chapter.js
+  var require_Chapter = __commonJS({
+    "node_modules/@paperback/types/lib/Chapter.js"(exports) {
+      "use strict";
+      init_buffer();
+      Object.defineProperty(exports, "__esModule", { value: true });
+    }
+  });
+
+  // node_modules/@paperback/types/lib/ChapterDetails.js
+  var require_ChapterDetails = __commonJS({
+    "node_modules/@paperback/types/lib/ChapterDetails.js"(exports) {
+      "use strict";
+      init_buffer();
+      Object.defineProperty(exports, "__esModule", { value: true });
+    }
+  });
+
+  // node_modules/@paperback/types/lib/Cookie.js
+  var require_Cookie = __commonJS({
+    "node_modules/@paperback/types/lib/Cookie.js"(exports) {
+      "use strict";
+      init_buffer();
+      Object.defineProperty(exports, "__esModule", { value: true });
+    }
+  });
+
+  // node_modules/@paperback/types/lib/DiscoverSectionItem.js
+  var require_DiscoverSectionItem = __commonJS({
+    "node_modules/@paperback/types/lib/DiscoverSectionItem.js"(exports) {
+      "use strict";
+      init_buffer();
+      Object.defineProperty(exports, "__esModule", { value: true });
+    }
+  });
+
+  // node_modules/@paperback/types/lib/DiscoverSectionType.js
+  var require_DiscoverSectionType = __commonJS({
+    "node_modules/@paperback/types/lib/DiscoverSectionType.js"(exports) {
+      "use strict";
+      init_buffer();
+      Object.defineProperty(exports, "__esModule", { value: true });
+      exports.DiscoverSectionType = void 0;
+      var DiscoverSectionType;
+      (function(DiscoverSectionType2) {
+        DiscoverSectionType2[DiscoverSectionType2["featured"] = 0] = "featured";
+        DiscoverSectionType2[DiscoverSectionType2["simpleCarousel"] = 1] = "simpleCarousel";
+        DiscoverSectionType2[DiscoverSectionType2["prominentCarousel"] = 2] = "prominentCarousel";
+        DiscoverSectionType2[DiscoverSectionType2["chapterUpdates"] = 3] = "chapterUpdates";
+        DiscoverSectionType2[DiscoverSectionType2["genres"] = 4] = "genres";
+      })(DiscoverSectionType || (exports.DiscoverSectionType = DiscoverSectionType = {}));
+    }
+  });
+
+  // node_modules/@paperback/types/lib/HomeSection.js
+  var require_HomeSection = __commonJS({
+    "node_modules/@paperback/types/lib/HomeSection.js"(exports) {
+      "use strict";
+      init_buffer();
+      Object.defineProperty(exports, "__esModule", { value: true });
+    }
+  });
+
+  // node_modules/@paperback/types/lib/MangaInfo.js
+  var require_MangaInfo = __commonJS({
+    "node_modules/@paperback/types/lib/MangaInfo.js"(exports) {
+      "use strict";
+      init_buffer();
+      Object.defineProperty(exports, "__esModule", { value: true });
+    }
+  });
+
+  // node_modules/@paperback/types/lib/MangaProgress.js
+  var require_MangaProgress = __commonJS({
+    "node_modules/@paperback/types/lib/MangaProgress.js"(exports) {
+      "use strict";
+      init_buffer();
+      Object.defineProperty(exports, "__esModule", { value: true });
+    }
+  });
+
+  // node_modules/@paperback/types/lib/PagedResults.js
+  var require_PagedResults = __commonJS({
+    "node_modules/@paperback/types/lib/PagedResults.js"(exports) {
+      "use strict";
+      init_buffer();
+      Object.defineProperty(exports, "__esModule", { value: true });
+      exports.EndOfPageResults = void 0;
+      exports.EndOfPageResults = Object.freeze({
+        items: [],
+        metadata: void 0
+      });
+    }
+  });
+
+  // node_modules/@paperback/types/lib/PBCanvas.js
+  var require_PBCanvas = __commonJS({
+    "node_modules/@paperback/types/lib/PBCanvas.js"(exports) {
+      "use strict";
+      init_buffer();
+      Object.defineProperty(exports, "__esModule", { value: true });
+    }
+  });
+
+  // node_modules/@paperback/types/lib/PBImage.js
+  var require_PBImage = __commonJS({
+    "node_modules/@paperback/types/lib/PBImage.js"(exports) {
+      "use strict";
+      init_buffer();
+      Object.defineProperty(exports, "__esModule", { value: true });
+    }
+  });
+
+  // node_modules/@paperback/types/lib/Request.js
+  var require_Request = __commonJS({
+    "node_modules/@paperback/types/lib/Request.js"(exports) {
+      "use strict";
+      init_buffer();
+      Object.defineProperty(exports, "__esModule", { value: true });
+    }
+  });
+
+  // node_modules/@paperback/types/lib/Response.js
+  var require_Response = __commonJS({
+    "node_modules/@paperback/types/lib/Response.js"(exports) {
+      "use strict";
+      init_buffer();
+      Object.defineProperty(exports, "__esModule", { value: true });
+    }
+  });
+
+  // node_modules/@paperback/types/lib/SearchFilter.js
+  var require_SearchFilter = __commonJS({
+    "node_modules/@paperback/types/lib/SearchFilter.js"(exports) {
+      "use strict";
+      init_buffer();
+      Object.defineProperty(exports, "__esModule", { value: true });
+    }
+  });
+
+  // node_modules/@paperback/types/lib/SearchQuery.js
+  var require_SearchQuery = __commonJS({
+    "node_modules/@paperback/types/lib/SearchQuery.js"(exports) {
+      "use strict";
+      init_buffer();
+      Object.defineProperty(exports, "__esModule", { value: true });
+    }
+  });
+
+  // node_modules/@paperback/types/lib/SearchResultItem.js
+  var require_SearchResultItem = __commonJS({
+    "node_modules/@paperback/types/lib/SearchResultItem.js"(exports) {
+      "use strict";
+      init_buffer();
+      Object.defineProperty(exports, "__esModule", { value: true });
+    }
+  });
+
+  // node_modules/@paperback/types/lib/SourceInfo.js
+  var require_SourceInfo = __commonJS({
+    "node_modules/@paperback/types/lib/SourceInfo.js"(exports) {
+      "use strict";
+      init_buffer();
+      Object.defineProperty(exports, "__esModule", { value: true });
+      exports.ContentRating = exports.SourceIntents = void 0;
+      var SourceIntents;
+      (function(SourceIntents2) {
+        SourceIntents2[SourceIntents2["MANGA_CHAPTERS"] = 1] = "MANGA_CHAPTERS";
+        SourceIntents2[SourceIntents2["MANGA_TRACKING"] = 2] = "MANGA_TRACKING";
+        SourceIntents2[SourceIntents2["MANGA_PROGRESS"] = 2] = "MANGA_PROGRESS";
+        SourceIntents2[SourceIntents2["HOMEPAGE_SECTIONS"] = 4] = "HOMEPAGE_SECTIONS";
+        SourceIntents2[SourceIntents2["DISCOVER_SECIONS"] = 4] = "DISCOVER_SECIONS";
+        SourceIntents2[SourceIntents2["COLLECTION_MANAGEMENT"] = 8] = "COLLECTION_MANAGEMENT";
+        SourceIntents2[SourceIntents2["CLOUDFLARE_BYPASS_REQUIRED"] = 16] = "CLOUDFLARE_BYPASS_REQUIRED";
+        SourceIntents2[SourceIntents2["SETTINGS_UI"] = 32] = "SETTINGS_UI";
+        SourceIntents2[SourceIntents2["MANGA_SEARCH"] = 64] = "MANGA_SEARCH";
+      })(SourceIntents || (exports.SourceIntents = SourceIntents = {}));
+      var ContentRating;
+      (function(ContentRating2) {
+        ContentRating2["EVERYONE"] = "SAFE";
+        ContentRating2["MATURE"] = "MATURE";
+        ContentRating2["ADULT"] = "ADULT";
+      })(ContentRating || (exports.ContentRating = ContentRating = {}));
+    }
+  });
+
+  // node_modules/@paperback/types/lib/SourceManga.js
+  var require_SourceManga = __commonJS({
+    "node_modules/@paperback/types/lib/SourceManga.js"(exports) {
+      "use strict";
+      init_buffer();
+      Object.defineProperty(exports, "__esModule", { value: true });
+    }
+  });
+
+  // node_modules/@paperback/types/lib/Tag.js
+  var require_Tag = __commonJS({
+    "node_modules/@paperback/types/lib/Tag.js"(exports) {
+      "use strict";
+      init_buffer();
+      Object.defineProperty(exports, "__esModule", { value: true });
+    }
+  });
+
+  // node_modules/@paperback/types/lib/TagSection.js
+  var require_TagSection = __commonJS({
+    "node_modules/@paperback/types/lib/TagSection.js"(exports) {
+      "use strict";
+      init_buffer();
+      Object.defineProperty(exports, "__esModule", { value: true });
+    }
+  });
+
+  // node_modules/@paperback/types/lib/TrackedMangaChapterReadAction.js
+  var require_TrackedMangaChapterReadAction = __commonJS({
+    "node_modules/@paperback/types/lib/TrackedMangaChapterReadAction.js"(exports) {
+      "use strict";
+      init_buffer();
+      Object.defineProperty(exports, "__esModule", { value: true });
+    }
+  });
+
+  // node_modules/@paperback/types/lib/index.js
+  var require_lib = __commonJS({
+    "node_modules/@paperback/types/lib/index.js"(exports) {
+      "use strict";
+      init_buffer();
+      var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
+        if (k2 === void 0) k2 = k;
+        var desc = Object.getOwnPropertyDescriptor(m, k);
+        if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+          desc = { enumerable: true, get: function() {
+            return m[k];
+          } };
+        }
+        Object.defineProperty(o, k2, desc);
+      } : function(o, m, k, k2) {
+        if (k2 === void 0) k2 = k;
+        o[k2] = m[k];
+      });
+      var __exportStar = exports && exports.__exportStar || function(m, exports2) {
+        for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports2, p)) __createBinding(exports2, m, p);
+      };
+      Object.defineProperty(exports, "__esModule", { value: true });
+      __exportStar(require_impl(), exports);
+      __exportStar(require_Chapter(), exports);
+      __exportStar(require_ChapterDetails(), exports);
+      __exportStar(require_Cookie(), exports);
+      __exportStar(require_DiscoverSectionItem(), exports);
+      __exportStar(require_DiscoverSectionType(), exports);
+      __exportStar(require_HomeSection(), exports);
+      __exportStar(require_lib(), exports);
+      __exportStar(require_MangaInfo(), exports);
+      __exportStar(require_MangaProgress(), exports);
+      __exportStar(require_PagedResults(), exports);
+      __exportStar(require_PBCanvas(), exports);
+      __exportStar(require_PBImage(), exports);
+      __exportStar(require_Request(), exports);
+      __exportStar(require_Response(), exports);
+      __exportStar(require_SearchFilter(), exports);
+      __exportStar(require_SearchQuery(), exports);
+      __exportStar(require_SearchResultItem(), exports);
+      __exportStar(require_SourceInfo(), exports);
+      __exportStar(require_SourceManga(), exports);
+      __exportStar(require_Tag(), exports);
+      __exportStar(require_TagSection(), exports);
+      __exportStar(require_TrackedMangaChapterReadAction(), exports);
+    }
+  });
+
   // src/Kavita/main.ts
   var main_exports = {};
   __export(main_exports, {
@@ -1818,9 +3033,89 @@ var source = (() => {
     KavitaExtension: () => KavitaExtension
   });
   init_buffer();
+
+  // src/Kavita/providers/SettingsProvider.ts
+  init_buffer();
+
+  // src/Kavita/KavitaSettings.ts
+  init_buffer();
+  var import_types = __toESM(require_lib(), 1);
+
+  // src/Kavita/utils/StateUtil.ts
+  init_buffer();
+  var State = class {
+    constructor(form, persistKey, value) {
+      this.form = form;
+      this.persistKey = persistKey;
+      this._value = value;
+    }
+    _value;
+    get value() {
+      return this._value;
+    }
+    /**
+     * Returns selector for binding to form elements
+     */
+    get selector() {
+      return Application.Selector(this, "updateValue");
+    }
+    /**
+     * Updates state value, persists it, and refreshes the form
+     */
+    async updateValue(value) {
+      this._value = value;
+      Application.setState(value, this.persistKey);
+      this.form.reloadForm();
+    }
+  };
+
+  // src/Kavita/KavitaSettings.ts
+  function getApiUrl() {
+    return Application.getState("apiUrl") ?? "https://demo.kavita.com";
+  }
+  function getApiKey() {
+    return Application.getState("apiKey") ?? "demo";
+  }
+  var KavitaSettingsForm = class extends import_types.Form {
+    url = new State(this, "url", getApiUrl());
+    apiKey = new State(this, "apiKey", getApiKey());
+    getSections() {
+      const sections = [this.createMainSettingsSection()];
+      return sections;
+    }
+    createMainSettingsSection() {
+      return (0, import_types.Section)("mainSettings", [
+        (0, import_types.InputRow)("kavitaApiUrl", {
+          title: "Kavita API URL",
+          value: this.url.value,
+          onValueChange: this.url.updateValue
+        }),
+        (0, import_types.InputRow)("kavitaApiKey", {
+          title: "Kavita API Key",
+          value: this.apiKey.value,
+          onValueChange: this.apiKey.updateValue
+        }),
+        (0, import_types.ButtonRow)("kavitaTestConnection", {
+          title: "Test Connection",
+          onSelect: async () => {
+          }
+        })
+      ]);
+    }
+  };
+
+  // src/Kavita/providers/SettingsProvider.ts
+  var SettingsProvider = class {
+    async getSettingsForm() {
+      return new KavitaSettingsForm();
+    }
+  };
+
+  // src/Kavita/main.ts
   var KavitaExtension = class {
+    settingsProvider = new SettingsProvider();
     getSettingsForm() {
-      throw new Error("Method not implemented.");
+      return this.settingsProvider.getSettingsForm();
     }
     getChapters(sourceManga, sinceDate) {
       throw new Error("Method not implemented.");
@@ -1840,8 +3135,8 @@ var source = (() => {
     getMangaDetails(mangaId) {
       throw new Error("Method not implemented.");
     }
-    initialise() {
-      throw new Error("Method not implemented.");
+    async initialise() {
+      console.log("Kavita Extension Initialized");
     }
   };
   var Kavita = new KavitaExtension();
