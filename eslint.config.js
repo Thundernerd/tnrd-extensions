@@ -20,8 +20,8 @@ export default [
         rules: {
             'indent': ['error', 4],
             'linebreak-style': ['error', 'unix'],
-            'quotes': ['error', 'single'],
-            'semi': ['error', 'never'],
+            'quotes': ['error', 'double'],
+            'semi': ['error', 'always'],
             'comma-dangle': ['error', 'never'],
             'prefer-arrow-callback': 'error',
             'modules-newline/import-declaration-newline': 'error',
