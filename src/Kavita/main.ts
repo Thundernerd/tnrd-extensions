@@ -1,8 +1,11 @@
 import { Chapter, ChapterDetails, ChapterProviding, Extension, Form, MangaProgress, MangaProviding, PagedResults, SearchFilter, SearchQuery, SearchResultItem, SearchResultsProviding, SettingsFormProviding, SourceManga, UpdateManager } from "@paperback/types";
+import { SettingsProvider } from "./providers/SettingsProvider";
 
 export class KavitaExtension implements Extension, SearchResultsProviding, MangaProviding, ChapterProviding, SettingsFormProviding {
+    private settingsProvider: SettingsProvider = new SettingsProvider();
+
     getSettingsForm(): Promise<Form> {
-        throw new Error("Method not implemented.");
+        return this.settingsProvider.getSettingsForm();
     }
     getChapters(sourceManga: SourceManga, sinceDate?: Date): Promise<Chapter[]> {
         throw new Error("Method not implemented.");
@@ -22,8 +25,9 @@ export class KavitaExtension implements Extension, SearchResultsProviding, Manga
     getMangaDetails(mangaId: string): Promise<SourceManga> {
         throw new Error("Method not implemented.");
     }
-    initialise(): Promise<void> {
-        throw new Error("Method not implemented.");
+    async initialise(): Promise<void> {
+        // Initialization logic here
+        console.log("Kavita Extension Initialized");
     }
     
 }
