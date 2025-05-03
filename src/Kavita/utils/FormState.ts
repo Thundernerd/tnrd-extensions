@@ -4,7 +4,7 @@ import { Form } from "@paperback/types";
  * State management utility for form values
  * Handles persistence and form updating
  */
-export class State<T> {
+export class FormState<T> {
     private _value: T;
 
     public get value(): T {
@@ -15,13 +15,13 @@ export class State<T> {
      * Returns selector for binding to form elements
      */
     public get selector(): SelectorID<(value: T) => Promise<void>> {
-        return Application.Selector(this as State<T>, "updateValue");
+        return Application.Selector(this as FormState<T>, "updateValue");
     }
 
     constructor(
         private form: Form,
         private persistKey: string,
-        value: T,
+        value: T
     ) {
         this._value = value;
     }
