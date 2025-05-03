@@ -1,10 +1,10 @@
 import { ContentRating, MangaInfo, MangaProviding, SourceManga } from "@paperback/types";
-import { KavitaExtension } from "../main";
+import { KappaExtension } from "../main";
 import { SeriesDto, SeriesMetadataDto } from "../gen";
 import { URLBuilder } from "../utils/URLBuilder";
 
 export class MangaProvider implements MangaProviding {
-    constructor(private readonly extension: KavitaExtension) {
+    constructor(private readonly extension: KappaExtension) {
         // Constructor logic here
     }
     getMangaDetails(mangaId: string): Promise<SourceManga> {

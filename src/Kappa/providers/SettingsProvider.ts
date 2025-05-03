@@ -1,6 +1,6 @@
 import { Form } from "@paperback/types";
 import { KavitaSettingsForm } from "../forms/KavitaSettingsForm";
-import { KavitaExtension } from "../main";
+import { KappaExtension } from "../main";
 import { ReadOnlyState, State } from "../utils/State";
 
 export const apiUrlConfigKey = "kavitaApiUrl";
@@ -14,7 +14,7 @@ export class SettingsProvider {
     private apiKeyState: State<string>;
     private jwtTokenState: State<string>;
     private refreshTokenState: State<string>;
-    extension: KavitaExtension;
+    extension: KappaExtension;
 
     get ApiUrl(): ReadOnlyState<string> {
         return this.apiUrlState;
@@ -32,7 +32,7 @@ export class SettingsProvider {
         return this.refreshTokenState;
     }
 
-    constructor(private ext: KavitaExtension) {
+    constructor(private ext: KappaExtension) {
         this.extension = ext;
 
         this.apiUrlState = new State<string>(apiUrlConfigKey, "https://your-kavita-url.com");

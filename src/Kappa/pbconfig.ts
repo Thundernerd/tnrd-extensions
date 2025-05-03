@@ -1,10 +1,10 @@
 import { ContentRating, SourceInfo, SourceIntents } from "@paperback/types";
 
 export default {
-    name: "Kavita",
+    name: "Kappa",
     description: "Kavita extension for Paperback",
     version: "1.0.0",
-    icon: "icon.png",
+    icon: "kappa.png",
     language: "🇬🇧",
     contentRating: ContentRating.EVERYONE,
     badges: [],

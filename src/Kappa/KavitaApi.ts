@@ -1,12 +1,12 @@
 import { ChapterDto, RecentlyAddedItemDto, SearchResultGroupDto, SeriesDto, SeriesMetadataDto, TokenRequestDto, UserDto, VolumeDto } from "./gen";
-import { KavitaExtension } from "./main";
+import { KappaExtension } from "./main";
 import { URLBuilder } from "./utils/URLBuilder";
 import { Request } from "@paperback/types";
 import { Response } from "@paperback/types";
 
 export class KavitaApi {
 
-    constructor(private extension: KavitaExtension) {
+    constructor(private extension: KappaExtension) {
     }
 
     createUrlBuilder(): URLBuilder {

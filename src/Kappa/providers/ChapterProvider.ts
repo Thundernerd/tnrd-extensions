@@ -1,9 +1,9 @@
 import { Chapter, ChapterDetails, ChapterProviding, SourceManga, UpdateManager } from "@paperback/types";
-import { KavitaExtension } from "../main";
+import { KappaExtension } from "../main";
 import { URLBuilder } from "../utils/URLBuilder";
 
 export class ChapterProvider implements ChapterProviding {
-    constructor(private readonly extension: KavitaExtension) {
+    constructor(private readonly extension: KappaExtension) {
         // Constructor logic here
     }
     getChapters(sourceManga: SourceManga, sinceDate?: Date): Promise<Chapter[]> {

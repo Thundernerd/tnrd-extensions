@@ -1,10 +1,10 @@
 import { ContentRating, PagedResults, SearchFilter, SearchQuery, SearchResultItem } from "@paperback/types";
-import { KavitaExtension } from "../main";
+import { KappaExtension } from "../main";
 import { SearchResultDto, SearchResultGroupDto } from "../gen";
 import { URLBuilder } from "../utils/URLBuilder";
 
 export class SearchProvider {
-    constructor(private extension: KavitaExtension) { }
+    constructor(private extension: KappaExtension) { }
 
     async getSearchFilters(): Promise<SearchFilter[]> {
         return Promise.resolve([]);

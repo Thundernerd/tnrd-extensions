@@ -6,7 +6,7 @@ import { ChapterProvider } from "./providers/ChapterProvider";
 import { MangaProvider } from "./providers/MangaProvider";
 import { SectionProvider } from "./providers/SectionProvider";
 
-export class KavitaExtension implements Extension, SearchResultsProviding, MangaProviding, ChapterProviding, SettingsFormProviding, DiscoverSectionProviding {
+export class KappaExtension implements Extension, SearchResultsProviding, MangaProviding, ChapterProviding, SettingsFormProviding, DiscoverSectionProviding {
     chatperProvider: ChapterProvider;
     mangaProvider: MangaProvider;
     searchProvider: SearchProvider;
@@ -52,9 +52,9 @@ export class KavitaExtension implements Extension, SearchResultsProviding, Manga
     }
     async initialise(): Promise<void> {
         // Initialization logic here
-        console.log("Kavita Extension Initialized");
+        console.log("Kappa Extension Initialized");
     }
 
 }
 
-export const Kavita = new KavitaExtension();
+export const Kappa = new KappaExtension();

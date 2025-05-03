@@ -1,9 +1,9 @@
 import { ChapterUpdatesCarouselItem, ContentRating, DiscoverSection, DiscoverSectionItem, DiscoverSectionProviding, DiscoverSectionType, FeaturedCarouselItem, PagedResults, ProminentCarouselItem, SimpleCarouselItem } from "@paperback/types";
-import { KavitaExtension } from "../main";
+import { KappaExtension } from "../main";
 import { URLBuilder } from "../utils/URLBuilder";
 
 export class SectionProvider implements DiscoverSectionProviding {
-    constructor(private extension: KavitaExtension) {
+    constructor(private extension: KappaExtension) {
 
     }
     async getDiscoverSections(): Promise<DiscoverSection[]> {
