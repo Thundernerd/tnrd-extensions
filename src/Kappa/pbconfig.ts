@@ -16,7 +16,13 @@ export default {
     developers: [
         {
             name: "Thundernerd",
-            github: "https://github.com/Thundernerd",
+            github: "Thundernerd",
+            website: "https://github.com/Thundernerd",
         },
+        {
+            name: "Flaticon",
+            website: "https://www.flaticon.com/free-icons/kappa"
+
+        }
     ],
 } satisfies SourceInfo;
