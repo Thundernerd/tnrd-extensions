@@ -54,7 +54,7 @@ export class KavitaSettingsForm extends Form {
                 subtitle: "Configure your Kavita connection settings",
             }),
             InputRow("apiUrlInput", {
-                title: "Kavita API URL",
+                title: "Kavita URL",
                 value: this.apiUrlState.value,
                 onValueChange: this.apiUrlState.selector,
             }),
