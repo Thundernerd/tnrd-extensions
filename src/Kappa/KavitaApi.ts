@@ -9,7 +9,7 @@ export class KavitaApi {
     constructor(private extension: KappaExtension) {
     }
 
-    createUrlBuilder(): URLBuilder {
+    private createUrlBuilder(): URLBuilder {
         return new URLBuilder(this.extension.settingsProvider.ApiUrl.value).addPath("api");
     }
 
@@ -21,7 +21,7 @@ export class KavitaApi {
                     .addPath("Plugin")
                     .addPath("authenticate")
                     .addQuery("apiKey", this.extension.settingsProvider.ApiKey.value)
-                    .addQuery("pluginName", "KavitaPaperback")
+                    .addQuery("pluginName", "KappaPaperback")
                     .build(),
                 headers: {
                     "Content-Type": "application/json",
@@ -190,7 +190,7 @@ export class KavitaApi {
                     .addPath("Plugin")
                     .addPath("authenticate")
                     .addQuery("apiKey", this.extension.settingsProvider.ApiKey.value)
-                    .addQuery("pluginName", "KavitaPaperback")
+                    .addQuery("pluginName", "KappaPaperback")
                     .build(),
                 headers: {
                     "Content-Type": "application/json",
@@ -199,7 +199,7 @@ export class KavitaApi {
             });
 
             if (response.status !== 200) {
-                return Promise.reject(new Error("Failed to connect to Kavita API"));
+                return Promise.reject(new Error("Failed to authenticate with Kavita API: " + response.status));
             }
 
             const content = Application.arrayBufferToUTF8String(buffer);
@@ -217,6 +217,7 @@ export class KavitaApi {
             this.extension.settingsProvider.RefreshToken.updateValue(dto.refreshToken!);
             return Promise.resolve();
         } catch (error) {
+            console.log("Failed to send authentication request: " + error);
             return Promise.reject(error);
         }
     }
@@ -229,6 +230,10 @@ export class KavitaApi {
                     .addPath("Account")
                     .addPath("refresh-token")
                     .build(),
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
                 body: {
                     token: this.extension.settingsProvider.JwtToken.value,
                     refreshToken: this.extension.settingsProvider.RefreshToken.value
@@ -236,7 +241,7 @@ export class KavitaApi {
             }, false)
                 .then(([response, dto]) => {
                     if (response.status !== 200) {
-                        return Promise.reject(new Error("Failed to refresh token"));
+                        return Promise.reject(new Error("Failed to refresh token, status code: " + response.status));
                     }
 
                     if (dto === undefined) {
@@ -252,10 +257,12 @@ export class KavitaApi {
                     return Promise.resolve();
                 })
                 .catch((error) => {
-                    console.error("Failed to refresh token", error);
+                    console.log("Failed to refresh token: " + error);
+                    console.log(error);
                     return Promise.reject(error);
                 });
         } catch (error) {
+            console.log("Failed to send refresh token request: " + error);
             return Promise.reject(error);
         }
     }
@@ -276,11 +283,14 @@ export class KavitaApi {
     }
 
     private needsAuth(): boolean {
-        return this.extension.settingsProvider.JwtToken.value === undefined;
+        return this.extension.settingsProvider.JwtToken.value === undefined || this.extension.settingsProvider.JwtToken.value === "";
     }
 
     private needsRefresh(): boolean {
-        if (this.extension.settingsProvider.JwtToken.value === undefined || this.extension.settingsProvider.RefreshToken.value === undefined) {
+        if (this.extension.settingsProvider.JwtToken.value === undefined ||
+            this.extension.settingsProvider.JwtToken.value === "" ||
+            this.extension.settingsProvider.RefreshToken.value === undefined ||
+            this.extension.settingsProvider.RefreshToken.value === "") {
             return false; // Return false here because we don't need to refresh if we don't have a token
         }
 
