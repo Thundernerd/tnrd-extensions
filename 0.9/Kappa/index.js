@@ -1851,16 +1851,16 @@ var source = (() => {
       "use strict";
       init_buffer();
       Object.defineProperty(exports, "__esModule", { value: true });
-      exports.LabelRow = LabelRow;
+      exports.LabelRow = LabelRow2;
       exports.InputRow = InputRow2;
       exports.ToggleRow = ToggleRow;
       exports.SelectRow = SelectRow;
       exports.ButtonRow = ButtonRow2;
       exports.WebViewRow = WebViewRow;
-      exports.NavigationRow = NavigationRow2;
+      exports.NavigationRow = NavigationRow;
       exports.OAuthButtonRow = OAuthButtonRow;
       exports.DeferredItem = DeferredItem;
-      function LabelRow(id, props) {
+      function LabelRow2(id, props) {
         return { ...props, id, type: "labelRow", isHidden: props.isHidden ?? false };
       }
       function InputRow2(id, props) {
@@ -1878,7 +1878,7 @@ var source = (() => {
       function WebViewRow(id, props) {
         return { ...props, id, type: "webViewRow", isHidden: props.isHidden ?? false };
       }
-      function NavigationRow2(id, props) {
+      function NavigationRow(id, props) {
         return {
           ...props,
           id,
@@ -2675,7 +2675,7 @@ var source = (() => {
       init_buffer();
       Object.defineProperty(exports, "__esModule", { value: true });
       exports.createFormState = createFormState;
-      var FormState = class {
+      var FormState2 = class {
         form;
         _value;
         _selector;
@@ -2714,7 +2714,7 @@ var source = (() => {
         }
       };
       function createFormState(form, initialValue) {
-        const state = new FormState(form, initialValue);
+        const state = new FormState2(form, initialValue);
         return [() => state.value, state.updateValue.bind(state), state.selector];
       }
     }
@@ -2799,14 +2799,14 @@ var source = (() => {
       init_buffer();
       Object.defineProperty(exports, "__esModule", { value: true });
       exports.DiscoverSectionType = void 0;
-      var DiscoverSectionType;
-      (function(DiscoverSectionType2) {
-        DiscoverSectionType2[DiscoverSectionType2["featured"] = 0] = "featured";
-        DiscoverSectionType2[DiscoverSectionType2["simpleCarousel"] = 1] = "simpleCarousel";
-        DiscoverSectionType2[DiscoverSectionType2["prominentCarousel"] = 2] = "prominentCarousel";
-        DiscoverSectionType2[DiscoverSectionType2["chapterUpdates"] = 3] = "chapterUpdates";
-        DiscoverSectionType2[DiscoverSectionType2["genres"] = 4] = "genres";
-      })(DiscoverSectionType || (exports.DiscoverSectionType = DiscoverSectionType = {}));
+      var DiscoverSectionType2;
+      (function(DiscoverSectionType3) {
+        DiscoverSectionType3[DiscoverSectionType3["featured"] = 0] = "featured";
+        DiscoverSectionType3[DiscoverSectionType3["simpleCarousel"] = 1] = "simpleCarousel";
+        DiscoverSectionType3[DiscoverSectionType3["prominentCarousel"] = 2] = "prominentCarousel";
+        DiscoverSectionType3[DiscoverSectionType3["chapterUpdates"] = 3] = "chapterUpdates";
+        DiscoverSectionType3[DiscoverSectionType3["genres"] = 4] = "genres";
+      })(DiscoverSectionType2 || (exports.DiscoverSectionType = DiscoverSectionType2 = {}));
     }
   });
 
@@ -2933,12 +2933,12 @@ var source = (() => {
         SourceIntents2[SourceIntents2["SETTINGS_UI"] = 32] = "SETTINGS_UI";
         SourceIntents2[SourceIntents2["MANGA_SEARCH"] = 64] = "MANGA_SEARCH";
       })(SourceIntents || (exports.SourceIntents = SourceIntents = {}));
-      var ContentRating;
-      (function(ContentRating2) {
-        ContentRating2["EVERYONE"] = "SAFE";
-        ContentRating2["MATURE"] = "MATURE";
-        ContentRating2["ADULT"] = "ADULT";
-      })(ContentRating || (exports.ContentRating = ContentRating = {}));
+      var ContentRating4;
+      (function(ContentRating5) {
+        ContentRating5["EVERYONE"] = "SAFE";
+        ContentRating5["MATURE"] = "MATURE";
+        ContentRating5["ADULT"] = "ADULT";
+      })(ContentRating4 || (exports.ContentRating = ContentRating4 = {}));
     }
   });
 
@@ -3026,24 +3026,24 @@ var source = (() => {
     }
   });
 
-  // src/Kavita/main.ts
+  // src/Kappa/main.ts
   var main_exports = {};
   __export(main_exports, {
-    Kavita: () => Kavita,
-    KavitaExtension: () => KavitaExtension
+    Kappa: () => Kappa,
+    KappaExtension: () => KappaExtension
   });
   init_buffer();
 
-  // src/Kavita/providers/SettingsProvider.ts
+  // src/Kappa/providers/SettingsProvider.ts
   init_buffer();
 
-  // src/Kavita/KavitaSettings.ts
+  // src/Kappa/forms/KavitaSettingsForm.ts
   init_buffer();
   var import_types = __toESM(require_lib(), 1);
 
-  // src/Kavita/utils/StateUtil.ts
+  // src/Kappa/utils/FormState.ts
   init_buffer();
-  var State = class {
+  var FormState = class {
     constructor(form, persistKey, value) {
       this.form = form;
       this.persistKey = persistKey;
@@ -3069,77 +3069,765 @@ var source = (() => {
     }
   };
 
-  // src/Kavita/KavitaSettings.ts
-  function getApiUrl() {
-    return Application.getState("apiUrl") ?? "https://demo.kavita.com";
-  }
-  function getApiKey() {
-    return Application.getState("apiKey") ?? "demo";
-  }
+  // src/Kappa/forms/KavitaSettingsForm.ts
   var KavitaSettingsForm = class extends import_types.Form {
-    url = new State(this, "url", getApiUrl());
-    apiKey = new State(this, "apiKey", getApiKey());
+    testState = 0 /* Undefined */;
+    settingsProvider;
+    apiUrlState;
+    apiKeyState;
+    constructor(settingsProvider) {
+      super();
+      this.settingsProvider = settingsProvider;
+      this.apiUrlState = new FormState(this, apiUrlConfigKey, this.settingsProvider.ApiUrl.value);
+      this.apiKeyState = new FormState(this, apiKeyConfigKey, this.settingsProvider.ApiKey.value);
+    }
     getSections() {
-      const sections = [this.createMainSettingsSection()];
+      const sections = [this.createConnectionSettings()];
       return sections;
     }
-    createMainSettingsSection() {
-      return (0, import_types.Section)("mainSettings", [
-        (0, import_types.InputRow)("kavitaApiUrl", {
-          title: "Kavita API URL",
-          value: this.url.value,
-          onValueChange: this.url.updateValue
+    createConnectionSettings() {
+      let testButtonTitle = "Test";
+      switch (this.testState) {
+        case 1 /* Testing */:
+          testButtonTitle = "Testing...";
+          break;
+        case 2 /* Success */:
+          testButtonTitle = "Success!";
+          break;
+        case 3 /* Failed */:
+          testButtonTitle = "Failed!";
+          break;
+        default:
+          testButtonTitle = "Test";
+          break;
+      }
+      return (0, import_types.Section)("connectionSettings", [
+        (0, import_types.LabelRow)("connectionSettingsLabel", {
+          title: "Connection Settings",
+          subtitle: "Configure your Kavita connection settings"
         }),
-        (0, import_types.InputRow)("kavitaApiKey", {
+        (0, import_types.InputRow)("apiUrlInput", {
+          title: "Kavita URL",
+          value: this.apiUrlState.value,
+          onValueChange: this.apiUrlState.selector
+        }),
+        (0, import_types.InputRow)("apiKeyInput", {
           title: "Kavita API Key",
-          value: this.apiKey.value,
-          onValueChange: this.apiKey.updateValue
+          value: this.apiKeyState.value,
+          onValueChange: this.apiKeyState.selector
         }),
-        (0, import_types.ButtonRow)("kavitaTestConnection", {
-          title: "Test Connection",
-          onSelect: async () => {
-          }
+        (0, import_types.ButtonRow)("testButton", {
+          title: testButtonTitle,
+          onSelect: Application.Selector(
+            this,
+            "onTest"
+          )
         })
       ]);
     }
-  };
-
-  // src/Kavita/providers/SettingsProvider.ts
-  var SettingsProvider = class {
-    async getSettingsForm() {
-      return new KavitaSettingsForm();
+    async onTest() {
+      try {
+        this.testState = 1 /* Testing */;
+        this.reloadForm();
+        await this.settingsProvider.extension.kavitaApi.testConnection().then(async () => {
+          this.testState = 2 /* Success */;
+          this.reloadForm();
+        }).catch((error) => {
+          this.testState = 3 /* Failed */;
+          this.reloadForm();
+          throw error;
+        });
+      } catch (error) {
+        this.testState = 3 /* Failed */;
+        this.reloadForm();
+        throw error;
+      }
     }
   };
 
-  // src/Kavita/main.ts
-  var KavitaExtension = class {
-    settingsProvider = new SettingsProvider();
-    getSettingsForm() {
-      return this.settingsProvider.getSettingsForm();
+  // src/Kappa/utils/State.ts
+  init_buffer();
+
+  // src/Kappa/utils/GetState.ts
+  init_buffer();
+  function getState(key, defaultValue) {
+    return Application.getState(key) ?? defaultValue;
+  }
+
+  // src/Kappa/utils/State.ts
+  var State = class {
+    constructor(persistKey, defaultValue) {
+      this.persistKey = persistKey;
+      this.defaultValue = defaultValue;
+    }
+    get value() {
+      return getState(this.persistKey, this.defaultValue);
+    }
+    async updateValue(value) {
+      Application.setState(value, this.persistKey);
+    }
+  };
+
+  // src/Kappa/providers/SettingsProvider.ts
+  var apiUrlConfigKey = "kavitaApiUrl";
+  var apiKeyConfigKey = "kavitaApiKey";
+  var jwtTokenConfigKey = "kavitaJwtToken";
+  var refresshTokenConfigKey = "kavitaRefreshToken";
+  var SettingsProvider2 = class {
+    constructor(extension) {
+      this.extension = extension;
+      this.apiUrlState = new State(apiUrlConfigKey, "");
+      this.apiKeyState = new State(apiKeyConfigKey, "");
+      this.jwtTokenState = new State(jwtTokenConfigKey, "");
+      this.refreshTokenState = new State(refresshTokenConfigKey, "");
+    }
+    apiUrlState;
+    apiKeyState;
+    jwtTokenState;
+    refreshTokenState;
+    get ApiUrl() {
+      return this.apiUrlState;
+    }
+    get ApiKey() {
+      return this.apiKeyState;
+    }
+    get JwtToken() {
+      return this.jwtTokenState;
+    }
+    get RefreshToken() {
+      return this.refreshTokenState;
+    }
+    async getSettingsForm() {
+      return new KavitaSettingsForm(this);
+    }
+  };
+
+  // src/Kappa/KavitaApi.ts
+  init_buffer();
+
+  // src/Kappa/utils/URLBuilder.ts
+  init_buffer();
+  var URLBuilder = class {
+    baseUrl;
+    queryParams = {};
+    pathSegments = [];
+    constructor(baseUrl) {
+      this.baseUrl = baseUrl.replace(/\/+$/, "");
+    }
+    formatArrayQuery(key, value) {
+      return value.length > 0 ? value.map((v) => `${key}[]=${v}`) : [];
+    }
+    formatObjectQuery(key, value) {
+      return Object.entries(value).map(
+        ([objKey, objValue]) => objValue !== void 0 ? `${key}[${objKey}]=${objValue}` : void 0
+      ).filter((x) => x !== void 0);
+    }
+    formatQuery(queryParams) {
+      return Object.entries(queryParams).flatMap(([key, value]) => {
+        if (Array.isArray(value)) {
+          return this.formatArrayQuery(key, value);
+        }
+        if (typeof value === "object") {
+          return this.formatObjectQuery(key, value);
+        }
+        return value === "" ? [] : [`${key}=${value}`];
+      }).join("&");
+    }
+    build() {
+      const fullPath = this.pathSegments.length > 0 ? `/${this.pathSegments.join("/")}` : "";
+      const queryString = this.formatQuery(this.queryParams);
+      if (queryString.length > 0)
+        return `${this.baseUrl}${fullPath}?${queryString}`;
+      return `${this.baseUrl}${fullPath}`;
+    }
+    addPath(segment) {
+      this.pathSegments.push(segment.replace(/^\/+|\/+$/g, ""));
+      return this;
+    }
+    addQuery(key, value) {
+      this.queryParams[key] = value;
+      return this;
+    }
+    reset() {
+      this.queryParams = {};
+      this.pathSegments = [];
+      return this;
+    }
+  };
+
+  // src/Kappa/KavitaApi.ts
+  var KavitaApi = class {
+    constructor(extension) {
+      this.extension = extension;
+    }
+    createUrlBuilder() {
+      return new URLBuilder(this.extension.settingsProvider.ApiUrl.value).addPath("api");
+    }
+    async testConnection() {
+      try {
+        const [response] = await Application.scheduleRequest({
+          method: "POST",
+          url: this.createUrlBuilder().addPath("Plugin").addPath("authenticate").addQuery("apiKey", this.extension.settingsProvider.ApiKey.value).addQuery("pluginName", "KappaPaperback").build(),
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          }
+        });
+        if (response.status !== 200) {
+          return Promise.reject(new Error("Failed to connect to Kavita API"));
+        }
+        return Promise.resolve();
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    }
+    async search(query) {
+      try {
+        console.log("Searching for: " + query);
+        const [response, dto] = await this.sendRequest({
+          method: "GET",
+          url: this.createUrlBuilder().addPath("Search").addPath("search").addQuery("queryString", query).build()
+        });
+        return Promise.resolve(dto);
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    }
+    async getMangaDetails(mangaId) {
+      try {
+        const [response, dto] = await this.sendRequest({
+          method: "GET",
+          url: this.createUrlBuilder().addPath("Series").addPath(mangaId).build()
+        });
+        return Promise.resolve(dto);
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    }
+    async getMangaMetadata(mangaId) {
+      try {
+        const [response, dto] = await this.sendRequest({
+          method: "GET",
+          url: this.createUrlBuilder().addPath("Series").addPath("metadata").addQuery("seriesId", mangaId).build()
+        });
+        return Promise.resolve(dto);
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    }
+    async getMangaVolumes(mangaId) {
+      try {
+        const [response, dto] = await this.sendRequest({
+          method: "GET",
+          url: this.createUrlBuilder().addPath("Series").addPath("volumes").addQuery("seriesId", mangaId).build()
+        });
+        return Promise.resolve(dto);
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    }
+    async getChapterDetails(chapterId) {
+      try {
+        const [response, dto] = await this.sendRequest({
+          method: "GET",
+          url: this.createUrlBuilder().addPath("Series").addPath("chapter").addQuery("chapterId", chapterId).build()
+        });
+        return Promise.resolve(dto);
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    }
+    async getOnDeck() {
+      try {
+        const [response, dto] = await this.sendRequest({
+          method: "POST",
+          url: this.createUrlBuilder().addPath("Series").addPath("on-deck").addQuery("PageNumber", "1").addQuery("PageSize", "10").build()
+        });
+        return Promise.resolve(dto);
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    }
+    async getRecentlyUpdated() {
+      try {
+        const [response, dto] = await this.sendRequest({
+          method: "POST",
+          body: {},
+          url: this.createUrlBuilder().addPath("Series").addPath("recently-updated-series").build()
+        });
+        return Promise.resolve(dto);
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    }
+    async getNewlyAdded() {
+      try {
+        const [response, dto] = await this.sendRequest({
+          method: "POST",
+          body: {},
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          url: this.createUrlBuilder().addPath("Series").addPath("recently-added-v2").addQuery("PageNumber", "1").addQuery("PageSize", "10").build()
+        });
+        return Promise.resolve(dto);
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    }
+    async authenticate() {
+      try {
+        const [response, buffer] = await Application.scheduleRequest({
+          method: "POST",
+          url: this.createUrlBuilder().addPath("Plugin").addPath("authenticate").addQuery("apiKey", this.extension.settingsProvider.ApiKey.value).addQuery("pluginName", "KappaPaperback").build(),
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          }
+        });
+        if (response.status !== 200) {
+          return Promise.reject(new Error("Failed to authenticate with Kavita API: " + response.status));
+        }
+        const content = Application.arrayBufferToUTF8String(buffer);
+        const dto = JSON.parse(content);
+        if (!dto) {
+          return Promise.reject(new Error("Failed to parse response from Kavita API"));
+        }
+        if (!dto.token || !dto.refreshToken) {
+          return Promise.reject(new Error("Invalid response from Kavita API"));
+        }
+        this.extension.settingsProvider.JwtToken.updateValue(dto.token);
+        this.extension.settingsProvider.RefreshToken.updateValue(dto.refreshToken);
+        return Promise.resolve();
+      } catch (error) {
+        console.log("Failed to send authentication request: " + error);
+        return Promise.reject(error);
+      }
+    }
+    async refreshToken() {
+      try {
+        return this.sendRequest({
+          method: "POST",
+          url: this.createUrlBuilder().addPath("Account").addPath("refresh-token").build(),
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: {
+            token: this.extension.settingsProvider.JwtToken.value,
+            refreshToken: this.extension.settingsProvider.RefreshToken.value
+          }
+        }, false).then(([response, dto]) => {
+          if (response.status !== 200) {
+            return Promise.reject(new Error("Failed to refresh token, status code: " + response.status));
+          }
+          if (dto === void 0) {
+            return Promise.reject(new Error("Failed to parse response from Kavita API"));
+          }
+          if (!dto.token || !dto.refreshToken) {
+            return Promise.reject(new Error("Invalid response from Kavita API"));
+          }
+          this.extension.settingsProvider.JwtToken.updateValue(dto.token);
+          this.extension.settingsProvider.RefreshToken.updateValue(dto.refreshToken);
+          return Promise.resolve();
+        }).catch((error) => {
+          console.log("Failed to refresh token: " + error);
+          console.log(error);
+          return Promise.reject(error);
+        });
+      } catch (error) {
+        console.log("Failed to send refresh token request: " + error);
+        return Promise.reject(error);
+      }
+    }
+    createAuthRequest(request, withAuth = true) {
+      return {
+        method: request.method,
+        url: request.url,
+        body: request.body,
+        cookies: request.cookies,
+        headers: {
+          ...request.headers,
+          ...withAuth ? {
+            "Authorization": `Bearer ${this.extension.settingsProvider.JwtToken.value}`
+          } : {}
+        }
+      };
+    }
+    needsAuth() {
+      return this.extension.settingsProvider.JwtToken.value === void 0 || this.extension.settingsProvider.JwtToken.value === "";
+    }
+    needsRefresh() {
+      if (this.extension.settingsProvider.JwtToken.value === void 0 || this.extension.settingsProvider.JwtToken.value === "" || this.extension.settingsProvider.RefreshToken.value === void 0 || this.extension.settingsProvider.RefreshToken.value === "") {
+        return false;
+      }
+      const splits = this.extension.settingsProvider.JwtToken.value.split(".");
+      if (splits === void 0) {
+        return true;
+      }
+      if (splits.length !== 3) {
+        return true;
+      }
+      const payload = this.decodeBase64Url(splits[1]);
+      if (payload === void 0) {
+        return true;
+      }
+      const json = payload.toString("utf8");
+      if (json === void 0) {
+        return true;
+      }
+      const decoded = JSON.parse(json);
+      if (decoded === void 0) {
+        return true;
+      }
+      if (decoded.exp === void 0) {
+        return true;
+      }
+      const currentTime = Math.floor(Date.now() / 1e3);
+      if (currentTime >= decoded.exp) {
+        return true;
+      }
+      return false;
+    }
+    decodeBase64Url(base64url) {
+      const base64 = base64url.replace(/-/g, "+").replace(/_/g, "/");
+      return Buffer2.from(base64, "base64");
+    }
+    async sendRequest(request, withAuth = true) {
+      try {
+        if (withAuth && this.needsRefresh()) {
+          console.log("Token needs refresh, refreshing...");
+          await this.refreshToken();
+        }
+        if (withAuth && this.needsAuth()) {
+          console.log("No auth token, authenticating...");
+          await this.authenticate();
+        }
+        const authRequest = this.createAuthRequest(request, withAuth);
+        const [response, buffer] = await Application.scheduleRequest(authRequest);
+        if (response.status === 401) {
+          throw Error("Token expired");
+        }
+        if (response.status !== 200) {
+          console.log("Failed with status code: " + response.status);
+          return [response, void 0];
+        }
+        const content = Application.arrayBufferToUTF8String(buffer);
+        const dto = JSON.parse(content);
+        if (!dto) {
+          console.log("Failed to parse");
+          return [response, void 0];
+        }
+        return [response, dto];
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    }
+  };
+
+  // src/Kappa/providers/SearchProvider.ts
+  init_buffer();
+  var import_types2 = __toESM(require_lib(), 1);
+  var SearchProvider = class {
+    constructor(extension) {
+      this.extension = extension;
+    }
+    async getSearchFilters() {
+      return Promise.resolve([]);
+    }
+    async getSearchResults(query, metadata) {
+      const result = await this.extension.kavitaApi.search(query.title);
+      if (result == null) {
+        return {
+          items: [],
+          metadata: null
+        };
+      }
+      return this.getPagedResults(result);
+    }
+    getPagedResults(result) {
+      if (result.series == null) {
+        return {
+          items: [],
+          metadata: null
+        };
+      }
+      return {
+        items: this.getSearchResultItems(result.series),
+        metadata: null
+      };
+    }
+    getSearchResultItems(items) {
+      return items.map((item) => this.getSearchResultItem(item));
+    }
+    getSearchResultItem(item) {
+      return {
+        title: item.name,
+        mangaId: item.seriesId.toString(),
+        contentRating: import_types2.ContentRating.EVERYONE,
+        imageUrl: new URLBuilder(this.extension.settingsProvider.ApiUrl.value).addPath("api").addPath("image").addPath("series-cover").addQuery("seriesId", item.seriesId.toString()).addQuery("apiKey", this.extension.settingsProvider.ApiKey.value).build()
+      };
+    }
+  };
+
+  // src/Kappa/providers/ChapterProvider.ts
+  init_buffer();
+  var ChapterProvider = class {
+    constructor(extension) {
+      this.extension = extension;
     }
     getChapters(sourceManga, sinceDate) {
-      throw new Error("Method not implemented.");
+      return this.extension.kavitaApi.getMangaVolumes(sourceManga.mangaId).then((dto) => {
+        if (dto === void 0) {
+          return Promise.reject(new Error("Unable to get chapters"));
+        }
+        if (dto.length === 0) {
+          return [];
+        }
+        const chapters = [];
+        dto.forEach((volumne) => {
+          volumne.chapters?.forEach((chapter) => {
+            chapters.push({
+              sourceManga,
+              title: chapter.title ?? void 0,
+              creationDate: chapter.createdUtc ? new Date(chapter.createdUtc) : void 0,
+              publishDate: chapter.releaseDate ? new Date(chapter.releaseDate) : void 0,
+              chapterId: chapter.id.toString(),
+              langCode: chapter.language ?? "EN",
+              chapNum: chapter.minNumber
+            });
+          });
+        });
+        return chapters;
+      }).catch((error) => {
+        console.error("Error fetching chapters: " + error);
+        return Promise.reject(error);
+      });
     }
     getChapterDetails(chapter) {
-      throw new Error("Method not implemented.");
+      return this.extension.kavitaApi.getChapterDetails(chapter.chapterId).then((dto) => {
+        if (dto === void 0) {
+          return Promise.reject(new Error("Unable to get chapter details"));
+        }
+        if (dto.pages === void 0) {
+          return Promise.reject(new Error("Unable to get chapter pages"));
+        }
+        const pages = [];
+        for (let i = 0; i < dto.pages; i++) {
+          pages.push(new URLBuilder(this.extension.settingsProvider.ApiUrl.value).addPath("api").addPath("Reader").addPath("image").addQuery("chapterId", chapter.chapterId).addQuery("page", i.toString()).addQuery("apiKey", this.extension.settingsProvider.ApiKey.value).build());
+        }
+        return {
+          id: chapter.chapterId,
+          mangaId: chapter.sourceManga.mangaId,
+          pages
+        };
+      }).catch((error) => {
+        console.error("Error fetching chapter details: " + error);
+        return Promise.reject(error);
+      });
     }
     processTitlesForUpdates(updateManager, lastUpdateDate) {
-      throw new Error("Method not implemented.");
-    }
-    getSearchFilters() {
-      throw new Error("Method not implemented.");
-    }
-    getSearchResults(query, metadata) {
       throw new Error("Method not implemented.");
     }
     getMangaDetails(mangaId) {
       throw new Error("Method not implemented.");
     }
-    async initialise() {
-      console.log("Kavita Extension Initialized");
+  };
+
+  // src/Kappa/providers/MangaProvider.ts
+  init_buffer();
+  var import_types3 = __toESM(require_lib(), 1);
+  var MangaProvider = class {
+    constructor(extension) {
+      this.extension = extension;
+    }
+    getMangaDetails(mangaId) {
+      return Promise.all([
+        this.extension.kavitaApi.getMangaDetails(mangaId),
+        this.extension.kavitaApi.getMangaMetadata(mangaId)
+      ]).then(([dto, metadata]) => {
+        if (!dto || !metadata) {
+          return Promise.reject(new Error("Unable to get manga details"));
+        }
+        const manga = {
+          mangaId,
+          mangaInfo: this.createMangaInfo(dto, metadata)
+        };
+        return manga;
+      }).catch((error) => {
+        return error;
+      });
+    }
+    createMangaInfo(details, metadata) {
+      return {
+        primaryTitle: details.name,
+        secondaryTitles: [],
+        synopsis: metadata.summary,
+        contentRating: import_types3.ContentRating.EVERYONE,
+        thumbnailUrl: new URLBuilder(this.extension.settingsProvider.ApiUrl.value).addPath("api").addPath("image").addPath("series-cover").addQuery("seriesId", details.id.toString()).addQuery("apiKey", this.extension.settingsProvider.ApiKey.value).build()
+      };
     }
   };
-  var Kavita = new KavitaExtension();
+
+  // src/Kappa/providers/SectionProvider.ts
+  init_buffer();
+  var import_types4 = __toESM(require_lib(), 1);
+  var SectionProvider = class {
+    constructor(extension) {
+      this.extension = extension;
+    }
+    async getDiscoverSections() {
+      return [
+        {
+          id: "onDeck",
+          title: "On Deck",
+          type: import_types4.DiscoverSectionType.prominentCarousel
+        },
+        {
+          id: "recentlyUpdated",
+          title: "Recently Updated",
+          type: import_types4.DiscoverSectionType.chapterUpdates
+        },
+        {
+          id: "newlyAdded",
+          title: "Newly Added",
+          type: import_types4.DiscoverSectionType.simpleCarousel
+        }
+      ];
+    }
+    async getDiscoverSectionItems(section, metadata) {
+      if (section.id === "onDeck") {
+        return await this.getOnDeck();
+      } else if (section.id === "recentlyUpdated") {
+        return await this.getRecentlyUpdated();
+      } else if (section.id === "newlyAdded") {
+        return await this.getNewlyAdded();
+      } else {
+        return Promise.reject(new Error("Unknown section"));
+      }
+    }
+    async getOnDeck() {
+      return await this.extension.kavitaApi.getOnDeck().then((dto) => {
+        if (dto === void 0) {
+          return Promise.reject(new Error("Unable to get on deck"));
+        }
+        const items = [];
+        dto.forEach((item) => {
+          items.push({
+            type: "prominentCarouselItem",
+            mangaId: item.id.toString(),
+            title: item.name,
+            contentRating: import_types4.ContentRating.EVERYONE,
+            imageUrl: new URLBuilder(this.extension.settingsProvider.ApiUrl.value).addPath("api").addPath("image").addPath("series-cover").addQuery("seriesId", item.id.toString()).addQuery("apiKey", this.extension.settingsProvider.ApiKey.value).build()
+          });
+        });
+        return {
+          items
+        };
+      }).catch((error) => {
+        console.error("Error fetching on deck: " + error);
+        return Promise.reject(error);
+      });
+    }
+    async getRecentlyUpdated() {
+      return await this.extension.kavitaApi.getRecentlyUpdated().then((dto) => {
+        if (dto === void 0) {
+          return Promise.reject(new Error("Unable to get recently updated"));
+        }
+        const items = [];
+        dto.forEach((item) => {
+          items.push({
+            type: "chapterUpdatesCarouselItem",
+            mangaId: item.seriesId.toString(),
+            chapterId: item.chapterId.toString(),
+            publishDate: item.created ? new Date(item.created) : void 0,
+            title: item.seriesName,
+            contentRating: import_types4.ContentRating.EVERYONE,
+            imageUrl: new URLBuilder(this.extension.settingsProvider.ApiUrl.value).addPath("api").addPath("image").addPath("series-cover").addQuery("seriesId", item.seriesId.toString()).addQuery("apiKey", this.extension.settingsProvider.ApiKey.value).build()
+          });
+        });
+        return {
+          items
+        };
+      }).catch((error) => {
+        console.error("Error fetching recently updated: " + error);
+        return Promise.reject(error);
+      });
+    }
+    async getNewlyAdded() {
+      return await this.extension.kavitaApi.getNewlyAdded().then((dto) => {
+        if (dto === void 0) {
+          return Promise.reject(new Error("Unable to get newly added"));
+        }
+        const items = [];
+        dto.forEach((item) => {
+          items.push({
+            type: "simpleCarouselItem",
+            mangaId: item.id.toString(),
+            title: item.name,
+            contentRating: import_types4.ContentRating.EVERYONE,
+            imageUrl: new URLBuilder(this.extension.settingsProvider.ApiUrl.value).addPath("api").addPath("image").addPath("series-cover").addQuery("seriesId", item.id.toString()).addQuery("apiKey", this.extension.settingsProvider.ApiKey.value).build()
+          });
+        });
+        return {
+          items
+        };
+      }).catch((error) => {
+        console.error("Error fetching newly added: " + error);
+        return Promise.reject(error);
+      });
+    }
+  };
+
+  // src/Kappa/main.ts
+  var KappaExtension = class {
+    chatperProvider;
+    mangaProvider;
+    searchProvider;
+    sectionProvider;
+    settingsProvider;
+    kavitaApi;
+    constructor() {
+      this.chatperProvider = new ChapterProvider(this);
+      this.mangaProvider = new MangaProvider(this);
+      this.searchProvider = new SearchProvider(this);
+      this.sectionProvider = new SectionProvider(this);
+      this.settingsProvider = new SettingsProvider2(this);
+      this.kavitaApi = new KavitaApi(this);
+    }
+    getDiscoverSections() {
+      return this.sectionProvider.getDiscoverSections();
+    }
+    getDiscoverSectionItems(section, metadata) {
+      return this.sectionProvider.getDiscoverSectionItems(section, metadata);
+    }
+    getSettingsForm() {
+      return this.settingsProvider.getSettingsForm();
+    }
+    getChapters(sourceManga, sinceDate) {
+      return this.chatperProvider.getChapters(sourceManga, sinceDate);
+    }
+    getChapterDetails(chapter) {
+      return this.chatperProvider.getChapterDetails(chapter);
+    }
+    processTitlesForUpdates(updateManager, lastUpdateDate) {
+      throw new Error("Method not implemented.");
+    }
+    getSearchFilters() {
+      return this.searchProvider.getSearchFilters();
+    }
+    getSearchResults(query, metadata) {
+      return this.searchProvider.getSearchResults(query, metadata);
+    }
+    getMangaDetails(mangaId) {
+      return this.mangaProvider.getMangaDetails(mangaId);
+    }
+    async initialise() {
+      console.log("Kappa Extension Initialized");
+    }
+  };
+  var Kappa = new KappaExtension();
   return __toCommonJS(main_exports);
 })();
 /*! Bundled license information:
