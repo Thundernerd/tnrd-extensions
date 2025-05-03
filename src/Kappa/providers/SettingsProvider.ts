@@ -14,7 +14,6 @@ export class SettingsProvider {
     private apiKeyState: State<string>;
     private jwtTokenState: State<string>;
     private refreshTokenState: State<string>;
-    extension: KappaExtension;
 
     get ApiUrl(): ReadOnlyState<string> {
         return this.apiUrlState;
@@ -32,11 +31,9 @@ export class SettingsProvider {
         return this.refreshTokenState;
     }
 
-    constructor(private ext: KappaExtension) {
-        this.extension = ext;
-
-        this.apiUrlState = new State<string>(apiUrlConfigKey, "https://your-kavita-url.com");
-        this.apiKeyState = new State<string>(apiKeyConfigKey, "your-kavita-api-key");
+    constructor(public extension: KappaExtension) {
+        this.apiUrlState = new State<string>(apiUrlConfigKey, "");
+        this.apiKeyState = new State<string>(apiKeyConfigKey, "");
         this.jwtTokenState = new State<string>(jwtTokenConfigKey, "");
         this.refreshTokenState = new State<string>(refresshTokenConfigKey, "");
     }
