@@ -1,5 +1,5 @@
 {
-  "buildTime": "2025-05-03T15:14:27.594Z",
+  "buildTime": "2025-05-03T15:20:07.609Z",
   "builtWith": {
     "toolchain": "1.0.0-alpha.46",
     "types": "1.0.0-alpha.46"
@@ -21,7 +21,12 @@
       "developers": [
         {
           "name": "Thundernerd",
-          "github": "https://github.com/Thundernerd"
+          "github": "Thundernerd",
+          "website": "https://github.com/Thundernerd"
+        },
+        {
+          "name": "Flaticon",
+          "website": "https://www.flaticon.com/free-icons/kappa"
         }
       ],
       "id": "Kappa"
