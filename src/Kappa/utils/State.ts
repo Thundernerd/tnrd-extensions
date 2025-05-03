@@ -1,18 +1,14 @@
 import { getState } from "./GetState";
 
 export class State<T> implements ReadOnlyState<T> {
-    private _value: T;
-
     public get value(): T {
-        return this._value;
+        return getState<T>(this.persistKey, this.defaultValue);
     }
 
-    constructor(private persistKey: string, defaultValue: T) {
-        this._value = getState<T>(persistKey, defaultValue);
+    constructor(private persistKey: string, private defaultValue: T) {
     }
 
     public async updateValue(value: T): Promise<void> {
-        this._value = value;
         Application.setState(value, this.persistKey);
     }
 }
