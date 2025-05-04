@@ -1,7 +1,7 @@
 /* generated using openapi-typescript-codegen -- do not edit */
 /* istanbul ignore file */
 /* tslint:disable */
-/* eslint-disable */
+ 
 import type { Int32Range } from "./Int32Range";
 import type { ReadStatus } from "./ReadStatus";
 import type { SortOptions } from "./SortOptions";

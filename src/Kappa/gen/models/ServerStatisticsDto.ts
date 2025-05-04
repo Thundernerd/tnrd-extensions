@@ -1,7 +1,7 @@
 /* generated using openapi-typescript-codegen -- do not edit */
 /* istanbul ignore file */
 /* tslint:disable */
-/* eslint-disable */
+ 
 import type { LibraryDtoICount } from "./LibraryDtoICount";
 import type { SeriesDto } from "./SeriesDto";
 import type { SeriesDtoICount } from "./SeriesDtoICount";

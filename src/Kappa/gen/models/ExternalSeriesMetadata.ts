@@ -1,7 +1,7 @@
 /* generated using openapi-typescript-codegen -- do not edit */
 /* istanbul ignore file */
 /* tslint:disable */
-/* eslint-disable */
+ 
 import type { ExternalRating } from "./ExternalRating";
 import type { ExternalRecommendation } from "./ExternalRecommendation";
 import type { ExternalReview } from "./ExternalReview";
