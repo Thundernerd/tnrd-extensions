@@ -3550,24 +3550,35 @@ var source = (() => {
           return [];
         }
         const chapters = [];
-        dto.forEach((volumne) => {
-          volumne.chapters?.forEach((chapter) => {
+        let absoluteChapterNumber = 1;
+        for (const volume of dto) {
+          if (volume.chapters === void 0 || volume.chapters === null) {
+            continue;
+          }
+          for (const chapter of volume.chapters) {
+            let chapterName = "";
+            const chapterNumber = absoluteChapterNumber++;
+            if (volume.minNumber === void 0 || volume.minNumber < 1) {
+              chapterName = `Chapter ${chapter.minNumber}`;
+            } else {
+              chapterName = `Volume ${volume.minNumber} Chapter ${chapter.minNumber}`;
+            }
             chapters.push({
               sourceManga,
-              title: chapter.title ?? void 0,
+              title: chapterName,
               creationDate: chapter.createdUtc ? new Date(chapter.createdUtc) : void 0,
               publishDate: chapter.releaseDate ? new Date(chapter.releaseDate) : void 0,
               chapterId: chapter.id.toString(),
               langCode: chapter.language ?? "EN",
-              chapNum: chapter.minNumber,
+              chapNum: chapterNumber,
               additionalInfo: {
                 pages: chapter.pages.toString(),
                 pagesRead: chapter.pagesRead.toString(),
                 volumeId: chapter.volumeId.toString()
               }
             });
-          });
-        });
+          }
+        }
         return chapters;
       }).catch((error) => {
         return Promise.reject(
