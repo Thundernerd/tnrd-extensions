@@ -10,4 +10,3 @@ export type SmartFilterDto = {
      */
     filter: string | null;
 };
-

@@ -8,4 +8,3 @@ export type ExternalSourceDto = {
     host: string | null;
     apiKey: string | null;
 };
-

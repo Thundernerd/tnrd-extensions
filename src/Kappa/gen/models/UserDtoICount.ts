@@ -2,9 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { UserDto } from './UserDto';
+import type { UserDto } from "./UserDto";
+
 export type UserDtoICount = {
     value?: UserDto;
     count?: number;
 };
-

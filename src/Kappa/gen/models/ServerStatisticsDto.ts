@@ -2,10 +2,11 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { LibraryDtoICount } from './LibraryDtoICount';
-import type { SeriesDto } from './SeriesDto';
-import type { SeriesDtoICount } from './SeriesDtoICount';
-import type { UserDtoICount } from './UserDtoICount';
+import type { LibraryDtoICount } from "./LibraryDtoICount";
+import type { SeriesDto } from "./SeriesDto";
+import type { SeriesDtoICount } from "./SeriesDtoICount";
+import type { UserDtoICount } from "./UserDtoICount";
+
 export type ServerStatisticsDto = {
     chapterCount?: number;
     volumeCount?: number;
@@ -28,4 +29,3 @@ export type ServerStatisticsDto = {
      */
     recentlyRead?: Array<SeriesDto> | null;
 };
-

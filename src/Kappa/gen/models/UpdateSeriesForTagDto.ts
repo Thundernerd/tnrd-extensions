@@ -2,9 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { AppUserCollectionDto } from './AppUserCollectionDto';
+import type { AppUserCollectionDto } from "./AppUserCollectionDto";
+
 export type UpdateSeriesForTagDto = {
     tag?: AppUserCollectionDto;
     seriesIdsToRemove?: Array<number> | null;
 };
-

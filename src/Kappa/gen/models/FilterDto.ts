@@ -2,9 +2,10 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { Int32Range } from './Int32Range';
-import type { ReadStatus } from './ReadStatus';
-import type { SortOptions } from './SortOptions';
+import type { Int32Range } from "./Int32Range";
+import type { ReadStatus } from "./ReadStatus";
+import type { SortOptions } from "./SortOptions";
+
 export type FilterDto = {
     /**
      * The type of Formats you want to be returned. An empty list will return all formats back
@@ -76,7 +77,9 @@ export type FilterDto = {
     /**
      * Age Ratings. Empty list will return everything back
      */
-    ageRating?: Array<0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | -1> | null;
+    ageRating?: Array<
+        0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | -1
+    > | null;
     /**
      * Languages (ISO 639-1 code) to filter by. Empty list will return everything back
      */
@@ -91,4 +94,3 @@ export type FilterDto = {
     seriesNameQuery?: string | null;
     releaseYearRange?: Int32Range;
 };
-

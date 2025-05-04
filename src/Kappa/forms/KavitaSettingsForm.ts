@@ -1,28 +1,38 @@
-import { ButtonRow, Form, InputRow, LabelRow, Section } from "@paperback/types"
-import { SettingsProvider, apiUrlConfigKey, apiKeyConfigKey } from "../providers/SettingsProvider";
+import { ButtonRow, Form, InputRow, LabelRow, Section } from "@paperback/types";
+import {
+    apiKeyConfigKey,
+    apiUrlConfigKey,
+    SettingsProvider,
+} from "../providers/SettingsProvider";
 import { FormState } from "../utils/FormState";
 
 enum TestState {
     Undefined,
     Testing,
     Success,
-    Failed
+    Failed,
 }
 
 export class KavitaSettingsForm extends Form {
-
     private testState: TestState = TestState.Undefined;
 
     settingsProvider: SettingsProvider;
     apiUrlState: FormState<string>;
     apiKeyState: FormState<string>;
 
-
     constructor(settingsProvider: SettingsProvider) {
         super();
         this.settingsProvider = settingsProvider;
-        this.apiUrlState = new FormState<string>(this, apiUrlConfigKey, this.settingsProvider.ApiUrl.value);
-        this.apiKeyState = new FormState<string>(this, apiKeyConfigKey, this.settingsProvider.ApiKey.value);
+        this.apiUrlState = new FormState<string>(
+            this,
+            apiUrlConfigKey,
+            this.settingsProvider.ApiUrl.value,
+        );
+        this.apiKeyState = new FormState<string>(
+            this,
+            apiKeyConfigKey,
+            this.settingsProvider.ApiKey.value,
+        );
     }
 
     getSections(): Application.FormSectionElement[] {
@@ -31,7 +41,6 @@ export class KavitaSettingsForm extends Form {
     }
 
     private createConnectionSettings(): Application.FormSectionElement {
-
         let testButtonTitle = "Test";
         switch (this.testState) {
             case TestState.Testing:
@@ -67,9 +76,9 @@ export class KavitaSettingsForm extends Form {
                 title: testButtonTitle,
                 onSelect: Application.Selector(
                     this as KavitaSettingsForm,
-                    "onTest"
-                )
-            })
+                    "onTest",
+                ),
+            }),
         ]);
     }
 
@@ -77,7 +86,8 @@ export class KavitaSettingsForm extends Form {
         try {
             this.testState = TestState.Testing;
             this.reloadForm();
-            await this.settingsProvider.extension.kavitaApi.testConnection()
+            await this.settingsProvider.extension.kavitaApi
+                .testConnection()
                 .then(async () => {
                     this.testState = TestState.Success;
                     this.reloadForm();

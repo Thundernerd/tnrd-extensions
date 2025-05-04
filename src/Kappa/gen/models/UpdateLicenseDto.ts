@@ -16,4 +16,3 @@ export type UpdateLicenseDto = {
      */
     discordId?: string | null;
 };
-

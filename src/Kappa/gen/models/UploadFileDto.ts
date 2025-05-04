@@ -16,4 +16,3 @@ export type UploadFileDto = {
      */
     lockCover?: boolean;
 };
-

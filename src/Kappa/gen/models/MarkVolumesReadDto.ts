@@ -16,4 +16,3 @@ export type MarkVolumesReadDto = {
      */
     chapterIds?: Array<number> | null;
 };
-

@@ -28,10 +28,9 @@ export namespace DeviceDto {
      * Platform (ie) Windows 10
      */
     export enum platform {
-        '_0' = 0,
-        '_1' = 1,
-        '_2' = 2,
-        '_3' = 3,
+        "_0" = 0,
+        "_1" = 1,
+        "_2" = 2,
+        "_3" = 3,
     }
 }
-

@@ -13,4 +13,3 @@ export type CollectionTagBulkAddDto = {
      */
     seriesIds?: Array<number> | null;
 };
-

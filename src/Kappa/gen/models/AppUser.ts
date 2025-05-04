@@ -2,23 +2,24 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { AppUserBookmark } from './AppUserBookmark';
-import type { AppUserChapterRating } from './AppUserChapterRating';
-import type { AppUserCollection } from './AppUserCollection';
-import type { AppUserDashboardStream } from './AppUserDashboardStream';
-import type { AppUserExternalSource } from './AppUserExternalSource';
-import type { AppUserPreferences } from './AppUserPreferences';
-import type { AppUserProgress } from './AppUserProgress';
-import type { AppUserRating } from './AppUserRating';
-import type { AppUserRole } from './AppUserRole';
-import type { AppUserSideNavStream } from './AppUserSideNavStream';
-import type { AppUserSmartFilter } from './AppUserSmartFilter';
-import type { AppUserTableOfContent } from './AppUserTableOfContent';
-import type { AppUserWantToRead } from './AppUserWantToRead';
-import type { Device } from './Device';
-import type { Library } from './Library';
-import type { ReadingList } from './ReadingList';
-import type { ScrobbleHold } from './ScrobbleHold';
+import type { AppUserBookmark } from "./AppUserBookmark";
+import type { AppUserChapterRating } from "./AppUserChapterRating";
+import type { AppUserCollection } from "./AppUserCollection";
+import type { AppUserDashboardStream } from "./AppUserDashboardStream";
+import type { AppUserExternalSource } from "./AppUserExternalSource";
+import type { AppUserPreferences } from "./AppUserPreferences";
+import type { AppUserProgress } from "./AppUserProgress";
+import type { AppUserRating } from "./AppUserRating";
+import type { AppUserRole } from "./AppUserRole";
+import type { AppUserSideNavStream } from "./AppUserSideNavStream";
+import type { AppUserSmartFilter } from "./AppUserSmartFilter";
+import type { AppUserTableOfContent } from "./AppUserTableOfContent";
+import type { AppUserWantToRead } from "./AppUserWantToRead";
+import type { Device } from "./Device";
+import type { Library } from "./Library";
+import type { ReadingList } from "./ReadingList";
+import type { ScrobbleHold } from "./ScrobbleHold";
+
 export type AppUser = {
     id?: number;
     userName?: string | null;
@@ -129,22 +130,21 @@ export namespace AppUser {
      * The highest age rating the user has access to. Not applicable for admins
      */
     export enum ageRestriction {
-        '_0' = 0,
-        '_1' = 1,
-        '_2' = 2,
-        '_3' = 3,
-        '_4' = 4,
-        '_5' = 5,
-        '_6' = 6,
-        '_7' = 7,
-        '_8' = 8,
-        '_9' = 9,
-        '_10' = 10,
-        '_11' = 11,
-        '_12' = 12,
-        '_13' = 13,
-        '_14' = 14,
-        '_-1' = -1,
+        "_0" = 0,
+        "_1" = 1,
+        "_2" = 2,
+        "_3" = 3,
+        "_4" = 4,
+        "_5" = 5,
+        "_6" = 6,
+        "_7" = 7,
+        "_8" = 8,
+        "_9" = 9,
+        "_10" = 10,
+        "_11" = 11,
+        "_12" = 12,
+        "_13" = 13,
+        "_14" = 14,
+        "_-1" = -1,
     }
 }
-

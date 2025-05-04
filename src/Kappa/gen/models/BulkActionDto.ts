@@ -6,4 +6,3 @@ export type BulkActionDto = {
     ids?: Array<number> | null;
     force?: boolean | null;
 };
-

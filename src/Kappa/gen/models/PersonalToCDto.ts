@@ -8,4 +8,3 @@ export type PersonalToCDto = {
     title: string | null;
     bookScrollId?: string | null;
 };
-

@@ -32,4 +32,3 @@ export type LicenseInfoDto = {
      */
     hasLicense?: boolean;
 };
-

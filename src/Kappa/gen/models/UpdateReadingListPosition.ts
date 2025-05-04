@@ -11,4 +11,3 @@ export type UpdateReadingListPosition = {
     fromPosition?: number;
     toPosition: number;
 };
-

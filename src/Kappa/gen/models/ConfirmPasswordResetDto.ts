@@ -7,4 +7,3 @@ export type ConfirmPasswordResetDto = {
     token: string;
     password: string;
 };
-

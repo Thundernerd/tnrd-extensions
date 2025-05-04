@@ -2,7 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { SiteThemeDto } from './SiteThemeDto';
+import type { SiteThemeDto } from "./SiteThemeDto";
+
 export type UserPreferencesDto = {
     /**
      * Manga Reader Option: What direction should the next/prev page buttons go
@@ -145,26 +146,26 @@ export namespace UserPreferencesDto {
      * Manga Reader Option: What direction should the next/prev page buttons go
      */
     export enum readingDirection {
-        '_0' = 0,
-        '_1' = 1,
+        "_0" = 0,
+        "_1" = 1,
     }
     /**
      * Manga Reader Option: How should the image be scaled to screen
      */
     export enum scalingOption {
-        '_0' = 0,
-        '_1' = 1,
-        '_2' = 2,
-        '_3' = 3,
+        "_0" = 0,
+        "_1" = 1,
+        "_2" = 2,
+        "_3" = 3,
     }
     /**
      * Manga Reader Option: Which side of a split image should we show first
      */
     export enum pageSplitOption {
-        '_0' = 0,
-        '_1' = 1,
-        '_2' = 2,
-        '_3' = 3,
+        "_0" = 0,
+        "_1" = 1,
+        "_2" = 2,
+        "_3" = 3,
     }
     /**
      * Manga Reader Option: How the manga reader should perform paging or reading of the file
@@ -174,73 +175,72 @@ export namespace UserPreferencesDto {
      * </example>
      */
     export enum readerMode {
-        '_0' = 0,
-        '_1' = 1,
-        '_2' = 2,
+        "_0" = 0,
+        "_1" = 1,
+        "_2" = 2,
     }
     /**
      * Manga Reader Option: How many pages to display in the reader at once
      */
     export enum layoutMode {
-        '_1' = 1,
-        '_2' = 2,
-        '_3' = 3,
+        "_1" = 1,
+        "_2" = 2,
+        "_3" = 3,
     }
     /**
      * Book Reader Option: What direction should the next/prev page buttons go
      */
     export enum bookReaderReadingDirection {
-        '_0' = 0,
-        '_1' = 1,
+        "_0" = 0,
+        "_1" = 1,
     }
     /**
      * Book Reader Option: What writing style should be used, horizontal or vertical.
      */
     export enum bookReaderWritingStyle {
-        '_0' = 0,
-        '_1' = 1,
+        "_0" = 0,
+        "_1" = 1,
     }
     export enum bookReaderLayoutMode {
-        '_0' = 0,
-        '_1' = 1,
-        '_2' = 2,
+        "_0" = 0,
+        "_1" = 1,
+        "_2" = 2,
     }
     /**
      * Global Site Option: If the UI should layout items as Cards or List items
      */
     export enum globalPageLayoutMode {
-        '_0' = 0,
-        '_1' = 1,
+        "_0" = 0,
+        "_1" = 1,
     }
     /**
      * PDF Reader: Theme of the Reader
      */
     export enum pdfTheme {
-        '_0' = 0,
-        '_1' = 1,
+        "_0" = 0,
+        "_1" = 1,
     }
     /**
      * PDF Reader: Scroll mode of the reader
      */
     export enum pdfScrollMode {
-        '_0' = 0,
-        '_1' = 1,
-        '_3' = 3,
+        "_0" = 0,
+        "_1" = 1,
+        "_3" = 3,
     }
     /**
      * PDF Reader: Layout Mode of the reader
      */
     export enum pdfLayoutMode {
-        '_0' = 0,
-        '_2' = 2,
+        "_0" = 0,
+        "_2" = 2,
     }
     /**
      * PDF Reader: Spread Mode of the reader
      */
     export enum pdfSpreadMode {
-        '_0' = 0,
-        '_1' = 1,
-        '_2' = 2,
+        "_0" = 0,
+        "_1" = 1,
+        "_2" = 2,
     }
 }
-

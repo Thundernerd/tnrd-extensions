@@ -15,4 +15,3 @@ export type TopReadDto = {
     booksTime?: number;
     mangaTime?: number;
 };
-

@@ -2,7 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { AppUser } from './AppUser';
+import type { AppUser } from "./AppUser";
+
 /**
  * Represents the progress a single user has on a given Chapter.
  */
@@ -52,4 +53,3 @@ export type AppUserProgress = {
      */
     appUserId?: number;
 };
-

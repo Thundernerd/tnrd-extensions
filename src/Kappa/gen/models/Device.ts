@@ -2,7 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { AppUser } from './AppUser';
+import type { AppUser } from "./AppUser";
+
 /**
  * A Device is an entity that can receive data from Kavita (kindle)
  */
@@ -41,10 +42,9 @@ export namespace Device {
      * Platform (ie) Windows 10
      */
     export enum platform {
-        '_0' = 0,
-        '_1' = 1,
-        '_2' = 2,
-        '_3' = 3,
+        "_0" = 0,
+        "_1" = 1,
+        "_2" = 2,
+        "_3" = 3,
     }
 }
-

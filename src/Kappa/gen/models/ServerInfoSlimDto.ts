@@ -27,4 +27,3 @@ export type ServerInfoSlimDto = {
      */
     firstInstallVersion?: string | null;
 };
-

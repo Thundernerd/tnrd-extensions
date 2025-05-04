@@ -2,7 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { UserReviewDto } from './UserReviewDto';
+import type { UserReviewDto } from "./UserReviewDto";
+
 /**
  * Information about an individual issue/chapter/book from Kavita+
  */
@@ -21,4 +22,3 @@ export type ExternalChapterDto = {
     criticReviews?: Array<UserReviewDto> | null;
     userReviews?: Array<UserReviewDto> | null;
 };
-

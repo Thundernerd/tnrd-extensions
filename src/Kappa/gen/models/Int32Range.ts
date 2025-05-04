@@ -9,4 +9,3 @@ export type Int32Range = {
     min?: number;
     max?: number;
 };
-

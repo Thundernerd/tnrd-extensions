@@ -21,4 +21,3 @@ export type MediaErrorDto = {
     details?: string | null;
     createdUtc?: string;
 };
-

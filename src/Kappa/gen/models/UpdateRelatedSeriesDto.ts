@@ -18,4 +18,3 @@ export type UpdateRelatedSeriesDto = {
     editions?: Array<number> | null;
     annuals?: Array<number> | null;
 };
-

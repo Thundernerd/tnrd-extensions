@@ -2,7 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { Library } from './Library';
+import type { Library } from "./Library";
+
 export type LibraryFileTypeGroup = {
     id?: number;
     /**
@@ -17,10 +18,9 @@ export namespace LibraryFileTypeGroup {
      * Represents a set of file types that can be scanned
      */
     export enum fileTypeGroup {
-        '_1' = 1,
-        '_2' = 2,
-        '_3' = 3,
-        '_4' = 4,
+        "_1" = 1,
+        "_2" = 2,
+        "_3" = 3,
+        "_4" = 4,
     }
 }
-

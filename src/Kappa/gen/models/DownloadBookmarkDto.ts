@@ -2,8 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { BookmarkDto } from './BookmarkDto';
+import type { BookmarkDto } from "./BookmarkDto";
+
 export type DownloadBookmarkDto = {
     bookmarks: Array<BookmarkDto>;
 };
-

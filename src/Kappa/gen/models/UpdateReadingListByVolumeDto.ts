@@ -7,4 +7,3 @@ export type UpdateReadingListByVolumeDto = {
     seriesId?: number;
     readingListId?: number;
 };
-

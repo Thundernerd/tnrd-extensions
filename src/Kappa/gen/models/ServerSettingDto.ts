@@ -2,7 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { SmtpConfigDto } from './SmtpConfigDto';
+import type { SmtpConfigDto } from "./SmtpConfigDto";
+
 export type ServerSettingDto = {
     cacheDirectory?: string | null;
     taskScan?: string | null;
@@ -92,18 +93,17 @@ export namespace ServerSettingDto {
      * The format that should be used when saving media for Kavita
      */
     export enum encodeMediaAs {
-        '_0' = 0,
-        '_1' = 1,
-        '_2' = 2,
+        "_0" = 0,
+        "_1" = 1,
+        "_2" = 2,
     }
     /**
      * How large the cover images should be
      */
     export enum coverImageSize {
-        '_1' = 1,
-        '_2' = 2,
-        '_3' = 3,
-        '_4' = 4,
+        "_1" = 1,
+        "_2" = 2,
+        "_3" = 3,
+        "_4" = 4,
     }
 }
-

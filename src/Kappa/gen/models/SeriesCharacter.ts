@@ -11,9 +11,8 @@ export type SeriesCharacter = {
 };
 export namespace SeriesCharacter {
     export enum role {
-        '_0' = 0,
-        '_1' = 1,
-        '_2' = 2,
+        "_0" = 0,
+        "_1" = 1,
+        "_2" = 2,
     }
 }
-

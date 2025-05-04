@@ -16,4 +16,3 @@ export type ResetPasswordDto = {
      */
     oldPassword?: string | null;
 };
-

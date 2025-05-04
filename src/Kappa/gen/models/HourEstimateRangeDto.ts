@@ -19,4 +19,3 @@ export type HourEstimateRangeDto = {
      */
     avgHours?: number;
 };
-

@@ -5,4 +5,3 @@
 export type AniListUpdateDto = {
     token?: string | null;
 };
-

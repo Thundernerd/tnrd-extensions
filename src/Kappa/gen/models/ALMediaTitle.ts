@@ -8,4 +8,3 @@ export type ALMediaTitle = {
     nativeTitle?: string | null;
     preferredTitle?: string | null;
 };
-

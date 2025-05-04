@@ -16,4 +16,3 @@ export type FullProgressDto = {
     appUserId?: number;
     userName?: string | null;
 };
-

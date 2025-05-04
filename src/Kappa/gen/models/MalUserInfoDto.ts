@@ -12,4 +12,3 @@ export type MalUserInfoDto = {
      */
     accessToken: string | null;
 };
-

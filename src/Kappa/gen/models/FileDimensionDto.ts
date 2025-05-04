@@ -12,4 +12,3 @@ export type FileDimensionDto = {
     fileName?: string | null;
     isWide?: boolean;
 };
-

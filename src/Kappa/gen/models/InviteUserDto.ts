@@ -2,7 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { AgeRestrictionDto } from './AgeRestrictionDto';
+import type { AgeRestrictionDto } from "./AgeRestrictionDto";
+
 export type InviteUserDto = {
     email: string;
     /**
@@ -16,4 +17,3 @@ export type InviteUserDto = {
     libraries?: Array<number> | null;
     ageRestriction?: AgeRestrictionDto;
 };
-

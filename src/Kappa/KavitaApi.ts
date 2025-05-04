@@ -1,20 +1,28 @@
-import { ChapterDto, RecentlyAddedItemDto, SearchResultGroupDto, SeriesDto, SeriesMetadataDto, TokenRequestDto, UserDto, VolumeDto } from "./gen";
+import { Request, Response } from "@paperback/types";
+import {
+    ChapterDto,
+    RecentlyAddedItemDto,
+    SearchResultGroupDto,
+    SeriesDto,
+    SeriesMetadataDto,
+    TokenRequestDto,
+    UserDto,
+    VolumeDto,
+} from "./gen";
 import { KappaExtension } from "./main";
 import { URLBuilder } from "./utils/URLBuilder";
-import { Request } from "@paperback/types";
-import { Response } from "@paperback/types";
 
 interface JWTData {
-    exp: number
+    exp: number;
 }
 
 export class KavitaApi {
-
-    constructor(private extension: KappaExtension) {
-    }
+    constructor(private extension: KappaExtension) {}
 
     private createUrlBuilder(): URLBuilder {
-        return new URLBuilder(this.extension.settingsProvider.ApiUrl.value).addPath("api");
+        return new URLBuilder(
+            this.extension.settingsProvider.ApiUrl.value,
+        ).addPath("api");
     }
 
     async testConnection(): Promise<void> {
@@ -24,24 +32,31 @@ export class KavitaApi {
                 url: this.createUrlBuilder()
                     .addPath("Plugin")
                     .addPath("authenticate")
-                    .addQuery("apiKey", this.extension.settingsProvider.ApiKey.value)
+                    .addQuery(
+                        "apiKey",
+                        this.extension.settingsProvider.ApiKey.value,
+                    )
                     .addQuery("pluginName", "KappaPaperback")
                     .build(),
                 headers: {
                     "Content-Type": "application/json",
-                    "Accept": "application/json"
-                }
+                    Accept: "application/json",
+                },
             });
 
             if (response.status !== 200) {
-                return Promise.reject(new Error("Failed to connect to Kavita API"));
+                return Promise.reject(
+                    new Error("Failed to connect to Kavita API"),
+                );
             }
 
             return Promise.resolve();
         } catch (error) {
-            return Promise.reject(new Error("Failed to test connection", {
-                cause: error
-            }));
+            return Promise.reject(
+                new Error("Failed to test connection", {
+                    cause: error,
+                }),
+            );
         }
     }
 
@@ -55,13 +70,15 @@ export class KavitaApi {
                     .addPath("search")
                     .addQuery("queryString", query)
                     .build(),
-            })
+            });
 
             return Promise.resolve(dto);
         } catch (error) {
-            return Promise.reject(new Error("Failed to search", {
-                cause: error
-            }))
+            return Promise.reject(
+                new Error("Failed to search", {
+                    cause: error,
+                }),
+            );
         }
     }
 
@@ -73,17 +90,21 @@ export class KavitaApi {
                     .addPath("Series")
                     .addPath(mangaId)
                     .build(),
-            })
+            });
 
             return Promise.resolve(dto);
         } catch (error) {
-            return Promise.reject(new Error("Failed to get manga details", {
-                cause: error
-            }))
+            return Promise.reject(
+                new Error("Failed to get manga details", {
+                    cause: error,
+                }),
+            );
         }
     }
 
-    async getMangaMetadata(mangaId: string): Promise<SeriesMetadataDto | undefined> {
+    async getMangaMetadata(
+        mangaId: string,
+    ): Promise<SeriesMetadataDto | undefined> {
         try {
             const [, dto] = await this.sendRequest<SeriesMetadataDto>({
                 method: "GET",
@@ -92,13 +113,15 @@ export class KavitaApi {
                     .addPath("metadata")
                     .addQuery("seriesId", mangaId)
                     .build(),
-            })
+            });
 
             return Promise.resolve(dto);
         } catch (error) {
-            return Promise.reject(new Error("Failed to get manga metadata", {
-                cause: error
-            }))
+            return Promise.reject(
+                new Error("Failed to get manga metadata", {
+                    cause: error,
+                }),
+            );
         }
     }
 
@@ -111,17 +134,21 @@ export class KavitaApi {
                     .addPath("volumes")
                     .addQuery("seriesId", mangaId)
                     .build(),
-            })
+            });
 
             return Promise.resolve(dto);
         } catch (error) {
-            return Promise.reject(new Error("Failed to get manga volumes", {
-                cause: error
-            }))
+            return Promise.reject(
+                new Error("Failed to get manga volumes", {
+                    cause: error,
+                }),
+            );
         }
     }
 
-    async getChapterDetails(chapterId: string): Promise<ChapterDto | undefined> {
+    async getChapterDetails(
+        chapterId: string,
+    ): Promise<ChapterDto | undefined> {
         try {
             const [, dto] = await this.sendRequest<ChapterDto>({
                 method: "GET",
@@ -130,13 +157,15 @@ export class KavitaApi {
                     .addPath("chapter")
                     .addQuery("chapterId", chapterId)
                     .build(),
-            })
+            });
 
             return Promise.resolve(dto);
         } catch (error) {
-            return Promise.reject(new Error("Failed to get chapter details", {
-                cause: error
-            }))
+            return Promise.reject(
+                new Error("Failed to get chapter details", {
+                    cause: error,
+                }),
+            );
         }
     }
 
@@ -154,9 +183,11 @@ export class KavitaApi {
 
             return Promise.resolve(dto);
         } catch (error) {
-            return Promise.reject(new Error("Failed to get on deck", {
-                cause: error
-            }))
+            return Promise.reject(
+                new Error("Failed to get on deck", {
+                    cause: error,
+                }),
+            );
         }
     }
 
@@ -169,13 +200,15 @@ export class KavitaApi {
                     .addPath("Series")
                     .addPath("recently-updated-series")
                     .build(),
-            })
+            });
 
             return Promise.resolve(dto);
         } catch (error) {
-            return Promise.reject(new Error("Failed to get recently updated", {
-                cause: error
-            }))
+            return Promise.reject(
+                new Error("Failed to get recently updated", {
+                    cause: error,
+                }),
+            );
         }
     }
 
@@ -186,7 +219,7 @@ export class KavitaApi {
                 body: {},
                 headers: {
                     "Content-Type": "application/json",
-                    "Accept": "application/json"
+                    Accept: "application/json",
                 },
                 url: this.createUrlBuilder()
                     .addPath("Series")
@@ -194,13 +227,15 @@ export class KavitaApi {
                     .addQuery("PageNumber", "1")
                     .addQuery("PageSize", "10")
                     .build(),
-            })
+            });
 
             return Promise.resolve(dto);
         } catch (error) {
-            return Promise.reject(new Error("Failed to get newly added", {
-                cause: error
-            }))
+            return Promise.reject(
+                new Error("Failed to get newly added", {
+                    cause: error,
+                }),
+            );
         }
     }
 
@@ -211,83 +246,122 @@ export class KavitaApi {
                 url: this.createUrlBuilder()
                     .addPath("Plugin")
                     .addPath("authenticate")
-                    .addQuery("apiKey", this.extension.settingsProvider.ApiKey.value)
+                    .addQuery(
+                        "apiKey",
+                        this.extension.settingsProvider.ApiKey.value,
+                    )
                     .addQuery("pluginName", "KappaPaperback")
                     .build(),
                 headers: {
                     "Content-Type": "application/json",
-                    "Accept": "application/json"
-                }
+                    Accept: "application/json",
+                },
             });
 
             if (response.status !== 200) {
-                return Promise.reject(new Error("Failed to authenticate with Kavita API: " + response.status));
+                return Promise.reject(
+                    new Error(
+                        "Failed to authenticate with Kavita API: " +
+                            response.status,
+                    ),
+                );
             }
 
             const content = Application.arrayBufferToUTF8String(buffer);
             const dto = JSON.parse(content) as UserDto;
 
             if (!dto) {
-                return Promise.reject(new Error("Failed to parse response from Kavita API"));
+                return Promise.reject(
+                    new Error("Failed to parse response from Kavita API"),
+                );
             }
 
             if (!dto.token || !dto.refreshToken) {
-                return Promise.reject(new Error("Invalid response from Kavita API"));
+                return Promise.reject(
+                    new Error("Invalid response from Kavita API"),
+                );
             }
 
             this.extension.settingsProvider.JwtToken.updateValue(dto.token);
-            this.extension.settingsProvider.RefreshToken.updateValue(dto.refreshToken);
+            this.extension.settingsProvider.RefreshToken.updateValue(
+                dto.refreshToken,
+            );
             return Promise.resolve();
         } catch (error) {
-            return Promise.reject(new Error("Failed to authenticate", {
-                cause: error
-            }))
+            return Promise.reject(
+                new Error("Failed to authenticate", {
+                    cause: error,
+                }),
+            );
         }
     }
 
     private async refreshToken(): Promise<void> {
         try {
-            return this.sendRequest<TokenRequestDto>({
-                method: "POST",
-                url: this.createUrlBuilder()
-                    .addPath("Account")
-                    .addPath("refresh-token")
-                    .build(),
-                headers: {
-                    "Content-Type": "application/json",
-                    "Accept": "application/json"
+            return this.sendRequest<TokenRequestDto>(
+                {
+                    method: "POST",
+                    url: this.createUrlBuilder()
+                        .addPath("Account")
+                        .addPath("refresh-token")
+                        .build(),
+                    headers: {
+                        "Content-Type": "application/json",
+                        Accept: "application/json",
+                    },
+                    body: {
+                        token: this.extension.settingsProvider.JwtToken.value,
+                        refreshToken:
+                            this.extension.settingsProvider.RefreshToken.value,
+                    },
                 },
-                body: {
-                    token: this.extension.settingsProvider.JwtToken.value,
-                    refreshToken: this.extension.settingsProvider.RefreshToken.value
-                }
-            }, false)
+                false,
+            )
                 .then(([response, dto]) => {
                     if (response.status !== 200) {
-                        return Promise.reject(new Error("Failed to refresh token, status code: " + response.status));
+                        return Promise.reject(
+                            new Error(
+                                "Failed to refresh token, status code: " +
+                                    response.status,
+                            ),
+                        );
                     }
 
                     if (dto === undefined) {
-                        return Promise.reject(new Error("Failed to parse response from Kavita API"));
+                        return Promise.reject(
+                            new Error(
+                                "Failed to parse response from Kavita API",
+                            ),
+                        );
                     }
 
                     if (!dto.token || !dto.refreshToken) {
-                        return Promise.reject(new Error("Invalid response from Kavita API"));
+                        return Promise.reject(
+                            new Error("Invalid response from Kavita API"),
+                        );
                     }
 
-                    this.extension.settingsProvider.JwtToken.updateValue(dto.token);
-                    this.extension.settingsProvider.RefreshToken.updateValue(dto.refreshToken);
+                    this.extension.settingsProvider.JwtToken.updateValue(
+                        dto.token,
+                    );
+                    this.extension.settingsProvider.RefreshToken.updateValue(
+                        dto.refreshToken,
+                    );
                     return Promise.resolve();
                 })
                 .catch((error) => {
-                    return Promise.reject(new Error("Failed to refresh token", {
-                        cause: error
-                    }));
+                    return Promise.reject(
+                        new Error("Failed to refresh token", {
+                            cause: error,
+                        }),
+                    );
                 });
         } catch (error) {
-            return Promise.reject(new Error("Failed to refresh token", {
-                cause: error
-            }))
+            return Promise.reject(
+                new Error("Failed to refresh token", {
+                    cause: error,
+                }),
+            );
         }
     }
 
@@ -299,26 +373,34 @@ export class KavitaApi {
             cookies: request.cookies,
             headers: {
                 ...request.headers,
-                ...(withAuth ? {
-                    "Authorization": `Bearer ${this.extension.settingsProvider.JwtToken.value}`
-                } : {})
-            }
+                ...(withAuth
+                    ? {
+                          Authorization: `Bearer ${this.extension.settingsProvider.JwtToken.value}`,
+                      }
+                    : {}),
+            },
         };
     }
 
     private needsAuth(): boolean {
-        return this.extension.settingsProvider.JwtToken.value === undefined || this.extension.settingsProvider.JwtToken.value === "";
+        return (
+            this.extension.settingsProvider.JwtToken.value === undefined ||
+            this.extension.settingsProvider.JwtToken.value === ""
+        );
     }
 
     private needsRefresh(): boolean {
-        if (this.extension.settingsProvider.JwtToken.value === undefined ||
+        if (
+            this.extension.settingsProvider.JwtToken.value === undefined ||
             this.extension.settingsProvider.JwtToken.value === "" ||
             this.extension.settingsProvider.RefreshToken.value === undefined ||
-            this.extension.settingsProvider.RefreshToken.value === "") {
+            this.extension.settingsProvider.RefreshToken.value === ""
+        ) {
             return false; // Return false here because we don't need to refresh if we don't have a token
         }
 
-        const splits = this.extension.settingsProvider.JwtToken.value.split('.');
+        const splits =
+            this.extension.settingsProvider.JwtToken.value.split(".");
         if (splits === undefined) {
             return true;
         }
@@ -332,7 +414,7 @@ export class KavitaApi {
             return true;
         }
 
-        const json = payload.toString('utf8');
+        const json = payload.toString("utf8");
         if (json === undefined) {
             return true;
         }
@@ -355,14 +437,15 @@ export class KavitaApi {
     }
 
     private decodeBase64Url(base64url: string): Buffer {
-        const base64 = base64url
-            .replace(/-/g, '+')
-            .replace(/_/g, '/')
+        const base64 = base64url.replace(/-/g, "+").replace(/_/g, "/");
 
-        return Buffer.from(base64, 'base64')
+        return Buffer.from(base64, "base64");
     }
 
-    private async sendRequest<T>(request: Request, withAuth = true): Promise<[Response, T | undefined]> {
+    private async sendRequest<T>(
+        request: Request,
+        withAuth = true,
+    ): Promise<[Response, T | undefined]> {
         try {
             if (withAuth && this.needsRefresh()) {
                 console.log("Token needs refresh, refreshing...");
@@ -375,7 +458,8 @@ export class KavitaApi {
             }
 
             const authRequest = this.createAuthRequest(request, withAuth);
-            const [response, buffer] = await Application.scheduleRequest(authRequest);
+            const [response, buffer] =
+                await Application.scheduleRequest(authRequest);
             if (response.status === 401) {
                 // Have an expired token even though we checked before if we should refresh
                 throw Error("Token expired");
@@ -395,9 +479,11 @@ export class KavitaApi {
 
             return [response, dto];
         } catch (error) {
-            return Promise.reject(new Error("Failed to send request", {
-                cause: error
-            }));
+            return Promise.reject(
+                new Error("Failed to send request", {
+                    cause: error,
+                }),
+            );
         }
     }
 }

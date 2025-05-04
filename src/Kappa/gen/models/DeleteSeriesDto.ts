@@ -5,4 +5,3 @@
 export type DeleteSeriesDto = {
     seriesIds?: Array<number> | null;
 };
-

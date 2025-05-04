@@ -2,16 +2,17 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { AppUserCollectionDto } from './AppUserCollectionDto';
-import type { BookmarkSearchResultDto } from './BookmarkSearchResultDto';
-import type { ChapterDto } from './ChapterDto';
-import type { GenreTagDto } from './GenreTagDto';
-import type { LibraryDto } from './LibraryDto';
-import type { MangaFileDto } from './MangaFileDto';
-import type { PersonDto } from './PersonDto';
-import type { ReadingListDto } from './ReadingListDto';
-import type { SearchResultDto } from './SearchResultDto';
-import type { TagDto } from './TagDto';
+import type { AppUserCollectionDto } from "./AppUserCollectionDto";
+import type { BookmarkSearchResultDto } from "./BookmarkSearchResultDto";
+import type { ChapterDto } from "./ChapterDto";
+import type { GenreTagDto } from "./GenreTagDto";
+import type { LibraryDto } from "./LibraryDto";
+import type { MangaFileDto } from "./MangaFileDto";
+import type { PersonDto } from "./PersonDto";
+import type { ReadingListDto } from "./ReadingListDto";
+import type { SearchResultDto } from "./SearchResultDto";
+import type { TagDto } from "./TagDto";
+
 /**
  * Represents all Search results for a query
  */
@@ -27,4 +28,3 @@ export type SearchResultGroupDto = {
     chapters?: Array<ChapterDto> | null;
     bookmarks?: Array<BookmarkSearchResultDto> | null;
 };
-

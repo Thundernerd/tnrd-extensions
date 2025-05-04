@@ -2,9 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { LibraryDto } from './LibraryDto';
+import type { LibraryDto } from "./LibraryDto";
+
 export type LibraryDtoICount = {
     value?: LibraryDto;
     count?: number;
 };
-

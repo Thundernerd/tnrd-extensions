@@ -5,4 +5,3 @@
 export type SeriesByIdsDto = {
     seriesIds?: Array<number> | null;
 };
-

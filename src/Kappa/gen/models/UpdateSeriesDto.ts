@@ -10,4 +10,3 @@ export type UpdateSeriesDto = {
     sortNameLocked?: boolean;
     localizedNameLocked?: boolean;
 };
-

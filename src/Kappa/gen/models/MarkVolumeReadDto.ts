@@ -6,4 +6,3 @@ export type MarkVolumeReadDto = {
     seriesId?: number;
     volumeId?: number;
 };
-

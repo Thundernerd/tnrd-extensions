@@ -11,4 +11,3 @@ export type UpdateWantToReadDto = {
      */
     seriesIds?: Array<number> | null;
 };
-

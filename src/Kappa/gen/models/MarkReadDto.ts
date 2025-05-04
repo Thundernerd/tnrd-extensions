@@ -5,4 +5,3 @@
 export type MarkReadDto = {
     seriesId?: number;
 };
-

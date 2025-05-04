@@ -7,4 +7,3 @@ export type UpdateReadingListByChapterDto = {
     seriesId?: number;
     readingListId?: number;
 };
-

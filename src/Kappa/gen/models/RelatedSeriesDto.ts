@@ -2,7 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { SeriesDto } from './SeriesDto';
+import type { SeriesDto } from "./SeriesDto";
+
 export type RelatedSeriesDto = {
     /**
      * The parent relationship Series
@@ -23,4 +24,3 @@ export type RelatedSeriesDto = {
     editions?: Array<SeriesDto> | null;
     annuals?: Array<SeriesDto> | null;
 };
-

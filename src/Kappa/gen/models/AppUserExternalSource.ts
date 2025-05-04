@@ -2,7 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { AppUser } from './AppUser';
+import type { AppUser } from "./AppUser";
+
 export type AppUserExternalSource = {
     id?: number;
     name: string | null;
@@ -11,4 +12,3 @@ export type AppUserExternalSource = {
     appUserId?: number;
     appUser?: AppUser;
 };
-

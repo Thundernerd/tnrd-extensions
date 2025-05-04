@@ -21,8 +21,7 @@ export default {
         },
         {
             name: "Flaticon",
-            website: "https://www.flaticon.com/free-icons/kappa"
-
-        }
+            website: "https://www.flaticon.com/free-icons/kappa",
+        },
     ],
 } satisfies SourceInfo;

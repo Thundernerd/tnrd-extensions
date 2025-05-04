@@ -2,8 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { ChapterPeople } from './ChapterPeople';
-import type { SeriesMetadataPeople } from './SeriesMetadataPeople';
+import type { ChapterPeople } from "./ChapterPeople";
+import type { SeriesMetadataPeople } from "./SeriesMetadataPeople";
+
 export type Person = {
     id?: number;
     name: string | null;
@@ -36,4 +37,3 @@ export type Person = {
     chapterPeople?: Array<ChapterPeople> | null;
     seriesMetadataPeople?: Array<SeriesMetadataPeople> | null;
 };
-

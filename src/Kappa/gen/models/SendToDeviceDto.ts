@@ -6,4 +6,3 @@ export type SendToDeviceDto = {
     deviceId?: number;
     chapterIds?: Array<number> | null;
 };
-

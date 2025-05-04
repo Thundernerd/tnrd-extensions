@@ -5,4 +5,3 @@
 export type DeleteChaptersDto = {
     chapterIds?: Array<number> | null;
 };
-

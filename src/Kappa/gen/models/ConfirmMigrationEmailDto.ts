@@ -6,4 +6,3 @@ export type ConfirmMigrationEmailDto = {
     email?: string | null;
     token?: string | null;
 };
-

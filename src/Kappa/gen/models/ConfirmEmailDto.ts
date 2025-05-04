@@ -8,4 +8,3 @@ export type ConfirmEmailDto = {
     password: string;
     username: string;
 };
-

@@ -2,7 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { SingleStatCount } from './SingleStatCount';
+import type { SingleStatCount } from "./SingleStatCount";
+
 export type UserReadStatistics = {
     /**
      * Total number of pages read
@@ -21,4 +22,3 @@ export type UserReadStatistics = {
     avgHoursPerWeekSpentReading?: number;
     percentReadPerLibrary?: Array<SingleStatCount> | null;
 };
-

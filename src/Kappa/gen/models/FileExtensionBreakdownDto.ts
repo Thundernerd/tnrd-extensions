@@ -2,7 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { FileExtensionDto } from './FileExtensionDto';
+import type { FileExtensionDto } from "./FileExtensionDto";
+
 export type FileExtensionBreakdownDto = {
     /**
      * Total bytes for all files
@@ -10,4 +11,3 @@ export type FileExtensionBreakdownDto = {
     totalFileSize?: number;
     fileBreakdown?: Array<FileExtensionDto> | null;
 };
-

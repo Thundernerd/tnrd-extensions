@@ -12,4 +12,3 @@ export type DirectoryDto = {
      */
     fullPath?: string | null;
 };
-

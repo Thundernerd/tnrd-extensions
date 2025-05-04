@@ -28,4 +28,3 @@ export type PersonDto = {
      */
     hardcoverId?: string | null;
 };
-

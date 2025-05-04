@@ -39,4 +39,3 @@ export type BrowsePersonDto = {
      */
     issueCount?: number;
 };
-

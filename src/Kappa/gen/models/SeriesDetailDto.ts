@@ -2,8 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { ChapterDto } from './ChapterDto';
-import type { VolumeDto } from './VolumeDto';
+import type { ChapterDto } from "./ChapterDto";
+import type { VolumeDto } from "./VolumeDto";
+
 /**
  * This is a special DTO for a UI page in Kavita. This performs sorting and grouping and returns exactly what UI requires for layout.
  * This is subject to change, do not rely on this Data model.
@@ -34,4 +35,3 @@ export type SeriesDetailDto = {
      */
     totalCount?: number;
 };
-

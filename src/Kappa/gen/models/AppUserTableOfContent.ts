@@ -2,9 +2,10 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { AppUser } from './AppUser';
-import type { Chapter } from './Chapter';
-import type { Series } from './Series';
+import type { AppUser } from "./AppUser";
+import type { Chapter } from "./Chapter";
+import type { Series } from "./Series";
+
 /**
  * A personal table of contents for a given user linked with a given book
  */
@@ -38,4 +39,3 @@ export type AppUserTableOfContent = {
      */
     appUserId?: number;
 };
-

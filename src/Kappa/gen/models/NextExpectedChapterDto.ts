@@ -14,4 +14,3 @@ export type NextExpectedChapterDto = {
      */
     title?: string | null;
 };
-

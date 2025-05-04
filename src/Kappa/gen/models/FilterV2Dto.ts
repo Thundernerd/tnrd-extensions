@@ -2,8 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { FilterStatementDto } from './FilterStatementDto';
-import type { SortOptions } from './SortOptions';
+import type { FilterStatementDto } from "./FilterStatementDto";
+import type { SortOptions } from "./SortOptions";
+
 /**
  * Metadata filtering for v2 API only
  */
@@ -26,8 +27,7 @@ export type FilterV2Dto = {
 };
 export namespace FilterV2Dto {
     export enum combination {
-        '_0' = 0,
-        '_1' = 1,
+        "_0" = 0,
+        "_1" = 1,
     }
 }
-

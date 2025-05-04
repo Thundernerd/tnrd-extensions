@@ -53,32 +53,31 @@ export namespace AppUserCollectionDto {
      * Represents Age Rating for content.
      */
     export enum ageRating {
-        '_0' = 0,
-        '_1' = 1,
-        '_2' = 2,
-        '_3' = 3,
-        '_4' = 4,
-        '_5' = 5,
-        '_6' = 6,
-        '_7' = 7,
-        '_8' = 8,
-        '_9' = 9,
-        '_10' = 10,
-        '_11' = 11,
-        '_12' = 12,
-        '_13' = 13,
-        '_14' = 14,
-        '_-1' = -1,
+        "_0" = 0,
+        "_1" = 1,
+        "_2" = 2,
+        "_3" = 3,
+        "_4" = 4,
+        "_5" = 5,
+        "_6" = 6,
+        "_7" = 7,
+        "_8" = 8,
+        "_9" = 9,
+        "_10" = 10,
+        "_11" = 11,
+        "_12" = 12,
+        "_13" = 13,
+        "_14" = 14,
+        "_-1" = -1,
     }
     /**
      * Who created/manages the list. Non-Kavita lists are not editable by the user, except to promote
      */
     export enum source {
-        '_0' = 0,
-        '_1' = 1,
-        '_2' = 2,
-        '_3' = 3,
-        '_4' = 4,
+        "_0" = 0,
+        "_1" = 1,
+        "_2" = 2,
+        "_3" = 3,
+        "_4" = 4,
     }
 }
-

@@ -2,14 +2,15 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { AppUserCollection } from './AppUserCollection';
-import type { AppUserProgress } from './AppUserProgress';
-import type { AppUserRating } from './AppUserRating';
-import type { ExternalSeriesMetadata } from './ExternalSeriesMetadata';
-import type { Library } from './Library';
-import type { SeriesMetadata } from './SeriesMetadata';
-import type { SeriesRelation } from './SeriesRelation';
-import type { Volume } from './Volume';
+import type { AppUserCollection } from "./AppUserCollection";
+import type { AppUserProgress } from "./AppUserProgress";
+import type { AppUserRating } from "./AppUserRating";
+import type { ExternalSeriesMetadata } from "./ExternalSeriesMetadata";
+import type { Library } from "./Library";
+import type { SeriesMetadata } from "./SeriesMetadata";
+import type { SeriesRelation } from "./SeriesRelation";
+import type { Volume } from "./Volume";
+
 export type Series = {
     id?: number;
     /**
@@ -121,11 +122,10 @@ export namespace Series {
      * The type of all the files attached to this series
      */
     export enum format {
-        '_0' = 0,
-        '_1' = 1,
-        '_2' = 2,
-        '_3' = 3,
-        '_4' = 4,
+        "_0" = 0,
+        "_1" = 1,
+        "_2" = 2,
+        "_3" = 3,
+        "_4" = 4,
     }
 }
-

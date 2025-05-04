@@ -48,8 +48,7 @@ export namespace SiteThemeDto {
      * Where did the theme come from
      */
     export enum provider {
-        '_1' = 1,
-        '_2' = 2,
+        "_1" = 1,
+        "_2" = 2,
     }
 }
-

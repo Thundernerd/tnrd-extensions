@@ -10,4 +10,3 @@ export type MetadataTagDto = {
     readonly isMediaSpoiler?: boolean;
     readonly isAdult?: boolean;
 };
-

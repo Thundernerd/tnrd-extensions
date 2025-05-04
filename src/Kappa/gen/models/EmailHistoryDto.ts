@@ -10,4 +10,3 @@ export type EmailHistoryDto = {
     errorMessage?: string | null;
     toUserName?: string | null;
 };
-

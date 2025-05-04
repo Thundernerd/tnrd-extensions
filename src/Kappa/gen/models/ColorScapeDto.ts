@@ -9,4 +9,3 @@ export type ColorScapeDto = {
     primary?: string | null;
     secondary?: string | null;
 };
-

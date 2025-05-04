@@ -8,4 +8,3 @@ export type UpdateReadingListByMultipleDto = {
     volumeIds?: Array<number> | null;
     chapterIds?: Array<number> | null;
 };
-

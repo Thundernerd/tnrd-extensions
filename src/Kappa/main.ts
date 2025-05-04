@@ -1,12 +1,37 @@
-import { Chapter, ChapterDetails, ChapterProviding, DiscoverSection, DiscoverSectionItem, DiscoverSectionProviding, Extension, Form, MangaProviding, PagedResults, SearchFilter, SearchQuery, SearchResultItem, SearchResultsProviding, SettingsFormProviding, SourceManga } from "@paperback/types";
-import { SettingsProvider } from "./providers/SettingsProvider";
+import {
+    Chapter,
+    ChapterDetails,
+    ChapterProviding,
+    DiscoverSection,
+    DiscoverSectionItem,
+    DiscoverSectionProviding,
+    Extension,
+    Form,
+    MangaProviding,
+    PagedResults,
+    SearchFilter,
+    SearchQuery,
+    SearchResultItem,
+    SearchResultsProviding,
+    SettingsFormProviding,
+    SourceManga,
+} from "@paperback/types";
 import { KavitaApi } from "./KavitaApi";
-import { SearchProvider } from "./providers/SearchProvider";
 import { ChapterProvider } from "./providers/ChapterProvider";
 import { MangaProvider } from "./providers/MangaProvider";
+import { SearchProvider } from "./providers/SearchProvider";
 import { SectionProvider } from "./providers/SectionProvider";
+import { SettingsProvider } from "./providers/SettingsProvider";
 
-export class KappaExtension implements Extension, SearchResultsProviding, MangaProviding, ChapterProviding, SettingsFormProviding, DiscoverSectionProviding {
+export class KappaExtension
+    implements
+        Extension,
+        SearchResultsProviding,
+        MangaProviding,
+        ChapterProviding,
+        SettingsFormProviding,
+        DiscoverSectionProviding
+{
     chatperProvider: ChapterProvider;
     mangaProvider: MangaProvider;
     searchProvider: SearchProvider;
@@ -26,7 +51,9 @@ export class KappaExtension implements Extension, SearchResultsProviding, MangaP
     getDiscoverSections(): Promise<DiscoverSection[]> {
         return this.sectionProvider.getDiscoverSections();
     }
-    getDiscoverSectionItems(section: DiscoverSection): Promise<PagedResults<DiscoverSectionItem>> {
+    getDiscoverSectionItems(
+        section: DiscoverSection,
+    ): Promise<PagedResults<DiscoverSectionItem>> {
         return this.sectionProvider.getDiscoverSectionItems(section);
     }
     getSettingsForm(): Promise<Form> {
@@ -44,7 +71,9 @@ export class KappaExtension implements Extension, SearchResultsProviding, MangaP
     getSearchFilters(): Promise<SearchFilter[]> {
         return this.searchProvider.getSearchFilters();
     }
-    getSearchResults(query: SearchQuery): Promise<PagedResults<SearchResultItem>> {
+    getSearchResults(
+        query: SearchQuery,
+    ): Promise<PagedResults<SearchResultItem>> {
         return this.searchProvider.getSearchResults(query);
     }
     getMangaDetails(mangaId: string): Promise<SourceManga> {
@@ -54,7 +83,6 @@ export class KappaExtension implements Extension, SearchResultsProviding, MangaP
         // Initialization logic here
         console.log("Kappa Extension Initialized");
     }
-
 }
 
 export const Kappa = new KappaExtension();

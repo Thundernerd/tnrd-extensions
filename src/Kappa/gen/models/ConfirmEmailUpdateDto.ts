@@ -6,4 +6,3 @@ export type ConfirmEmailUpdateDto = {
     email: string;
     token: string;
 };
-

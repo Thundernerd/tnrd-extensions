@@ -5,4 +5,3 @@
 export type DeleteCollectionsDto = {
     collectionIds: Array<number>;
 };
-

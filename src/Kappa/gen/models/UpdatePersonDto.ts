@@ -12,4 +12,3 @@ export type UpdatePersonDto = {
     hardcoverId?: string | null;
     asin?: string | null;
 };
-

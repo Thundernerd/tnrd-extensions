@@ -8,4 +8,3 @@ export type UploadUrlDto = {
      */
     url: string;
 };
-

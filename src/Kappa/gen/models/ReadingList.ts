@@ -2,8 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { AppUser } from './AppUser';
-import type { ReadingListItem } from './ReadingListItem';
+import type { AppUser } from "./AppUser";
+import type { ReadingListItem } from "./ReadingListItem";
+
 /**
  * This is a collection of API.Entities.ReadingListItem which represent individual chapters and an order.
  */
@@ -56,22 +57,21 @@ export namespace ReadingList {
      * The highest age rating from all Series within the reading list
      */
     export enum ageRating {
-        '_0' = 0,
-        '_1' = 1,
-        '_2' = 2,
-        '_3' = 3,
-        '_4' = 4,
-        '_5' = 5,
-        '_6' = 6,
-        '_7' = 7,
-        '_8' = 8,
-        '_9' = 9,
-        '_10' = 10,
-        '_11' = 11,
-        '_12' = 12,
-        '_13' = 13,
-        '_14' = 14,
-        '_-1' = -1,
+        "_0" = 0,
+        "_1" = 1,
+        "_2" = 2,
+        "_3" = 3,
+        "_4" = 4,
+        "_5" = 5,
+        "_6" = 6,
+        "_7" = 7,
+        "_8" = 8,
+        "_9" = 9,
+        "_10" = 10,
+        "_11" = 11,
+        "_12" = 12,
+        "_13" = 13,
+        "_14" = 14,
+        "_-1" = -1,
     }
 }
-

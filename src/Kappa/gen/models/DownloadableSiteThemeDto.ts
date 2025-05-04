@@ -45,4 +45,3 @@ export type DownloadableSiteThemeDto = {
      */
     description?: string | null;
 };
-

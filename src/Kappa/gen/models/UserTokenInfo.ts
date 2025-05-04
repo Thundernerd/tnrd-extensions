@@ -13,4 +13,3 @@ export type UserTokenInfo = {
     aniListValidUntilUtc?: string;
     isMalTokenSet?: boolean;
 };
-

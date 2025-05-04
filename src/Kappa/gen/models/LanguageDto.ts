@@ -6,4 +6,3 @@ export type LanguageDto = {
     isoCode: string | null;
     title: string | null;
 };
-

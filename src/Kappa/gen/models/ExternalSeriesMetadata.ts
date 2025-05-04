@@ -2,10 +2,11 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { ExternalRating } from './ExternalRating';
-import type { ExternalRecommendation } from './ExternalRecommendation';
-import type { ExternalReview } from './ExternalReview';
-import type { Series } from './Series';
+import type { ExternalRating } from "./ExternalRating";
+import type { ExternalRecommendation } from "./ExternalRecommendation";
+import type { ExternalReview } from "./ExternalReview";
+import type { Series } from "./Series";
+
 /**
  * External Metadata from Kavita+ for a Series
  */
@@ -35,4 +36,3 @@ export type ExternalSeriesMetadata = {
     series?: Series;
     seriesId?: number;
 };
-

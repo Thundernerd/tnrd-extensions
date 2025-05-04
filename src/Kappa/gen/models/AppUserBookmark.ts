@@ -21,4 +21,3 @@ export type AppUserBookmark = {
     createdUtc?: string;
     lastModifiedUtc?: string;
 };
-

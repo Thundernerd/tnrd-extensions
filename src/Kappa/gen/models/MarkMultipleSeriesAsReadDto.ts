@@ -5,4 +5,3 @@
 export type MarkMultipleSeriesAsReadDto = {
     seriesIds?: Array<number> | null;
 };
-

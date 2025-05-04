@@ -2,8 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { AppUser } from './AppUser';
-import type { AppUserSmartFilter } from './AppUserSmartFilter';
+import type { AppUser } from "./AppUser";
+import type { AppUserSmartFilter } from "./AppUserSmartFilter";
+
 export type AppUserDashboardStream = {
     id?: number;
     name: string | null;
@@ -29,11 +30,10 @@ export namespace AppUserDashboardStream {
      * For system provided
      */
     export enum streamType {
-        '_1' = 1,
-        '_2' = 2,
-        '_3' = 3,
-        '_4' = 4,
-        '_5' = 5,
+        "_1" = 1,
+        "_2" = 2,
+        "_3" = 3,
+        "_4" = 4,
+        "_5" = 5,
     }
 }
-

@@ -6,4 +6,3 @@ export type GenreTagDto = {
     id?: number;
     title: string | null;
 };
-

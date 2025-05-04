@@ -1,45 +1,55 @@
-import { ChapterUpdatesCarouselItem, ContentRating, DiscoverSection, DiscoverSectionItem, DiscoverSectionProviding, DiscoverSectionType, PagedResults, ProminentCarouselItem, SimpleCarouselItem } from "@paperback/types";
+import {
+    ChapterUpdatesCarouselItem,
+    ContentRating,
+    DiscoverSection,
+    DiscoverSectionItem,
+    DiscoverSectionProviding,
+    DiscoverSectionType,
+    PagedResults,
+    ProminentCarouselItem,
+    SimpleCarouselItem,
+} from "@paperback/types";
 import { KappaExtension } from "../main";
 import { URLBuilder } from "../utils/URLBuilder";
 
 export class SectionProvider implements DiscoverSectionProviding {
-    constructor(private extension: KappaExtension) {
-
-    }
+    constructor(private extension: KappaExtension) {}
     async getDiscoverSections(): Promise<DiscoverSection[]> {
         return [
             {
                 id: "onDeck",
                 title: "On Deck",
-                type: DiscoverSectionType.prominentCarousel
+                type: DiscoverSectionType.prominentCarousel,
             },
             {
                 id: "recentlyUpdated",
                 title: "Recently Updated",
-                type: DiscoverSectionType.chapterUpdates
+                type: DiscoverSectionType.chapterUpdates,
             },
             {
                 id: "newlyAdded",
                 title: "Newly Added",
-                type: DiscoverSectionType.simpleCarousel
-            }
+                type: DiscoverSectionType.simpleCarousel,
+            },
         ];
     }
-    async getDiscoverSectionItems(section: DiscoverSection): Promise<PagedResults<DiscoverSectionItem>> {
+    async getDiscoverSectionItems(
+        section: DiscoverSection,
+    ): Promise<PagedResults<DiscoverSectionItem>> {
         if (section.id === "onDeck") {
-            return await this.getOnDeck()
+            return await this.getOnDeck();
         } else if (section.id === "recentlyUpdated") {
-            return await this.getRecentlyUpdated()
+            return await this.getRecentlyUpdated();
         } else if (section.id === "newlyAdded") {
-            return await this.getNewlyAdded()
-        }
-        else {
+            return await this.getNewlyAdded();
+        } else {
             return Promise.reject(new Error("Unknown section"));
         }
     }
 
     private async getOnDeck(): Promise<PagedResults<DiscoverSectionItem>> {
-        return await this.extension.kavitaApi.getOnDeck()
+        return await this.extension.kavitaApi
+            .getOnDeck()
             .then((dto) => {
                 if (dto === undefined) {
                     return Promise.reject(new Error("Unable to get on deck"));
@@ -52,13 +62,18 @@ export class SectionProvider implements DiscoverSectionProviding {
                         mangaId: item.id!.toString(),
                         title: item.name!,
                         contentRating: ContentRating.EVERYONE,
-                        imageUrl: new URLBuilder(this.extension.settingsProvider.ApiUrl.value)
+                        imageUrl: new URLBuilder(
+                            this.extension.settingsProvider.ApiUrl.value,
+                        )
                             .addPath("api")
                             .addPath("image")
                             .addPath("series-cover")
                             .addQuery("seriesId", item.id!.toString())
-                            .addQuery("apiKey", this.extension.settingsProvider.ApiKey.value)
-                            .build()
+                            .addQuery(
+                                "apiKey",
+                                this.extension.settingsProvider.ApiKey.value,
+                            )
+                            .build(),
                     });
                 });
 
@@ -67,17 +82,24 @@ export class SectionProvider implements DiscoverSectionProviding {
                 };
             })
             .catch((error) => {
-                return Promise.reject(new Error("Failed to get on deck", {
-                    cause: error
-                }));
+                return Promise.reject(
+                    new Error("Failed to get on deck", {
+                        cause: error,
+                    }),
+                );
             });
     }
 
-    private async getRecentlyUpdated(): Promise<PagedResults<DiscoverSectionItem>> {
-        return await this.extension.kavitaApi.getRecentlyUpdated()
+    private async getRecentlyUpdated(): Promise<
+        PagedResults<DiscoverSectionItem>
+    > {
+        return await this.extension.kavitaApi
+            .getRecentlyUpdated()
             .then((dto) => {
                 if (dto === undefined) {
-                    return Promise.reject(new Error("Unable to get recently updated"));
+                    return Promise.reject(
+                        new Error("Unable to get recently updated"),
+                    );
                 }
 
                 const items: ChapterUpdatesCarouselItem[] = [];
@@ -86,16 +108,23 @@ export class SectionProvider implements DiscoverSectionProviding {
                         type: "chapterUpdatesCarouselItem",
                         mangaId: item.seriesId!.toString(),
                         chapterId: item.chapterId!.toString(),
-                        publishDate: item.created ? new Date(item.created) : undefined,
+                        publishDate: item.created
+                            ? new Date(item.created)
+                            : undefined,
                         title: item.seriesName!,
                         contentRating: ContentRating.EVERYONE,
-                        imageUrl: new URLBuilder(this.extension.settingsProvider.ApiUrl.value)
+                        imageUrl: new URLBuilder(
+                            this.extension.settingsProvider.ApiUrl.value,
+                        )
                             .addPath("api")
                             .addPath("image")
                             .addPath("series-cover")
                             .addQuery("seriesId", item.seriesId!.toString())
-                            .addQuery("apiKey", this.extension.settingsProvider.ApiKey.value)
-                            .build()
+                            .addQuery(
+                                "apiKey",
+                                this.extension.settingsProvider.ApiKey.value,
+                            )
+                            .build(),
                     });
                 });
 
@@ -104,17 +133,22 @@ export class SectionProvider implements DiscoverSectionProviding {
                 };
             })
             .catch((error) => {
-                return Promise.reject(new Error("Failed to get recently updated", {
-                    cause: error
-                }));
+                return Promise.reject(
+                    new Error("Failed to get recently updated", {
+                        cause: error,
+                    }),
+                );
             });
     }
 
     private async getNewlyAdded(): Promise<PagedResults<DiscoverSectionItem>> {
-        return await this.extension.kavitaApi.getNewlyAdded()
+        return await this.extension.kavitaApi
+            .getNewlyAdded()
             .then((dto) => {
                 if (dto === undefined) {
-                    return Promise.reject(new Error("Unable to get newly added"));
+                    return Promise.reject(
+                        new Error("Unable to get newly added"),
+                    );
                 }
 
                 const items: SimpleCarouselItem[] = [];
@@ -124,13 +158,18 @@ export class SectionProvider implements DiscoverSectionProviding {
                         mangaId: item.id!.toString(),
                         title: item.name!,
                         contentRating: ContentRating.EVERYONE,
-                        imageUrl: new URLBuilder(this.extension.settingsProvider.ApiUrl.value)
+                        imageUrl: new URLBuilder(
+                            this.extension.settingsProvider.ApiUrl.value,
+                        )
                             .addPath("api")
                             .addPath("image")
                             .addPath("series-cover")
                             .addQuery("seriesId", item.id!.toString())
-                            .addQuery("apiKey", this.extension.settingsProvider.ApiKey.value)
-                            .build()
+                            .addQuery(
+                                "apiKey",
+                                this.extension.settingsProvider.ApiKey.value,
+                            )
+                            .build(),
                     });
                 });
 
@@ -139,9 +178,11 @@ export class SectionProvider implements DiscoverSectionProviding {
                 };
             })
             .catch((error) => {
-                return Promise.reject(new Error("Failed to get newly added", {
-                    cause: error
-                }));
+                return Promise.reject(
+                    new Error("Failed to get newly added", {
+                        cause: error,
+                    }),
+                );
             });
     }
 }

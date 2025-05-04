@@ -2,7 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { MetadataFieldMappingDto } from './MetadataFieldMappingDto';
+import type { MetadataFieldMappingDto } from "./MetadataFieldMappingDto";
+
 export type MetadataSettingsDto = {
     /**
      * If writing any sort of metadata from upstream (AniList, Hardcover) source is allowed
@@ -65,7 +66,10 @@ export type MetadataSettingsDto = {
     /**
      * Any Genres or Tags that if present, will trigger an Age Rating Override. Highest rating will be prioritized for matching.
      */
-    ageRatingMappings?: Record<string, 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | -1> | null;
+    ageRatingMappings?: Record<
+        string,
+        0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | -1
+    > | null;
     /**
      * A list of rules that allow mapping a genre/tag to another genre/tag
      */
@@ -73,7 +77,9 @@ export type MetadataSettingsDto = {
     /**
      * A list of overrides that will enable writing to locked fields
      */
-    overrides?: Array<1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14> | null;
+    overrides?: Array<
+        1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14
+    > | null;
     /**
      * Do not allow any Genre/Tag in this list to be written to Kavita
      */
@@ -85,6 +91,7 @@ export type MetadataSettingsDto = {
     /**
      * Which Roles to allow metadata downloading for
      */
-    personRoles?: Array<1 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15> | null;
+    personRoles?: Array<
+        1 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15
+    > | null;
 };
-

@@ -10,4 +10,3 @@ export type ReadStatus = {
     inProgress?: boolean;
     read?: boolean;
 };
-

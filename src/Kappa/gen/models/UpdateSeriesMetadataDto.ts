@@ -2,8 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { SeriesMetadataDto } from './SeriesMetadataDto';
+import type { SeriesMetadataDto } from "./SeriesMetadataDto";
+
 export type UpdateSeriesMetadataDto = {
     seriesMetadata?: SeriesMetadataDto;
 };
-

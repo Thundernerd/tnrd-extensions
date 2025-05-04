@@ -17,4 +17,3 @@ export type BookChapterItem = {
     page?: number;
     children?: Array<BookChapterItem> | null;
 };
-

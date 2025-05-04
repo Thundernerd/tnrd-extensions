@@ -10,4 +10,3 @@ export type LoginDto = {
      */
     apiKey?: string | null;
 };
-

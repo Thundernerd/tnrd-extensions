@@ -23,4 +23,3 @@ export type RefreshSeriesDto = {
      */
     forceColorscape?: boolean;
 };
-

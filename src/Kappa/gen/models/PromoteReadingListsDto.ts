@@ -6,4 +6,3 @@ export type PromoteReadingListsDto = {
     readingListIds?: Array<number> | null;
     promoted?: boolean;
 };
-

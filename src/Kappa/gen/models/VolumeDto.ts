@@ -2,7 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { ChapterDto } from './ChapterDto';
+import type { ChapterDto } from "./ChapterDto";
+
 export type VolumeDto = {
     id?: number;
     minNumber?: number;
@@ -35,4 +36,3 @@ export type VolumeDto = {
     primaryColor?: string | null;
     secondaryColor?: string | null;
 };
-

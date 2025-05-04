@@ -15,4 +15,3 @@ export type ScrobbleErrorDto = {
     libraryId?: number;
     created?: string;
 };
-

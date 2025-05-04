@@ -2,7 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { SeriesMetadata } from './SeriesMetadata';
+import type { SeriesMetadata } from "./SeriesMetadata";
+
 /**
  * Represents a user entered field that is used as a tagging and grouping mechanism
  */
@@ -38,4 +39,3 @@ export type CollectionTag = {
      */
     readonly rowVersion?: number;
 };
-

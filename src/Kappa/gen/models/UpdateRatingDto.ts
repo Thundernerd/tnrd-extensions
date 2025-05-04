@@ -7,4 +7,3 @@ export type UpdateRatingDto = {
     chapterId?: number | null;
     userRating?: number;
 };
-

@@ -5,4 +5,3 @@
 export type RemoveBookmarkForSeriesDto = {
     seriesId?: number;
 };
-

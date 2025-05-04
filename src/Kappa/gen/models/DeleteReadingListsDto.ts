@@ -5,4 +5,3 @@
 export type DeleteReadingListsDto = {
     readingListIds: Array<number>;
 };
-

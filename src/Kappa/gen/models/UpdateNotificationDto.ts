@@ -65,4 +65,3 @@ export type UpdateNotificationDto = {
      */
     blogPart?: string | null;
 };
-

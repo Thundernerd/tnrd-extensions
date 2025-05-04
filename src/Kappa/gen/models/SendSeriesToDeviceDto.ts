@@ -6,4 +6,3 @@ export type SendSeriesToDeviceDto = {
     deviceId?: number;
     seriesId?: number;
 };
-

@@ -2,7 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { Library } from './Library';
+import type { Library } from "./Library";
+
 export type FolderPath = {
     id?: number;
     path: string | null;
@@ -13,4 +14,3 @@ export type FolderPath = {
     library?: Library;
     libraryId?: number;
 };
-

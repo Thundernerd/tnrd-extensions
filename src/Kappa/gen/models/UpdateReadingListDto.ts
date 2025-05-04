@@ -13,4 +13,3 @@ export type UpdateReadingListDto = {
     endingMonth?: number;
     endingYear?: number;
 };
-

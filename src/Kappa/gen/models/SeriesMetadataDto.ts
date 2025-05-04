@@ -2,9 +2,10 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { GenreTagDto } from './GenreTagDto';
-import type { PersonDto } from './PersonDto';
-import type { TagDto } from './TagDto';
+import type { GenreTagDto } from "./GenreTagDto";
+import type { PersonDto } from "./PersonDto";
+import type { TagDto } from "./TagDto";
+
 export type SeriesMetadataDto = {
     id?: number;
     summary?: string | null;
@@ -90,32 +91,31 @@ export namespace SeriesMetadataDto {
      * Highest Age Rating from all Chapters
      */
     export enum ageRating {
-        '_0' = 0,
-        '_1' = 1,
-        '_2' = 2,
-        '_3' = 3,
-        '_4' = 4,
-        '_5' = 5,
-        '_6' = 6,
-        '_7' = 7,
-        '_8' = 8,
-        '_9' = 9,
-        '_10' = 10,
-        '_11' = 11,
-        '_12' = 12,
-        '_13' = 13,
-        '_14' = 14,
-        '_-1' = -1,
+        "_0" = 0,
+        "_1" = 1,
+        "_2" = 2,
+        "_3" = 3,
+        "_4" = 4,
+        "_5" = 5,
+        "_6" = 6,
+        "_7" = 7,
+        "_8" = 8,
+        "_9" = 9,
+        "_10" = 10,
+        "_11" = 11,
+        "_12" = 12,
+        "_13" = 13,
+        "_14" = 14,
+        "_-1" = -1,
     }
     /**
      * Publication status of the Series
      */
     export enum publicationStatus {
-        '_0' = 0,
-        '_1' = 1,
-        '_2' = 2,
-        '_3' = 3,
-        '_4' = 4,
+        "_0" = 0,
+        "_1" = 1,
+        "_2" = 2,
+        "_3" = 3,
+        "_4" = 4,
     }
 }
-

@@ -9,4 +9,3 @@ export type KavitaLocale = {
     isRtL?: boolean;
     hash?: string | null;
 };
-

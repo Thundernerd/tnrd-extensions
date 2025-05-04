@@ -10,4 +10,3 @@ export type RegisterDto = {
     email?: string | null;
     password: string;
 };
-

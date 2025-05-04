@@ -15,4 +15,3 @@ export type ProgressDto = {
     bookScrollId?: string | null;
     lastModifiedUtc?: string;
 };
-

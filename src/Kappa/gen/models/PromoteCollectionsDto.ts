@@ -6,4 +6,3 @@ export type PromoteCollectionsDto = {
     collectionIds?: Array<number> | null;
     promoted?: boolean;
 };
-

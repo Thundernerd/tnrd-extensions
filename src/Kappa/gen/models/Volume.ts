@@ -2,8 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { Chapter } from './Chapter';
-import type { Series } from './Series';
+import type { Chapter } from "./Chapter";
+import type { Series } from "./Series";
+
 export type Volume = {
     id?: number;
     /**
@@ -50,4 +51,3 @@ export type Volume = {
     series?: Series;
     seriesId?: number;
 };
-

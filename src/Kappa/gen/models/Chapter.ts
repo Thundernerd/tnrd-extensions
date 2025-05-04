@@ -2,15 +2,16 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { AppUserChapterRating } from './AppUserChapterRating';
-import type { AppUserProgress } from './AppUserProgress';
-import type { ChapterPeople } from './ChapterPeople';
-import type { ExternalRating } from './ExternalRating';
-import type { ExternalReview } from './ExternalReview';
-import type { Genre } from './Genre';
-import type { MangaFile } from './MangaFile';
-import type { Tag } from './Tag';
-import type { Volume } from './Volume';
+import type { AppUserChapterRating } from "./AppUserChapterRating";
+import type { AppUserProgress } from "./AppUserProgress";
+import type { ChapterPeople } from "./ChapterPeople";
+import type { ExternalRating } from "./ExternalRating";
+import type { ExternalReview } from "./ExternalReview";
+import type { Genre } from "./Genre";
+import type { MangaFile } from "./MangaFile";
+import type { Tag } from "./Tag";
+import type { Volume } from "./Volume";
+
 export type Chapter = {
     id?: number;
     /**
@@ -160,22 +161,21 @@ export namespace Chapter {
      * Age Rating for the issue/chapter
      */
     export enum ageRating {
-        '_0' = 0,
-        '_1' = 1,
-        '_2' = 2,
-        '_3' = 3,
-        '_4' = 4,
-        '_5' = 5,
-        '_6' = 6,
-        '_7' = 7,
-        '_8' = 8,
-        '_9' = 9,
-        '_10' = 10,
-        '_11' = 11,
-        '_12' = 12,
-        '_13' = 13,
-        '_14' = 14,
-        '_-1' = -1,
+        "_0" = 0,
+        "_1" = 1,
+        "_2" = 2,
+        "_3" = 3,
+        "_4" = 4,
+        "_5" = 5,
+        "_6" = 6,
+        "_7" = 7,
+        "_8" = 8,
+        "_9" = 9,
+        "_10" = 10,
+        "_11" = 11,
+        "_12" = 12,
+        "_13" = 13,
+        "_14" = 14,
+        "_-1" = -1,
     }
 }
-

@@ -6,4 +6,3 @@ export type UpdateEmailDto = {
     email?: string | null;
     password?: string | null;
 };
-

@@ -17,4 +17,3 @@ export type MalStackDto = {
      */
     existingId?: number;
 };
-

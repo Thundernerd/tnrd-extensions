@@ -2,10 +2,11 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { Chapter } from './Chapter';
-import type { ReadingList } from './ReadingList';
-import type { Series } from './Series';
-import type { Volume } from './Volume';
+import type { Chapter } from "./Chapter";
+import type { ReadingList } from "./ReadingList";
+import type { Series } from "./Series";
+import type { Volume } from "./Volume";
+
 export type ReadingListItem = {
     id?: number;
     seriesId?: number;
@@ -21,4 +22,3 @@ export type ReadingListItem = {
     volume?: Volume;
     chapter?: Chapter;
 };
-

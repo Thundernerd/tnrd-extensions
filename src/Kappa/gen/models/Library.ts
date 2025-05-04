@@ -2,11 +2,12 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { AppUser } from './AppUser';
-import type { FolderPath } from './FolderPath';
-import type { LibraryExcludePattern } from './LibraryExcludePattern';
-import type { LibraryFileTypeGroup } from './LibraryFileTypeGroup';
-import type { Series } from './Series';
+import type { AppUser } from "./AppUser";
+import type { FolderPath } from "./FolderPath";
+import type { LibraryExcludePattern } from "./LibraryExcludePattern";
+import type { LibraryFileTypeGroup } from "./LibraryFileTypeGroup";
+import type { Series } from "./Series";
+
 export type Library = {
     id?: number;
     name: string | null;
@@ -62,12 +63,11 @@ export type Library = {
 };
 export namespace Library {
     export enum type {
-        '_0' = 0,
-        '_1' = 1,
-        '_2' = 2,
-        '_3' = 3,
-        '_4' = 4,
-        '_5' = 5,
+        "_0" = 0,
+        "_1" = 1,
+        "_2" = 2,
+        "_3" = 3,
+        "_4" = 4,
+        "_5" = 5,
     }
 }
-

@@ -16,4 +16,3 @@ export type ReadHistoryEvent = {
     chapterId?: number;
     chapterNumber: number;
 };
-

@@ -12,4 +12,3 @@ export type SeriesStaffDto = {
     gender?: string | null;
     description?: string | null;
 };
-

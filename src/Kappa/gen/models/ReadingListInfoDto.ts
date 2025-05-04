@@ -19,4 +19,3 @@ export type ReadingListInfoDto = {
     maxHoursToRead?: number;
     avgHoursToRead?: number;
 };
-

@@ -2,11 +2,12 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { ExternalChapterDto } from './ExternalChapterDto';
-import type { MetadataTagDto } from './MetadataTagDto';
-import type { SeriesCharacter } from './SeriesCharacter';
-import type { SeriesRelationship } from './SeriesRelationship';
-import type { SeriesStaffDto } from './SeriesStaffDto';
+import type { ExternalChapterDto } from "./ExternalChapterDto";
+import type { MetadataTagDto } from "./MetadataTagDto";
+import type { SeriesCharacter } from "./SeriesCharacter";
+import type { SeriesRelationship } from "./SeriesRelationship";
+import type { SeriesStaffDto } from "./SeriesStaffDto";
+
 /**
  * This is AniListSeries
  */
@@ -48,21 +49,20 @@ export namespace ExternalSeriesDetailDto {
      * Represents PlusMediaFormat
      */
     export enum plusMediaFormat {
-        '_1' = 1,
-        '_2' = 2,
-        '_3' = 3,
-        '_4' = 4,
-        '_5' = 5,
+        "_1" = 1,
+        "_2" = 2,
+        "_3" = 3,
+        "_4" = 4,
+        "_5" = 5,
     }
     /**
      * Misleading name but is the source of data (like a review coming from AniList)
      */
     export enum provider {
-        '_0' = 0,
-        '_1' = 1,
-        '_2' = 2,
-        '_3' = 3,
-        '_4' = 4,
+        "_0" = 0,
+        "_1" = 1,
+        "_2" = 2,
+        "_3" = 3,
+        "_4" = 4,
     }
 }
-

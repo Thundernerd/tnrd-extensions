@@ -2,8 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { AgeRestrictionDto } from './AgeRestrictionDto';
-import type { UserPreferencesDto } from './UserPreferencesDto';
+import type { AgeRestrictionDto } from "./AgeRestrictionDto";
+import type { UserPreferencesDto } from "./UserPreferencesDto";
+
 export type UserDto = {
     username?: string | null;
     email?: string | null;
@@ -14,4 +15,3 @@ export type UserDto = {
     ageRestriction?: AgeRestrictionDto;
     kavitaVersion?: string | null;
 };
-

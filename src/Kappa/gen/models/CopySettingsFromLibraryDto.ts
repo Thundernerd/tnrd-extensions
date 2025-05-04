@@ -10,4 +10,3 @@ export type CopySettingsFromLibraryDto = {
      */
     includeType?: boolean;
 };
-

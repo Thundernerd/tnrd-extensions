@@ -2,7 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { Chapter } from './Chapter';
+import type { Chapter } from "./Chapter";
+
 /**
  * Represents a wrapper to the underlying file. This provides information around file, like number of pages, format, etc.
  */
@@ -52,11 +53,10 @@ export namespace MangaFile {
      * Represents the format of the file
      */
     export enum format {
-        '_0' = 0,
-        '_1' = 1,
-        '_2' = 2,
-        '_3' = 3,
-        '_4' = 4,
+        "_0" = 0,
+        "_1" = 1,
+        "_2" = 2,
+        "_3" = 3,
+        "_4" = 4,
     }
 }
-

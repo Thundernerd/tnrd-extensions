@@ -2,8 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { AgeRestrictionDto } from './AgeRestrictionDto';
-import type { LibraryDto } from './LibraryDto';
+import type { AgeRestrictionDto } from "./AgeRestrictionDto";
+import type { LibraryDto } from "./LibraryDto";
+
 /**
  * Represents a member of a Kavita server.
  */
@@ -23,4 +24,3 @@ export type MemberDto = {
     libraries?: Array<LibraryDto> | null;
     roles?: Array<string> | null;
 };
-

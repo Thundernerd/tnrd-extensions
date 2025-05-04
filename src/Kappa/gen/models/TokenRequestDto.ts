@@ -6,4 +6,3 @@ export type TokenRequestDto = {
     token?: string | null;
     refreshToken?: string | null;
 };
-

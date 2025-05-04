@@ -6,4 +6,3 @@ export type UpdateReadingListByMultipleSeriesDto = {
     readingListId?: number;
     seriesIds?: Array<number> | null;
 };
-

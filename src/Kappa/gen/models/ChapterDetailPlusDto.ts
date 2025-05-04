@@ -2,12 +2,12 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { RatingDto } from './RatingDto';
-import type { UserReviewDto } from './UserReviewDto';
+import type { RatingDto } from "./RatingDto";
+import type { UserReviewDto } from "./UserReviewDto";
+
 export type ChapterDetailPlusDto = {
     rating?: number;
     hasBeenRated?: boolean;
     reviews?: Array<UserReviewDto> | null;
     ratings?: Array<RatingDto> | null;
 };
-

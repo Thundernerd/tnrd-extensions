@@ -6,4 +6,3 @@ export type SingleStatCount = {
     value?: number;
     count?: number;
 };
-

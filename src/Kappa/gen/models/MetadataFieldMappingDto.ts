@@ -21,12 +21,11 @@ export type MetadataFieldMappingDto = {
 };
 export namespace MetadataFieldMappingDto {
     export enum sourceType {
-        '_0' = 0,
-        '_1' = 1,
+        "_0" = 0,
+        "_1" = 1,
     }
     export enum destinationType {
-        '_0' = 0,
-        '_1' = 1,
+        "_0" = 0,
+        "_1" = 1,
     }
 }
-

@@ -10,4 +10,3 @@ export type BookmarkSearchResultDto = {
     seriesName?: string | null;
     localizedSeriesName?: string | null;
 };
-

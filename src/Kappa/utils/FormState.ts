@@ -21,7 +21,7 @@ export class FormState<T> {
     constructor(
         private form: Form,
         private persistKey: string,
-        value: T
+        value: T,
     ) {
         this._value = value;
     }

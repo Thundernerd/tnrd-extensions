@@ -2,8 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { AppUser } from './AppUser';
-import type { Series } from './Series';
+import type { AppUser } from "./AppUser";
+import type { Series } from "./Series";
+
 export type ScrobbleHold = {
     id?: number;
     seriesId?: number;
@@ -15,4 +16,3 @@ export type ScrobbleHold = {
     lastModified?: string;
     lastModifiedUtc?: string;
 };
-

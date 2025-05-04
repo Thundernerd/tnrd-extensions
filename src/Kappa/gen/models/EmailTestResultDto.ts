@@ -10,4 +10,3 @@ export type EmailTestResultDto = {
     errorMessage?: string | null;
     emailAddress?: string | null;
 };
-

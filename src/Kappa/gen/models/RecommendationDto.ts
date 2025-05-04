@@ -2,10 +2,10 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { ExternalSeriesDto } from './ExternalSeriesDto';
-import type { SeriesDto } from './SeriesDto';
+import type { ExternalSeriesDto } from "./ExternalSeriesDto";
+import type { SeriesDto } from "./SeriesDto";
+
 export type RecommendationDto = {
     ownedSeries?: Array<SeriesDto> | null;
     externalSeries?: Array<ExternalSeriesDto> | null;
 };
-

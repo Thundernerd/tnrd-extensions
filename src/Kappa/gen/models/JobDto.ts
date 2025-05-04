@@ -21,4 +21,3 @@ export type JobDto = {
     lastExecutionUtc?: string | null;
     cron?: string | null;
 };
-

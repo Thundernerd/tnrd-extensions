@@ -2,10 +2,11 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { ExternalSeriesDetailDto } from './ExternalSeriesDetailDto';
-import type { RatingDto } from './RatingDto';
-import type { RecommendationDto } from './RecommendationDto';
-import type { UserReviewDto } from './UserReviewDto';
+import type { ExternalSeriesDetailDto } from "./ExternalSeriesDetailDto";
+import type { RatingDto } from "./RatingDto";
+import type { RecommendationDto } from "./RecommendationDto";
+import type { UserReviewDto } from "./UserReviewDto";
+
 /**
  * All the data from Kavita+ for Series Detail
  */
@@ -15,4 +16,3 @@ export type SeriesDetailPlusDto = {
     ratings?: Array<RatingDto> | null;
     series?: ExternalSeriesDetailDto;
 };
-

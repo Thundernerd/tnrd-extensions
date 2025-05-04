@@ -6,4 +6,3 @@ export type BulkUpdateSideNavStreamVisibilityDto = {
     ids: Array<number> | null;
     visibility: boolean;
 };
-

@@ -2,7 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { SeriesDto } from './SeriesDto';
+import type { SeriesDto } from "./SeriesDto";
+
 export type BookmarkDto = {
     id?: number;
     page: number;
@@ -11,4 +12,3 @@ export type BookmarkDto = {
     chapterId: number;
     series?: SeriesDto;
 };
-

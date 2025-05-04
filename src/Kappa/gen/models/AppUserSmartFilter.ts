@@ -2,7 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { AppUser } from './AppUser';
+import type { AppUser } from "./AppUser";
+
 /**
  * Represents a Saved user Filter
  */
@@ -16,4 +17,3 @@ export type AppUserSmartFilter = {
     appUserId?: number;
     appUser?: AppUser;
 };
-

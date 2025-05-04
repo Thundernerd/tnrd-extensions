@@ -8,4 +8,3 @@
 export type DecodeFilterDto = {
     encodedFilter?: string | null;
 };
-

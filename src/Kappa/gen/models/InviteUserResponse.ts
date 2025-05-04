@@ -16,4 +16,3 @@ export type InviteUserResponse = {
      */
     invalidEmail?: boolean;
 };
-

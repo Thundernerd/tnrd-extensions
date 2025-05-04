@@ -2,8 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { AppUser } from './AppUser';
-import type { Series } from './Series';
+import type { AppUser } from "./AppUser";
+import type { Series } from "./Series";
+
 export type AppUserRating = {
     id?: number;
     /**
@@ -28,4 +29,3 @@ export type AppUserRating = {
     appUserId?: number;
     appUser?: AppUser;
 };
-

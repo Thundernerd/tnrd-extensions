@@ -2,8 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { Chapter } from './Chapter';
-import type { SeriesMetadata } from './SeriesMetadata';
+import type { Chapter } from "./Chapter";
+import type { SeriesMetadata } from "./SeriesMetadata";
+
 export type Genre = {
     id?: number;
     title: string | null;
@@ -11,4 +12,3 @@ export type Genre = {
     seriesMetadatas?: Array<SeriesMetadata> | null;
     chapters?: Array<Chapter> | null;
 };
-
