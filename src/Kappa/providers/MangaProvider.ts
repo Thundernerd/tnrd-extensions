@@ -51,6 +51,9 @@ export class MangaProvider implements MangaProviding {
             ),
             synopsis: metadata.summary!,
             contentRating: ContentRating.EVERYONE,
+            additionalInfo: {
+                libraryId: details.libraryId!.toString(),
+            },
             thumbnailUrl: new URLBuilder(
                 this.extension.settingsProvider.ApiUrl.value,
             )

@@ -1,6 +1,7 @@
 import { Request, Response } from "@paperback/types";
 import {
     ChapterDto,
+    ProgressDto,
     RecentlyAddedItemDto,
     SearchResultGroupDto,
     SeriesDto,
@@ -239,6 +240,82 @@ export class KavitaApi {
         }
     }
 
+    async getContinuePoint(mangaId: string): Promise<ChapterDto | undefined> {
+        try {
+            const [, dto] = await this.sendRequest<ChapterDto>({
+                method: "GET",
+                url: this.createUrlBuilder()
+                    .addPath("reader")
+                    .addPath("continue-point")
+                    .addQuery("seriesId", mangaId)
+                    .build(),
+            });
+
+            return dto;
+        } catch (error) {
+            return Promise.reject(
+                new Error("Failed to get continue point", {
+                    cause: error,
+                }),
+            );
+        }
+    }
+
+    async getHasProgress(mangaId: string): Promise<boolean | undefined> {
+        try {
+            const [, content] = await this.sendPlainTextRequest({
+                method: "GET",
+                url: this.createUrlBuilder()
+                    .addPath("reader")
+                    .addPath("has-progress")
+                    .addQuery("seriesId", mangaId)
+                    .build(),
+            });
+
+            return content === "true" ? true : false;
+        } catch (error) {
+            return Promise.reject(
+                new Error("Failed to get has progress", {
+                    cause: error,
+                }),
+            );
+        }
+    }
+
+    async setProgress(data: ProgressDto): Promise<boolean> {
+        try {
+            const [response] = await this.sendPlainTextRequest({
+                method: "POST",
+                body: data,
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                },
+                url: this.createUrlBuilder()
+                    .addPath("reader")
+                    .addPath("progress")
+                    .build(),
+            });
+
+            if (response.status !== 200) {
+                return Promise.reject(
+                    new Error(
+                        "Failed to set progress, status code: " +
+                            response.status,
+                    ),
+                );
+            }
+
+            return true;
+        } catch (error) {
+            return Promise.reject(
+                new Error("Failed to set progress", {
+                    cause: error,
+                }),
+            );
+        }
+    }
+
     private async authenticate(): Promise<void> {
         try {
             const [response, buffer] = await Application.scheduleRequest({
@@ -440,6 +517,45 @@ export class KavitaApi {
         const base64 = base64url.replace(/-/g, "+").replace(/_/g, "/");
 
         return Buffer.from(base64, "base64");
+    }
+
+    private async sendPlainTextRequest(
+        request: Request,
+        withAuth = true,
+    ): Promise<[Response, string | undefined]> {
+        try {
+            if (withAuth && this.needsRefresh()) {
+                console.log("Token needs refresh, refreshing...");
+                await this.refreshToken();
+            }
+
+            if (withAuth && this.needsAuth()) {
+                console.log("No auth token, authenticating...");
+                await this.authenticate();
+            }
+
+            const authRequest = this.createAuthRequest(request, withAuth);
+            const [response, buffer] =
+                await Application.scheduleRequest(authRequest);
+            if (response.status === 401) {
+                // Have an expired token even though we checked before if we should refresh
+                throw Error("Token expired");
+            }
+
+            if (response.status !== 200) {
+                console.log("Failed with status code: " + response.status);
+                return [response, undefined];
+            }
+
+            const content = Application.arrayBufferToUTF8String(buffer);
+            return [response, content];
+        } catch (error) {
+            return Promise.reject(
+                new Error("Failed to send request", {
+                    cause: error,
+                }),
+            );
+        }
     }
 
     private async sendRequest<T>(

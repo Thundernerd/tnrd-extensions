@@ -39,6 +39,11 @@ export class ChapterProvider implements ChapterProviding {
                             chapterId: chapter.id!.toString(),
                             langCode: chapter.language ?? "EN",
                             chapNum: chapter.minNumber!,
+                            additionalInfo: {
+                                pages: chapter.pages!.toString(),
+                                pagesRead: chapter.pagesRead!.toString(),
+                                volumeId: chapter.volumeId!.toString(),
+                            },
                         });
                     });
                 });
