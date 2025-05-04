@@ -8,7 +8,7 @@ export class State<T> implements ReadOnlyState<T> {
     constructor(private persistKey: string, private defaultValue: T) {
     }
 
-    public async updateValue(value: T): Promise<void> {
+    public updateValue(value: T) {
         Application.setState(value, this.persistKey);
     }
 }

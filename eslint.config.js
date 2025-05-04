@@ -1,31 +1,34 @@
-// eslint.config.js
-import js from '@eslint/js'
-import tseslint from 'typescript-eslint'
-import modulesNewline from 'eslint-plugin-modules-newline'
+import eslint from "@eslint/js";
+import tseslint from "typescript-eslint";
 
-export default [
-    js.configs.recommended,
-    ...tseslint.configs.recommended,
+export default tseslint.config(
     {
-        files: ['**/*.ts'],
-        ignores: ['dist', 'node_modules'],
+        extends: [eslint.configs.recommended],
+        files: ["**/*{.js,.ts}"],
         languageOptions: {
-            ecmaVersion: 2021,
-            sourceType: 'module',
+            ecmaVersion: "latest",
+            sourceType: "module",
         },
-        plugins: {
-            '@typescript-eslint': tseslint.plugin,
-            'modules-newline': modulesNewline
+    },
+    {
+        extends: [...tseslint.configs.recommendedTypeChecked],
+        files: ["**/*.ts"],
+        languageOptions: {
+            parser: tseslint.parser,
+            parserOptions: {
+                projectService: true,
+                tsconfigRootDir: import.meta.dirname,
+            },
         },
         rules: {
-            'indent': ['error', 4],
-            'linebreak-style': ['error', 'unix'],
-            'quotes': ['error', 'double'],
-            'semi': ['error', 'always'],
-            'comma-dangle': ['error', 'never'],
-            'prefer-arrow-callback': 'error',
-            'modules-newline/import-declaration-newline': 'error',
-            'modules-newline/export-declaration-newline': 'error'
-        }
-    }
-]
+            "@typescript-eslint/require-await": "off",
+            "@typescript-eslint/no-unused-vars": [
+                "error",
+                { varsIgnorePattern: "^_" },
+            ],
+        },
+    },
+    {
+        ignores: ["bundles"],
+    },
+);

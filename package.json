@@ -5,21 +5,28 @@
     "private": true,
     "type": "module",
     "scripts": {
+        "lint": "eslint --fix --cache --cache-location 'node_modules/.cache/eslint/.eslint-cache'",
+        "lint:check": "eslint --cache --cache-location 'node_modules/.cache/eslint/.eslint-cache'",
+        "format": "prettier --write '**/*{.md,.yml,.yaml,.json,.js,.ts}' --cache",
+        "format:check": "prettier --check '**/*{.md,.yml,.yaml,.json,.js,.ts}' --cache",
+        "tsc": "tsc --project tsconfig.json --noEmit",
         "bundle": "paperback-cli bundle",
         "serve": "paperback-cli serve",
-        "logcat": "paperback-cli logcat --ip=192.168.1.228",
-        "dev": "nodemon -w \"./src/**/*.ts\" -e \"ts\" -x \"npm run serve\""
+        "logcat": "paperback-cli logcat",
+        "dev": "paperback-cli serve --watch",
+        "test": "npm run tsc && npm run lint:check && npm run format:check && npm run bundle",
+        "prepare": "husky"
     },
     "devDependencies": {
-        "@eslint/js": "^9.23.0",
-        "@paperback/toolchain": "^1.0.0-alpha.46",
-        "@paperback/types": "^1.0.0-alpha.46",
+        "@eslint/js": "^9.24.0",
+        "@ianvs/prettier-plugin-sort-imports": "^4.4.1",
+        "@paperback/toolchain": "^1.0.0-alpha.39",
+        "@paperback/types": "^1.0.0-alpha.39",
         "@types/eslint": "^9.6.1",
-        "cheerio": "^1.0.0",
-        "eslint": "^9.23.0",
-        "eslint-plugin-modules-newline": "^0.0.6",
-        "nodemon": "^3.1.9",
-        "typescript": "^5.8.2",
-        "typescript-eslint": "^8.28.0"
+        "eslint": "^9.24.0",
+        "husky": "^9.1.7",
+        "prettier": "^3.5.3",
+        "typescript": "^5.8.3",
+        "typescript-eslint": "^8.30.1"
     }
 }

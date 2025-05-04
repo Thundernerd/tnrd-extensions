@@ -1,4 +1,4 @@
-import { Chapter, ChapterDetails, ChapterProviding, DiscoverSection, DiscoverSectionItem, DiscoverSectionProviding, Extension, Form, MangaProviding, PagedResults, SearchFilter, SearchQuery, SearchResultItem, SearchResultsProviding, SettingsFormProviding, SourceManga, UpdateManager } from "@paperback/types";
+import { Chapter, ChapterDetails, ChapterProviding, DiscoverSection, DiscoverSectionItem, DiscoverSectionProviding, Extension, Form, MangaProviding, PagedResults, SearchFilter, SearchQuery, SearchResultItem, SearchResultsProviding, SettingsFormProviding, SourceManga } from "@paperback/types";
 import { SettingsProvider } from "./providers/SettingsProvider";
 import { KavitaApi } from "./KavitaApi";
 import { SearchProvider } from "./providers/SearchProvider";
@@ -26,26 +26,26 @@ export class KappaExtension implements Extension, SearchResultsProviding, MangaP
     getDiscoverSections(): Promise<DiscoverSection[]> {
         return this.sectionProvider.getDiscoverSections();
     }
-    getDiscoverSectionItems(section: DiscoverSection, metadata: unknown | undefined): Promise<PagedResults<DiscoverSectionItem>> {
-        return this.sectionProvider.getDiscoverSectionItems(section, metadata);
+    getDiscoverSectionItems(section: DiscoverSection): Promise<PagedResults<DiscoverSectionItem>> {
+        return this.sectionProvider.getDiscoverSectionItems(section);
     }
     getSettingsForm(): Promise<Form> {
         return this.settingsProvider.getSettingsForm();
     }
-    getChapters(sourceManga: SourceManga, sinceDate?: Date): Promise<Chapter[]> {
-        return this.chatperProvider.getChapters(sourceManga, sinceDate);
+    getChapters(sourceManga: SourceManga): Promise<Chapter[]> {
+        return this.chatperProvider.getChapters(sourceManga);
     }
     getChapterDetails(chapter: Chapter): Promise<ChapterDetails> {
         return this.chatperProvider.getChapterDetails(chapter);
     }
-    processTitlesForUpdates?(updateManager: UpdateManager, lastUpdateDate?: Date): Promise<void> {
+    processTitlesForUpdates?(): Promise<void> {
         throw new Error("Method not implemented.");
     }
     getSearchFilters(): Promise<SearchFilter[]> {
         return this.searchProvider.getSearchFilters();
     }
-    getSearchResults(query: SearchQuery, metadata: unknown | undefined): Promise<PagedResults<SearchResultItem>> {
-        return this.searchProvider.getSearchResults(query, metadata);
+    getSearchResults(query: SearchQuery): Promise<PagedResults<SearchResultItem>> {
+        return this.searchProvider.getSearchResults(query);
     }
     getMangaDetails(mangaId: string): Promise<SourceManga> {
         return this.mangaProvider.getMangaDetails(mangaId);

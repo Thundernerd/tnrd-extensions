@@ -1,4 +1,4 @@
-import { Chapter, ChapterDetails, ChapterProviding, SourceManga, UpdateManager } from "@paperback/types";
+import { Chapter, ChapterDetails, ChapterProviding, SourceManga } from "@paperback/types";
 import { KappaExtension } from "../main";
 import { URLBuilder } from "../utils/URLBuilder";
 
@@ -6,7 +6,7 @@ export class ChapterProvider implements ChapterProviding {
     constructor(private readonly extension: KappaExtension) {
         // Constructor logic here
     }
-    getChapters(sourceManga: SourceManga, sinceDate?: Date): Promise<Chapter[]> {
+    getChapters(sourceManga: SourceManga): Promise<Chapter[]> {
         return this.extension.kavitaApi.getMangaVolumes(sourceManga.mangaId)
             .then((dto) => {
                 if (dto === undefined) {
@@ -24,8 +24,8 @@ export class ChapterProvider implements ChapterProviding {
                         chapters.push({
                             sourceManga: sourceManga,
                             title: chapter.title ?? undefined,
-                            creationDate: chapter.createdUtc ? new Date(chapter.createdUtc!) : undefined,
-                            publishDate: chapter.releaseDate ? new Date(chapter.releaseDate!) : undefined,
+                            creationDate: chapter.createdUtc ? new Date(chapter.createdUtc) : undefined,
+                            publishDate: chapter.releaseDate ? new Date(chapter.releaseDate) : undefined,
                             chapterId: chapter.id!.toString(),
                             langCode: chapter.language ?? "EN",
                             chapNum: chapter.minNumber!
@@ -36,8 +36,9 @@ export class ChapterProvider implements ChapterProviding {
                 return chapters;
             })
             .catch((error) => {
-                console.error("Error fetching chapters: " + error);
-                return Promise.reject(error);
+                return Promise.reject(new Error("Failed to get chapters", {
+                    cause: error
+                }));
             });
     }
     getChapterDetails(chapter: Chapter): Promise<ChapterDetails> {
@@ -71,14 +72,15 @@ export class ChapterProvider implements ChapterProviding {
                 };
             })
             .catch((error) => {
-                console.error("Error fetching chapter details: " + error);
-                return Promise.reject(error);
+                return Promise.reject(new Error("Failed to get chapter details", {
+                    cause: error
+                }));
             });
     }
-    processTitlesForUpdates?(updateManager: UpdateManager, lastUpdateDate?: Date): Promise<void> {
+    processTitlesForUpdates?(): Promise<void> {
         throw new Error("Method not implemented.");
     }
-    getMangaDetails(mangaId: string): Promise<SourceManga> {
+    getMangaDetails(): Promise<SourceManga> {
         throw new Error("Method not implemented.");
     }
 }

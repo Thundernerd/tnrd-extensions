@@ -1,4 +1,4 @@
-import { ChapterUpdatesCarouselItem, ContentRating, DiscoverSection, DiscoverSectionItem, DiscoverSectionProviding, DiscoverSectionType, FeaturedCarouselItem, PagedResults, ProminentCarouselItem, SimpleCarouselItem } from "@paperback/types";
+import { ChapterUpdatesCarouselItem, ContentRating, DiscoverSection, DiscoverSectionItem, DiscoverSectionProviding, DiscoverSectionType, PagedResults, ProminentCarouselItem, SimpleCarouselItem } from "@paperback/types";
 import { KappaExtension } from "../main";
 import { URLBuilder } from "../utils/URLBuilder";
 
@@ -25,7 +25,7 @@ export class SectionProvider implements DiscoverSectionProviding {
             }
         ];
     }
-    async getDiscoverSectionItems(section: DiscoverSection, metadata: unknown | undefined): Promise<PagedResults<DiscoverSectionItem>> {
+    async getDiscoverSectionItems(section: DiscoverSection): Promise<PagedResults<DiscoverSectionItem>> {
         if (section.id === "onDeck") {
             return await this.getOnDeck()
         } else if (section.id === "recentlyUpdated") {
@@ -67,8 +67,9 @@ export class SectionProvider implements DiscoverSectionProviding {
                 };
             })
             .catch((error) => {
-                console.error("Error fetching on deck: " + error);
-                return Promise.reject(error);
+                return Promise.reject(new Error("Failed to get on deck", {
+                    cause: error
+                }));
             });
     }
 
@@ -85,7 +86,7 @@ export class SectionProvider implements DiscoverSectionProviding {
                         type: "chapterUpdatesCarouselItem",
                         mangaId: item.seriesId!.toString(),
                         chapterId: item.chapterId!.toString(),
-                        publishDate: item.created ? new Date(item.created!) : undefined,
+                        publishDate: item.created ? new Date(item.created) : undefined,
                         title: item.seriesName!,
                         contentRating: ContentRating.EVERYONE,
                         imageUrl: new URLBuilder(this.extension.settingsProvider.ApiUrl.value)
@@ -103,8 +104,9 @@ export class SectionProvider implements DiscoverSectionProviding {
                 };
             })
             .catch((error) => {
-                console.error("Error fetching recently updated: " + error);
-                return Promise.reject(error);
+                return Promise.reject(new Error("Failed to get recently updated", {
+                    cause: error
+                }));
             });
     }
 
@@ -137,8 +139,9 @@ export class SectionProvider implements DiscoverSectionProviding {
                 };
             })
             .catch((error) => {
-                console.error("Error fetching newly added: " + error);
-                return Promise.reject(error);
+                return Promise.reject(new Error("Failed to get newly added", {
+                    cause: error
+                }));
             });
     }
 }

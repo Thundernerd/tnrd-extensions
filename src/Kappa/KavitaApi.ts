@@ -4,6 +4,10 @@ import { URLBuilder } from "./utils/URLBuilder";
 import { Request } from "@paperback/types";
 import { Response } from "@paperback/types";
 
+interface JWTData {
+    exp: number
+}
+
 export class KavitaApi {
 
     constructor(private extension: KappaExtension) {
@@ -35,14 +39,16 @@ export class KavitaApi {
 
             return Promise.resolve();
         } catch (error) {
-            return Promise.reject(error);
+            return Promise.reject(new Error("Failed to test connection", {
+                cause: error
+            }));
         }
     }
 
     async search(query: string): Promise<SearchResultGroupDto | undefined> {
         try {
             console.log("Searching for: " + query);
-            const [response, dto] = await this.sendRequest<SearchResultGroupDto>({
+            const [, dto] = await this.sendRequest<SearchResultGroupDto>({
                 method: "GET",
                 url: this.createUrlBuilder()
                     .addPath("Search")
@@ -53,13 +59,15 @@ export class KavitaApi {
 
             return Promise.resolve(dto);
         } catch (error) {
-            return Promise.reject(error);
+            return Promise.reject(new Error("Failed to search", {
+                cause: error
+            }))
         }
     }
 
     async getMangaDetails(mangaId: string): Promise<SeriesDto | undefined> {
         try {
-            const [response, dto] = await this.sendRequest<SeriesDto>({
+            const [, dto] = await this.sendRequest<SeriesDto>({
                 method: "GET",
                 url: this.createUrlBuilder()
                     .addPath("Series")
@@ -69,13 +77,15 @@ export class KavitaApi {
 
             return Promise.resolve(dto);
         } catch (error) {
-            return Promise.reject(error);
+            return Promise.reject(new Error("Failed to get manga details", {
+                cause: error
+            }))
         }
     }
 
     async getMangaMetadata(mangaId: string): Promise<SeriesMetadataDto | undefined> {
         try {
-            const [response, dto] = await this.sendRequest<SeriesMetadataDto>({
+            const [, dto] = await this.sendRequest<SeriesMetadataDto>({
                 method: "GET",
                 url: this.createUrlBuilder()
                     .addPath("Series")
@@ -86,13 +96,15 @@ export class KavitaApi {
 
             return Promise.resolve(dto);
         } catch (error) {
-            return Promise.reject(error);
+            return Promise.reject(new Error("Failed to get manga metadata", {
+                cause: error
+            }))
         }
     }
 
     async getMangaVolumes(mangaId: string): Promise<VolumeDto[] | undefined> {
         try {
-            const [response, dto] = await this.sendRequest<VolumeDto[]>({
+            const [, dto] = await this.sendRequest<VolumeDto[]>({
                 method: "GET",
                 url: this.createUrlBuilder()
                     .addPath("Series")
@@ -103,13 +115,15 @@ export class KavitaApi {
 
             return Promise.resolve(dto);
         } catch (error) {
-            return Promise.reject(error);
+            return Promise.reject(new Error("Failed to get manga volumes", {
+                cause: error
+            }))
         }
     }
 
     async getChapterDetails(chapterId: string): Promise<ChapterDto | undefined> {
         try {
-            const [response, dto] = await this.sendRequest<ChapterDto>({
+            const [, dto] = await this.sendRequest<ChapterDto>({
                 method: "GET",
                 url: this.createUrlBuilder()
                     .addPath("Series")
@@ -120,13 +134,15 @@ export class KavitaApi {
 
             return Promise.resolve(dto);
         } catch (error) {
-            return Promise.reject(error);
+            return Promise.reject(new Error("Failed to get chapter details", {
+                cause: error
+            }))
         }
     }
 
     async getOnDeck(): Promise<SeriesDto[] | undefined> {
         try {
-            const [response, dto] = await this.sendRequest<SeriesDto[]>({
+            const [, dto] = await this.sendRequest<SeriesDto[]>({
                 method: "POST",
                 url: this.createUrlBuilder()
                     .addPath("Series")
@@ -138,13 +154,15 @@ export class KavitaApi {
 
             return Promise.resolve(dto);
         } catch (error) {
-            return Promise.reject(error);
+            return Promise.reject(new Error("Failed to get on deck", {
+                cause: error
+            }))
         }
     }
 
     async getRecentlyUpdated(): Promise<RecentlyAddedItemDto[] | undefined> {
         try {
-            const [response, dto] = await this.sendRequest<RecentlyAddedItemDto[]>({
+            const [, dto] = await this.sendRequest<RecentlyAddedItemDto[]>({
                 method: "POST",
                 body: {},
                 url: this.createUrlBuilder()
@@ -155,13 +173,15 @@ export class KavitaApi {
 
             return Promise.resolve(dto);
         } catch (error) {
-            return Promise.reject(error);
+            return Promise.reject(new Error("Failed to get recently updated", {
+                cause: error
+            }))
         }
     }
 
     async getNewlyAdded(): Promise<SeriesDto[] | undefined> {
         try {
-            const [response, dto] = await this.sendRequest<SeriesDto[]>({
+            const [, dto] = await this.sendRequest<SeriesDto[]>({
                 method: "POST",
                 body: {},
                 headers: {
@@ -178,7 +198,9 @@ export class KavitaApi {
 
             return Promise.resolve(dto);
         } catch (error) {
-            return Promise.reject(error);
+            return Promise.reject(new Error("Failed to get newly added", {
+                cause: error
+            }))
         }
     }
 
@@ -213,12 +235,13 @@ export class KavitaApi {
                 return Promise.reject(new Error("Invalid response from Kavita API"));
             }
 
-            this.extension.settingsProvider.JwtToken.updateValue(dto.token!);
-            this.extension.settingsProvider.RefreshToken.updateValue(dto.refreshToken!);
+            this.extension.settingsProvider.JwtToken.updateValue(dto.token);
+            this.extension.settingsProvider.RefreshToken.updateValue(dto.refreshToken);
             return Promise.resolve();
         } catch (error) {
-            console.log("Failed to send authentication request: " + error);
-            return Promise.reject(error);
+            return Promise.reject(new Error("Failed to authenticate", {
+                cause: error
+            }))
         }
     }
 
@@ -252,18 +275,19 @@ export class KavitaApi {
                         return Promise.reject(new Error("Invalid response from Kavita API"));
                     }
 
-                    this.extension.settingsProvider.JwtToken.updateValue(dto.token!);
-                    this.extension.settingsProvider.RefreshToken.updateValue(dto.refreshToken!);
+                    this.extension.settingsProvider.JwtToken.updateValue(dto.token);
+                    this.extension.settingsProvider.RefreshToken.updateValue(dto.refreshToken);
                     return Promise.resolve();
                 })
                 .catch((error) => {
-                    console.log("Failed to refresh token: " + error);
-                    console.log(error);
-                    return Promise.reject(error);
+                    return Promise.reject(new Error("Failed to refresh token", {
+                        cause: error
+                    }));
                 });
         } catch (error) {
-            console.log("Failed to send refresh token request: " + error);
-            return Promise.reject(error);
+            return Promise.reject(new Error("Failed to refresh token", {
+                cause: error
+            }))
         }
     }
 
@@ -313,7 +337,7 @@ export class KavitaApi {
             return true;
         }
 
-        const decoded = JSON.parse(json);
+        const decoded = JSON.parse(json) as JWTData;
         if (decoded === undefined) {
             return true;
         }
@@ -371,7 +395,9 @@ export class KavitaApi {
 
             return [response, dto];
         } catch (error) {
-            return Promise.reject(error);
+            return Promise.reject(new Error("Failed to send request", {
+                cause: error
+            }));
         }
     }
 }

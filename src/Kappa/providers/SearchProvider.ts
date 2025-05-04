@@ -10,7 +10,7 @@ export class SearchProvider {
         return Promise.resolve([]);
     }
 
-    async getSearchResults(query: SearchQuery, metadata: unknown | undefined): Promise<PagedResults<SearchResultItem>> {
+    async getSearchResults(query: SearchQuery): Promise<PagedResults<SearchResultItem>> {
         const result = await this.extension.kavitaApi.search(query.title);
         if (result == null) {
             return {

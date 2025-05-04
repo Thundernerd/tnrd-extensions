@@ -24,14 +24,16 @@ export class MangaProvider implements MangaProviding {
                 return manga;
             })
             .catch((error) => {
-                return error;
+                return Promise.reject(new Error("Failed to get manga details", {
+                    cause: error
+                }));
             });
     }
 
     private createMangaInfo(details: SeriesDto, metadata: SeriesMetadataDto): MangaInfo {
         return {
             primaryTitle: details.name!,
-            secondaryTitles: [],
+            secondaryTitles: this.toStringArray(details.originalName, details.localizedName),
             synopsis: metadata.summary!,
             contentRating: ContentRating.EVERYONE,
             thumbnailUrl: new URLBuilder(this.extension.settingsProvider.ApiUrl.value)
@@ -42,5 +44,9 @@ export class MangaProvider implements MangaProviding {
                 .addQuery("apiKey", this.extension.settingsProvider.ApiKey.value)
                 .build()
         }
+    }
+
+    private toStringArray(...args: (string | null | undefined)[]): string[] {
+        return args.filter((arg): arg is string => arg !== null && arg !== undefined);
     }
 }
