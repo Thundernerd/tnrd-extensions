@@ -1828,7 +1828,7 @@ var source = (() => {
       init_buffer();
       Object.defineProperty(exports, "__esModule", { value: true });
       exports.Form = void 0;
-      var Form2 = class {
+      var Form3 = class {
         reloadForm() {
           const formId = this["__underlying_formId"];
           if (!formId)
@@ -1841,7 +1841,7 @@ var source = (() => {
           return false;
         }
       };
-      exports.Form = Form2;
+      exports.Form = Form3;
     }
   });
 
@@ -1851,7 +1851,7 @@ var source = (() => {
       "use strict";
       init_buffer();
       Object.defineProperty(exports, "__esModule", { value: true });
-      exports.LabelRow = LabelRow2;
+      exports.LabelRow = LabelRow3;
       exports.InputRow = InputRow2;
       exports.ToggleRow = ToggleRow;
       exports.SelectRow = SelectRow;
@@ -1860,7 +1860,7 @@ var source = (() => {
       exports.NavigationRow = NavigationRow;
       exports.OAuthButtonRow = OAuthButtonRow;
       exports.DeferredItem = DeferredItem;
-      function LabelRow2(id, props) {
+      function LabelRow3(id, props) {
         return { ...props, id, type: "labelRow", isHidden: props.isHidden ?? false };
       }
       function InputRow2(id, props) {
@@ -1906,8 +1906,8 @@ var source = (() => {
       "use strict";
       init_buffer();
       Object.defineProperty(exports, "__esModule", { value: true });
-      exports.Section = Section2;
-      function Section2(params, items) {
+      exports.Section = Section3;
+      function Section3(params, items) {
         let info;
         if (typeof params === "string") {
           info = { id: params };
@@ -3034,174 +3034,6 @@ var source = (() => {
   });
   init_buffer();
 
-  // src/Kappa/providers/SettingsProvider.ts
-  init_buffer();
-
-  // src/Kappa/forms/KavitaSettingsForm.ts
-  init_buffer();
-  var import_types = __toESM(require_lib(), 1);
-
-  // src/Kappa/utils/FormState.ts
-  init_buffer();
-  var FormState = class {
-    constructor(form, persistKey, value) {
-      this.form = form;
-      this.persistKey = persistKey;
-      this._value = value;
-    }
-    _value;
-    get value() {
-      return this._value;
-    }
-    /**
-     * Returns selector for binding to form elements
-     */
-    get selector() {
-      return Application.Selector(this, "updateValue");
-    }
-    /**
-     * Updates state value, persists it, and refreshes the form
-     */
-    async updateValue(value) {
-      this._value = value;
-      Application.setState(value, this.persistKey);
-      this.form.reloadForm();
-    }
-  };
-
-  // src/Kappa/forms/KavitaSettingsForm.ts
-  var KavitaSettingsForm = class extends import_types.Form {
-    testState = 0 /* Undefined */;
-    settingsProvider;
-    apiUrlState;
-    apiKeyState;
-    constructor(settingsProvider) {
-      super();
-      this.settingsProvider = settingsProvider;
-      this.apiUrlState = new FormState(this, apiUrlConfigKey, this.settingsProvider.ApiUrl.value);
-      this.apiKeyState = new FormState(this, apiKeyConfigKey, this.settingsProvider.ApiKey.value);
-    }
-    getSections() {
-      const sections = [this.createConnectionSettings()];
-      return sections;
-    }
-    createConnectionSettings() {
-      let testButtonTitle = "Test";
-      switch (this.testState) {
-        case 1 /* Testing */:
-          testButtonTitle = "Testing...";
-          break;
-        case 2 /* Success */:
-          testButtonTitle = "Success!";
-          break;
-        case 3 /* Failed */:
-          testButtonTitle = "Failed!";
-          break;
-        default:
-          testButtonTitle = "Test";
-          break;
-      }
-      return (0, import_types.Section)("connectionSettings", [
-        (0, import_types.LabelRow)("connectionSettingsLabel", {
-          title: "Connection Settings",
-          subtitle: "Configure your Kavita connection settings"
-        }),
-        (0, import_types.InputRow)("apiUrlInput", {
-          title: "Kavita URL",
-          value: this.apiUrlState.value,
-          onValueChange: this.apiUrlState.selector
-        }),
-        (0, import_types.InputRow)("apiKeyInput", {
-          title: "Kavita API Key",
-          value: this.apiKeyState.value,
-          onValueChange: this.apiKeyState.selector
-        }),
-        (0, import_types.ButtonRow)("testButton", {
-          title: testButtonTitle,
-          onSelect: Application.Selector(
-            this,
-            "onTest"
-          )
-        })
-      ]);
-    }
-    async onTest() {
-      try {
-        this.testState = 1 /* Testing */;
-        this.reloadForm();
-        await this.settingsProvider.extension.kavitaApi.testConnection().then(async () => {
-          this.testState = 2 /* Success */;
-          this.reloadForm();
-        }).catch((error) => {
-          this.testState = 3 /* Failed */;
-          this.reloadForm();
-          throw error;
-        });
-      } catch (error) {
-        this.testState = 3 /* Failed */;
-        this.reloadForm();
-        throw error;
-      }
-    }
-  };
-
-  // src/Kappa/utils/State.ts
-  init_buffer();
-
-  // src/Kappa/utils/GetState.ts
-  init_buffer();
-  function getState(key, defaultValue) {
-    return Application.getState(key) ?? defaultValue;
-  }
-
-  // src/Kappa/utils/State.ts
-  var State = class {
-    constructor(persistKey, defaultValue) {
-      this.persistKey = persistKey;
-      this.defaultValue = defaultValue;
-    }
-    get value() {
-      return getState(this.persistKey, this.defaultValue);
-    }
-    async updateValue(value) {
-      Application.setState(value, this.persistKey);
-    }
-  };
-
-  // src/Kappa/providers/SettingsProvider.ts
-  var apiUrlConfigKey = "kavitaApiUrl";
-  var apiKeyConfigKey = "kavitaApiKey";
-  var jwtTokenConfigKey = "kavitaJwtToken";
-  var refresshTokenConfigKey = "kavitaRefreshToken";
-  var SettingsProvider2 = class {
-    constructor(extension) {
-      this.extension = extension;
-      this.apiUrlState = new State(apiUrlConfigKey, "");
-      this.apiKeyState = new State(apiKeyConfigKey, "");
-      this.jwtTokenState = new State(jwtTokenConfigKey, "");
-      this.refreshTokenState = new State(refresshTokenConfigKey, "");
-    }
-    apiUrlState;
-    apiKeyState;
-    jwtTokenState;
-    refreshTokenState;
-    get ApiUrl() {
-      return this.apiUrlState;
-    }
-    get ApiKey() {
-      return this.apiKeyState;
-    }
-    get JwtToken() {
-      return this.jwtTokenState;
-    }
-    get RefreshToken() {
-      return this.refreshTokenState;
-    }
-    async getSettingsForm() {
-      return new KavitaSettingsForm(this);
-    }
-  };
-
   // src/Kappa/KavitaApi.ts
   init_buffer();
 
@@ -3261,184 +3093,322 @@ var source = (() => {
       this.extension = extension;
     }
     createUrlBuilder() {
-      return new URLBuilder(this.extension.settingsProvider.ApiUrl.value).addPath("api");
+      return new URLBuilder(
+        this.extension.settingsProvider.ApiUrl.value
+      ).addPath("api");
     }
     async testConnection() {
       try {
         const [response] = await Application.scheduleRequest({
           method: "POST",
-          url: this.createUrlBuilder().addPath("Plugin").addPath("authenticate").addQuery("apiKey", this.extension.settingsProvider.ApiKey.value).addQuery("pluginName", "KappaPaperback").build(),
+          url: this.createUrlBuilder().addPath("Plugin").addPath("authenticate").addQuery(
+            "apiKey",
+            this.extension.settingsProvider.ApiKey.value
+          ).addQuery("pluginName", "KappaPaperback").build(),
           headers: {
             "Content-Type": "application/json",
-            "Accept": "application/json"
+            Accept: "application/json"
           }
         });
         if (response.status !== 200) {
-          return Promise.reject(new Error("Failed to connect to Kavita API"));
+          return Promise.reject(
+            new Error("Failed to connect to Kavita API")
+          );
         }
         return Promise.resolve();
       } catch (error) {
-        return Promise.reject(error);
+        return Promise.reject(
+          new Error("Failed to test connection", {
+            cause: error
+          })
+        );
       }
     }
     async search(query) {
       try {
         console.log("Searching for: " + query);
-        const [response, dto] = await this.sendRequest({
+        const [, dto] = await this.sendRequest({
           method: "GET",
           url: this.createUrlBuilder().addPath("Search").addPath("search").addQuery("queryString", query).build()
         });
         return Promise.resolve(dto);
       } catch (error) {
-        return Promise.reject(error);
+        return Promise.reject(
+          new Error("Failed to search", {
+            cause: error
+          })
+        );
       }
     }
     async getMangaDetails(mangaId) {
       try {
-        const [response, dto] = await this.sendRequest({
+        const [, dto] = await this.sendRequest({
           method: "GET",
           url: this.createUrlBuilder().addPath("Series").addPath(mangaId).build()
         });
         return Promise.resolve(dto);
       } catch (error) {
-        return Promise.reject(error);
+        return Promise.reject(
+          new Error("Failed to get manga details", {
+            cause: error
+          })
+        );
       }
     }
     async getMangaMetadata(mangaId) {
       try {
-        const [response, dto] = await this.sendRequest({
+        const [, dto] = await this.sendRequest({
           method: "GET",
           url: this.createUrlBuilder().addPath("Series").addPath("metadata").addQuery("seriesId", mangaId).build()
         });
         return Promise.resolve(dto);
       } catch (error) {
-        return Promise.reject(error);
+        return Promise.reject(
+          new Error("Failed to get manga metadata", {
+            cause: error
+          })
+        );
       }
     }
     async getMangaVolumes(mangaId) {
       try {
-        const [response, dto] = await this.sendRequest({
+        const [, dto] = await this.sendRequest({
           method: "GET",
           url: this.createUrlBuilder().addPath("Series").addPath("volumes").addQuery("seriesId", mangaId).build()
         });
         return Promise.resolve(dto);
       } catch (error) {
-        return Promise.reject(error);
+        return Promise.reject(
+          new Error("Failed to get manga volumes", {
+            cause: error
+          })
+        );
       }
     }
     async getChapterDetails(chapterId) {
       try {
-        const [response, dto] = await this.sendRequest({
+        const [, dto] = await this.sendRequest({
           method: "GET",
           url: this.createUrlBuilder().addPath("Series").addPath("chapter").addQuery("chapterId", chapterId).build()
         });
         return Promise.resolve(dto);
       } catch (error) {
-        return Promise.reject(error);
+        return Promise.reject(
+          new Error("Failed to get chapter details", {
+            cause: error
+          })
+        );
       }
     }
     async getOnDeck() {
       try {
-        const [response, dto] = await this.sendRequest({
+        const [, dto] = await this.sendRequest({
           method: "POST",
           url: this.createUrlBuilder().addPath("Series").addPath("on-deck").addQuery("PageNumber", "1").addQuery("PageSize", "10").build()
         });
         return Promise.resolve(dto);
       } catch (error) {
-        return Promise.reject(error);
+        return Promise.reject(
+          new Error("Failed to get on deck", {
+            cause: error
+          })
+        );
       }
     }
     async getRecentlyUpdated() {
       try {
-        const [response, dto] = await this.sendRequest({
+        const [, dto] = await this.sendRequest({
           method: "POST",
           body: {},
           url: this.createUrlBuilder().addPath("Series").addPath("recently-updated-series").build()
         });
         return Promise.resolve(dto);
       } catch (error) {
-        return Promise.reject(error);
+        return Promise.reject(
+          new Error("Failed to get recently updated", {
+            cause: error
+          })
+        );
       }
     }
     async getNewlyAdded() {
       try {
-        const [response, dto] = await this.sendRequest({
+        const [, dto] = await this.sendRequest({
           method: "POST",
           body: {},
           headers: {
             "Content-Type": "application/json",
-            "Accept": "application/json"
+            Accept: "application/json"
           },
           url: this.createUrlBuilder().addPath("Series").addPath("recently-added-v2").addQuery("PageNumber", "1").addQuery("PageSize", "10").build()
         });
         return Promise.resolve(dto);
       } catch (error) {
-        return Promise.reject(error);
+        return Promise.reject(
+          new Error("Failed to get newly added", {
+            cause: error
+          })
+        );
+      }
+    }
+    async getContinuePoint(mangaId) {
+      try {
+        const [, dto] = await this.sendRequest({
+          method: "GET",
+          url: this.createUrlBuilder().addPath("reader").addPath("continue-point").addQuery("seriesId", mangaId).build()
+        });
+        return dto;
+      } catch (error) {
+        return Promise.reject(
+          new Error("Failed to get continue point", {
+            cause: error
+          })
+        );
+      }
+    }
+    async getHasProgress(mangaId) {
+      try {
+        const [, content] = await this.sendPlainTextRequest({
+          method: "GET",
+          url: this.createUrlBuilder().addPath("reader").addPath("has-progress").addQuery("seriesId", mangaId).build()
+        });
+        return content === "true" ? true : false;
+      } catch (error) {
+        return Promise.reject(
+          new Error("Failed to get has progress", {
+            cause: error
+          })
+        );
+      }
+    }
+    async setProgress(data) {
+      try {
+        const [response] = await this.sendPlainTextRequest({
+          method: "POST",
+          body: data,
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json"
+          },
+          url: this.createUrlBuilder().addPath("reader").addPath("progress").build()
+        });
+        if (response.status !== 200) {
+          return Promise.reject(
+            new Error(
+              "Failed to set progress, status code: " + response.status
+            )
+          );
+        }
+        return true;
+      } catch (error) {
+        return Promise.reject(
+          new Error("Failed to set progress", {
+            cause: error
+          })
+        );
       }
     }
     async authenticate() {
       try {
         const [response, buffer] = await Application.scheduleRequest({
           method: "POST",
-          url: this.createUrlBuilder().addPath("Plugin").addPath("authenticate").addQuery("apiKey", this.extension.settingsProvider.ApiKey.value).addQuery("pluginName", "KappaPaperback").build(),
+          url: this.createUrlBuilder().addPath("Plugin").addPath("authenticate").addQuery(
+            "apiKey",
+            this.extension.settingsProvider.ApiKey.value
+          ).addQuery("pluginName", "KappaPaperback").build(),
           headers: {
             "Content-Type": "application/json",
-            "Accept": "application/json"
+            Accept: "application/json"
           }
         });
         if (response.status !== 200) {
-          return Promise.reject(new Error("Failed to authenticate with Kavita API: " + response.status));
+          return Promise.reject(
+            new Error(
+              "Failed to authenticate with Kavita API: " + response.status
+            )
+          );
         }
         const content = Application.arrayBufferToUTF8String(buffer);
         const dto = JSON.parse(content);
         if (!dto) {
-          return Promise.reject(new Error("Failed to parse response from Kavita API"));
+          return Promise.reject(
+            new Error("Failed to parse response from Kavita API")
+          );
         }
         if (!dto.token || !dto.refreshToken) {
-          return Promise.reject(new Error("Invalid response from Kavita API"));
+          return Promise.reject(
+            new Error("Invalid response from Kavita API")
+          );
         }
         this.extension.settingsProvider.JwtToken.updateValue(dto.token);
-        this.extension.settingsProvider.RefreshToken.updateValue(dto.refreshToken);
+        this.extension.settingsProvider.RefreshToken.updateValue(
+          dto.refreshToken
+        );
         return Promise.resolve();
       } catch (error) {
-        console.log("Failed to send authentication request: " + error);
-        return Promise.reject(error);
+        return Promise.reject(
+          new Error("Failed to authenticate", {
+            cause: error
+          })
+        );
       }
     }
     async refreshToken() {
       try {
-        return this.sendRequest({
-          method: "POST",
-          url: this.createUrlBuilder().addPath("Account").addPath("refresh-token").build(),
-          headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
+        return this.sendRequest(
+          {
+            method: "POST",
+            url: this.createUrlBuilder().addPath("Account").addPath("refresh-token").build(),
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json"
+            },
+            body: {
+              token: this.extension.settingsProvider.JwtToken.value,
+              refreshToken: this.extension.settingsProvider.RefreshToken.value
+            }
           },
-          body: {
-            token: this.extension.settingsProvider.JwtToken.value,
-            refreshToken: this.extension.settingsProvider.RefreshToken.value
-          }
-        }, false).then(([response, dto]) => {
+          false
+        ).then(([response, dto]) => {
           if (response.status !== 200) {
-            return Promise.reject(new Error("Failed to refresh token, status code: " + response.status));
+            return Promise.reject(
+              new Error(
+                "Failed to refresh token, status code: " + response.status
+              )
+            );
           }
           if (dto === void 0) {
-            return Promise.reject(new Error("Failed to parse response from Kavita API"));
+            return Promise.reject(
+              new Error(
+                "Failed to parse response from Kavita API"
+              )
+            );
           }
           if (!dto.token || !dto.refreshToken) {
-            return Promise.reject(new Error("Invalid response from Kavita API"));
+            return Promise.reject(
+              new Error("Invalid response from Kavita API")
+            );
           }
-          this.extension.settingsProvider.JwtToken.updateValue(dto.token);
-          this.extension.settingsProvider.RefreshToken.updateValue(dto.refreshToken);
+          this.extension.settingsProvider.JwtToken.updateValue(
+            dto.token
+          );
+          this.extension.settingsProvider.RefreshToken.updateValue(
+            dto.refreshToken
+          );
           return Promise.resolve();
         }).catch((error) => {
-          console.log("Failed to refresh token: " + error);
-          console.log(error);
-          return Promise.reject(error);
+          return Promise.reject(
+            new Error("Failed to refresh token", {
+              cause: error
+            })
+          );
         });
       } catch (error) {
-        console.log("Failed to send refresh token request: " + error);
-        return Promise.reject(error);
+        return Promise.reject(
+          new Error("Failed to refresh token", {
+            cause: error
+          })
+        );
       }
     }
     createAuthRequest(request, withAuth = true) {
@@ -3450,7 +3420,7 @@ var source = (() => {
         headers: {
           ...request.headers,
           ...withAuth ? {
-            "Authorization": `Bearer ${this.extension.settingsProvider.JwtToken.value}`
+            Authorization: `Bearer ${this.extension.settingsProvider.JwtToken.value}`
           } : {}
         }
       };
@@ -3494,6 +3464,35 @@ var source = (() => {
       const base64 = base64url.replace(/-/g, "+").replace(/_/g, "/");
       return Buffer2.from(base64, "base64");
     }
+    async sendPlainTextRequest(request, withAuth = true) {
+      try {
+        if (withAuth && this.needsRefresh()) {
+          console.log("Token needs refresh, refreshing...");
+          await this.refreshToken();
+        }
+        if (withAuth && this.needsAuth()) {
+          console.log("No auth token, authenticating...");
+          await this.authenticate();
+        }
+        const authRequest = this.createAuthRequest(request, withAuth);
+        const [response, buffer] = await Application.scheduleRequest(authRequest);
+        if (response.status === 401) {
+          throw Error("Token expired");
+        }
+        if (response.status !== 200) {
+          console.log("Failed with status code: " + response.status);
+          return [response, void 0];
+        }
+        const content = Application.arrayBufferToUTF8String(buffer);
+        return [response, content];
+      } catch (error) {
+        return Promise.reject(
+          new Error("Failed to send request", {
+            cause: error
+          })
+        );
+      }
+    }
     async sendRequest(request, withAuth = true) {
       try {
         if (withAuth && this.needsRefresh()) {
@@ -3521,14 +3520,264 @@ var source = (() => {
         }
         return [response, dto];
       } catch (error) {
-        return Promise.reject(error);
+        return Promise.reject(
+          new Error("Failed to send request", {
+            cause: error
+          })
+        );
       }
+    }
+  };
+
+  // src/Kappa/providers/ChapterProvider.ts
+  init_buffer();
+  var ChapterProvider = class {
+    constructor(extension) {
+      this.extension = extension;
+    }
+    getChapters(sourceManga) {
+      return this.extension.kavitaApi.getMangaVolumes(sourceManga.mangaId).then((dto) => {
+        if (dto === void 0) {
+          return Promise.reject(new Error("Unable to get chapters"));
+        }
+        if (dto.length === 0) {
+          return [];
+        }
+        const chapters = [];
+        dto.forEach((volumne) => {
+          volumne.chapters?.forEach((chapter) => {
+            chapters.push({
+              sourceManga,
+              title: chapter.title ?? void 0,
+              creationDate: chapter.createdUtc ? new Date(chapter.createdUtc) : void 0,
+              publishDate: chapter.releaseDate ? new Date(chapter.releaseDate) : void 0,
+              chapterId: chapter.id.toString(),
+              langCode: chapter.language ?? "EN",
+              chapNum: chapter.minNumber,
+              additionalInfo: {
+                pages: chapter.pages.toString(),
+                pagesRead: chapter.pagesRead.toString(),
+                volumeId: chapter.volumeId.toString()
+              }
+            });
+          });
+        });
+        return chapters;
+      }).catch((error) => {
+        return Promise.reject(
+          new Error("Failed to get chapters", {
+            cause: error
+          })
+        );
+      });
+    }
+    getChapterDetails(chapter) {
+      return this.extension.kavitaApi.getChapterDetails(chapter.chapterId).then((dto) => {
+        if (dto === void 0) {
+          return Promise.reject(
+            new Error("Unable to get chapter details")
+          );
+        }
+        if (dto.pages === void 0) {
+          return Promise.reject(
+            new Error("Unable to get chapter pages")
+          );
+        }
+        const pages = [];
+        for (let i = 0; i < dto.pages; i++) {
+          pages.push(
+            new URLBuilder(
+              this.extension.settingsProvider.ApiUrl.value
+            ).addPath("api").addPath("Reader").addPath("image").addQuery("chapterId", chapter.chapterId).addQuery("page", i.toString()).addQuery(
+              "apiKey",
+              this.extension.settingsProvider.ApiKey.value
+            ).build()
+          );
+        }
+        return {
+          id: chapter.chapterId,
+          mangaId: chapter.sourceManga.mangaId,
+          pages
+        };
+      }).catch((error) => {
+        return Promise.reject(
+          new Error("Failed to get chapter details", {
+            cause: error
+          })
+        );
+      });
+    }
+    processTitlesForUpdates() {
+      throw new Error("Method not implemented.");
+    }
+    getMangaDetails() {
+      throw new Error("Method not implemented.");
+    }
+  };
+
+  // src/Kappa/providers/MangaProvider.ts
+  init_buffer();
+  var import_types = __toESM(require_lib(), 1);
+  var MangaProvider = class {
+    constructor(extension) {
+      this.extension = extension;
+    }
+    getMangaDetails(mangaId) {
+      return Promise.all([
+        this.extension.kavitaApi.getMangaDetails(mangaId),
+        this.extension.kavitaApi.getMangaMetadata(mangaId)
+      ]).then(([dto, metadata]) => {
+        if (!dto || !metadata) {
+          return Promise.reject(
+            new Error("Unable to get manga details")
+          );
+        }
+        const manga = {
+          mangaId,
+          mangaInfo: this.createMangaInfo(dto, metadata)
+        };
+        return manga;
+      }).catch((error) => {
+        return Promise.reject(
+          new Error("Failed to get manga details", {
+            cause: error
+          })
+        );
+      });
+    }
+    createMangaInfo(details, metadata) {
+      return {
+        primaryTitle: details.name,
+        secondaryTitles: this.toStringArray(
+          details.originalName,
+          details.localizedName
+        ),
+        synopsis: metadata.summary,
+        contentRating: import_types.ContentRating.EVERYONE,
+        additionalInfo: {
+          libraryId: details.libraryId.toString()
+        },
+        thumbnailUrl: new URLBuilder(
+          this.extension.settingsProvider.ApiUrl.value
+        ).addPath("api").addPath("image").addPath("series-cover").addQuery("seriesId", details.id.toString()).addQuery(
+          "apiKey",
+          this.extension.settingsProvider.ApiKey.value
+        ).build()
+      };
+    }
+    toStringArray(...args) {
+      return args.filter(
+        (arg) => arg !== null && arg !== void 0
+      );
+    }
+  };
+
+  // src/Kappa/providers/ProgressProvider.ts
+  init_buffer();
+
+  // src/Kappa/forms/KavitaProgressForm.ts
+  init_buffer();
+  var import_types2 = __toESM(require_lib(), 1);
+  var KavitaProgressForm = class extends import_types2.Form {
+    constructor(progressProvider, sourceManga) {
+      super();
+      this.progressProvider = progressProvider;
+      this.sourceManga = sourceManga;
+    }
+    getSections() {
+      return [this.getPlaceholderSection()];
+    }
+    getPlaceholderSection() {
+      return (0, import_types2.Section)("placeholderSection", [
+        (0, import_types2.LabelRow)("placeholderLabel", {
+          title: "This has not been implemented yet!",
+          subtitle: "Please come back later"
+        })
+      ]);
+    }
+  };
+
+  // src/Kappa/providers/ProgressProvider.ts
+  var ProgressProvider = class {
+    constructor(extension) {
+      this.extension = extension;
+    }
+    getMangaProgressManagementForm(sourceManga) {
+      return Promise.resolve(new KavitaProgressForm(this, sourceManga));
+    }
+    getMangaProgress(sourceManga) {
+      return this.extension.kavitaApi.getContinuePoint(sourceManga.mangaId).then((chapter) => {
+        if (chapter === void 0) {
+          return Promise.reject(
+            new Error("Failed to get manga progress")
+          );
+        }
+        return Promise.resolve({
+          sourceManga,
+          lastReadChapter: {
+            chapterId: chapter.id.toString(),
+            sourceManga,
+            title: chapter.title ?? void 0,
+            creationDate: chapter.createdUtc ? new Date(chapter.createdUtc) : void 0,
+            publishDate: chapter.releaseDate ? new Date(chapter.releaseDate) : void 0,
+            langCode: chapter.language ?? "EN",
+            chapNum: chapter.minNumber,
+            additionalInfo: {
+              pages: chapter.pages.toString(),
+              pagesRead: chapter.pagesRead.toString(),
+              volumeId: chapter.volumeId.toString()
+            }
+          }
+        });
+      }).catch((error) => {
+        return Promise.reject(
+          new Error("Failed to get manga progress", {
+            cause: error
+          })
+        );
+      });
+    }
+    async processChapterReadActionQueue(actions) {
+      const successfulItems = [];
+      const failedItems = [];
+      for (const action of actions) {
+        const mangaId = action.sourceManga.mangaId;
+        const chapterId = action.readChapter.chapterId;
+        await this.extension.kavitaApi.setProgress({
+          libraryId: parseInt(
+            action.sourceManga.mangaInfo.additionalInfo.libraryId
+          ),
+          seriesId: parseInt(mangaId),
+          volumeId: parseInt(
+            action.readChapter.additionalInfo.volumeId
+          ),
+          chapterId: parseInt(chapterId),
+          pageNum: parseInt(action.readChapter.additionalInfo.pages)
+        }).then((success) => {
+          if (success) {
+            successfulItems.push(chapterId);
+          } else {
+            failedItems.push(chapterId);
+          }
+        }).catch((error) => {
+          console.log(
+            `Failed to set progress for ${mangaId} chapter ${chapterId}: ${error}`
+          );
+          failedItems.push(chapterId);
+        });
+      }
+      console.log(`Successful items: ${successfulItems.join(", ")}`);
+      console.log(`Failed items: ${failedItems.join(", ")}`);
+      return Promise.resolve({
+        successfulItems,
+        failedItems
+      });
     }
   };
 
   // src/Kappa/providers/SearchProvider.ts
   init_buffer();
-  var import_types2 = __toESM(require_lib(), 1);
+  var import_types3 = __toESM(require_lib(), 1);
   var SearchProvider = class {
     constructor(extension) {
       this.extension = extension;
@@ -3536,7 +3785,7 @@ var source = (() => {
     async getSearchFilters() {
       return Promise.resolve([]);
     }
-    async getSearchResults(query, metadata) {
+    async getSearchResults(query) {
       const result = await this.extension.kavitaApi.search(query.title);
       if (result == null) {
         return {
@@ -3565,107 +3814,13 @@ var source = (() => {
       return {
         title: item.name,
         mangaId: item.seriesId.toString(),
-        contentRating: import_types2.ContentRating.EVERYONE,
-        imageUrl: new URLBuilder(this.extension.settingsProvider.ApiUrl.value).addPath("api").addPath("image").addPath("series-cover").addQuery("seriesId", item.seriesId.toString()).addQuery("apiKey", this.extension.settingsProvider.ApiKey.value).build()
-      };
-    }
-  };
-
-  // src/Kappa/providers/ChapterProvider.ts
-  init_buffer();
-  var ChapterProvider = class {
-    constructor(extension) {
-      this.extension = extension;
-    }
-    getChapters(sourceManga, sinceDate) {
-      return this.extension.kavitaApi.getMangaVolumes(sourceManga.mangaId).then((dto) => {
-        if (dto === void 0) {
-          return Promise.reject(new Error("Unable to get chapters"));
-        }
-        if (dto.length === 0) {
-          return [];
-        }
-        const chapters = [];
-        dto.forEach((volumne) => {
-          volumne.chapters?.forEach((chapter) => {
-            chapters.push({
-              sourceManga,
-              title: chapter.title ?? void 0,
-              creationDate: chapter.createdUtc ? new Date(chapter.createdUtc) : void 0,
-              publishDate: chapter.releaseDate ? new Date(chapter.releaseDate) : void 0,
-              chapterId: chapter.id.toString(),
-              langCode: chapter.language ?? "EN",
-              chapNum: chapter.minNumber
-            });
-          });
-        });
-        return chapters;
-      }).catch((error) => {
-        console.error("Error fetching chapters: " + error);
-        return Promise.reject(error);
-      });
-    }
-    getChapterDetails(chapter) {
-      return this.extension.kavitaApi.getChapterDetails(chapter.chapterId).then((dto) => {
-        if (dto === void 0) {
-          return Promise.reject(new Error("Unable to get chapter details"));
-        }
-        if (dto.pages === void 0) {
-          return Promise.reject(new Error("Unable to get chapter pages"));
-        }
-        const pages = [];
-        for (let i = 0; i < dto.pages; i++) {
-          pages.push(new URLBuilder(this.extension.settingsProvider.ApiUrl.value).addPath("api").addPath("Reader").addPath("image").addQuery("chapterId", chapter.chapterId).addQuery("page", i.toString()).addQuery("apiKey", this.extension.settingsProvider.ApiKey.value).build());
-        }
-        return {
-          id: chapter.chapterId,
-          mangaId: chapter.sourceManga.mangaId,
-          pages
-        };
-      }).catch((error) => {
-        console.error("Error fetching chapter details: " + error);
-        return Promise.reject(error);
-      });
-    }
-    processTitlesForUpdates(updateManager, lastUpdateDate) {
-      throw new Error("Method not implemented.");
-    }
-    getMangaDetails(mangaId) {
-      throw new Error("Method not implemented.");
-    }
-  };
-
-  // src/Kappa/providers/MangaProvider.ts
-  init_buffer();
-  var import_types3 = __toESM(require_lib(), 1);
-  var MangaProvider = class {
-    constructor(extension) {
-      this.extension = extension;
-    }
-    getMangaDetails(mangaId) {
-      return Promise.all([
-        this.extension.kavitaApi.getMangaDetails(mangaId),
-        this.extension.kavitaApi.getMangaMetadata(mangaId)
-      ]).then(([dto, metadata]) => {
-        if (!dto || !metadata) {
-          return Promise.reject(new Error("Unable to get manga details"));
-        }
-        const manga = {
-          mangaId,
-          mangaInfo: this.createMangaInfo(dto, metadata)
-        };
-        return manga;
-      }).catch((error) => {
-        return error;
-      });
-    }
-    createMangaInfo(details, metadata) {
-      return {
-        primaryTitle: details.name,
-        secondaryTitles: [],
-        synopsis: metadata.summary,
         contentRating: import_types3.ContentRating.EVERYONE,
-        thumbnailUrl: new URLBuilder(this.extension.settingsProvider.ApiUrl.value).addPath("api").addPath("image").addPath("series-cover").addQuery("seriesId", details.id.toString()).addQuery("apiKey", this.extension.settingsProvider.ApiKey.value).build()
+        imageUrl: new URLBuilder(
+          this.extension.settingsProvider.ApiUrl.value
+        ).addPath("api").addPath("image").addPath("series-cover").addQuery("seriesId", item.seriesId.toString()).addQuery(
+          "apiKey",
+          this.extension.settingsProvider.ApiKey.value
+        ).build()
       };
     }
   };
@@ -3696,7 +3851,7 @@ var source = (() => {
         }
       ];
     }
-    async getDiscoverSectionItems(section, metadata) {
+    async getDiscoverSectionItems(section) {
       if (section.id === "onDeck") {
         return await this.getOnDeck();
       } else if (section.id === "recentlyUpdated") {
@@ -3719,21 +3874,31 @@ var source = (() => {
             mangaId: item.id.toString(),
             title: item.name,
             contentRating: import_types4.ContentRating.EVERYONE,
-            imageUrl: new URLBuilder(this.extension.settingsProvider.ApiUrl.value).addPath("api").addPath("image").addPath("series-cover").addQuery("seriesId", item.id.toString()).addQuery("apiKey", this.extension.settingsProvider.ApiKey.value).build()
+            imageUrl: new URLBuilder(
+              this.extension.settingsProvider.ApiUrl.value
+            ).addPath("api").addPath("image").addPath("series-cover").addQuery("seriesId", item.id.toString()).addQuery(
+              "apiKey",
+              this.extension.settingsProvider.ApiKey.value
+            ).build()
           });
         });
         return {
           items
         };
       }).catch((error) => {
-        console.error("Error fetching on deck: " + error);
-        return Promise.reject(error);
+        return Promise.reject(
+          new Error("Failed to get on deck", {
+            cause: error
+          })
+        );
       });
     }
     async getRecentlyUpdated() {
       return await this.extension.kavitaApi.getRecentlyUpdated().then((dto) => {
         if (dto === void 0) {
-          return Promise.reject(new Error("Unable to get recently updated"));
+          return Promise.reject(
+            new Error("Unable to get recently updated")
+          );
         }
         const items = [];
         dto.forEach((item) => {
@@ -3744,21 +3909,31 @@ var source = (() => {
             publishDate: item.created ? new Date(item.created) : void 0,
             title: item.seriesName,
             contentRating: import_types4.ContentRating.EVERYONE,
-            imageUrl: new URLBuilder(this.extension.settingsProvider.ApiUrl.value).addPath("api").addPath("image").addPath("series-cover").addQuery("seriesId", item.seriesId.toString()).addQuery("apiKey", this.extension.settingsProvider.ApiKey.value).build()
+            imageUrl: new URLBuilder(
+              this.extension.settingsProvider.ApiUrl.value
+            ).addPath("api").addPath("image").addPath("series-cover").addQuery("seriesId", item.seriesId.toString()).addQuery(
+              "apiKey",
+              this.extension.settingsProvider.ApiKey.value
+            ).build()
           });
         });
         return {
           items
         };
       }).catch((error) => {
-        console.error("Error fetching recently updated: " + error);
-        return Promise.reject(error);
+        return Promise.reject(
+          new Error("Failed to get recently updated", {
+            cause: error
+          })
+        );
       });
     }
     async getNewlyAdded() {
       return await this.extension.kavitaApi.getNewlyAdded().then((dto) => {
         if (dto === void 0) {
-          return Promise.reject(new Error("Unable to get newly added"));
+          return Promise.reject(
+            new Error("Unable to get newly added")
+          );
         }
         const items = [];
         dto.forEach((item) => {
@@ -3767,16 +3942,200 @@ var source = (() => {
             mangaId: item.id.toString(),
             title: item.name,
             contentRating: import_types4.ContentRating.EVERYONE,
-            imageUrl: new URLBuilder(this.extension.settingsProvider.ApiUrl.value).addPath("api").addPath("image").addPath("series-cover").addQuery("seriesId", item.id.toString()).addQuery("apiKey", this.extension.settingsProvider.ApiKey.value).build()
+            imageUrl: new URLBuilder(
+              this.extension.settingsProvider.ApiUrl.value
+            ).addPath("api").addPath("image").addPath("series-cover").addQuery("seriesId", item.id.toString()).addQuery(
+              "apiKey",
+              this.extension.settingsProvider.ApiKey.value
+            ).build()
           });
         });
         return {
           items
         };
       }).catch((error) => {
-        console.error("Error fetching newly added: " + error);
-        return Promise.reject(error);
+        return Promise.reject(
+          new Error("Failed to get newly added", {
+            cause: error
+          })
+        );
       });
+    }
+  };
+
+  // src/Kappa/providers/SettingsProvider.ts
+  init_buffer();
+
+  // src/Kappa/forms/KavitaSettingsForm.ts
+  init_buffer();
+  var import_types5 = __toESM(require_lib(), 1);
+
+  // src/Kappa/utils/FormState.ts
+  init_buffer();
+  var FormState = class {
+    constructor(form, persistKey, value) {
+      this.form = form;
+      this.persistKey = persistKey;
+      this._value = value;
+    }
+    _value;
+    get value() {
+      return this._value;
+    }
+    /**
+     * Returns selector for binding to form elements
+     */
+    get selector() {
+      return Application.Selector(this, "updateValue");
+    }
+    /**
+     * Updates state value, persists it, and refreshes the form
+     */
+    async updateValue(value) {
+      this._value = value;
+      Application.setState(value, this.persistKey);
+      this.form.reloadForm();
+    }
+  };
+
+  // src/Kappa/forms/KavitaSettingsForm.ts
+  var KavitaSettingsForm = class extends import_types5.Form {
+    testState = 0 /* Undefined */;
+    settingsProvider;
+    apiUrlState;
+    apiKeyState;
+    constructor(settingsProvider) {
+      super();
+      this.settingsProvider = settingsProvider;
+      this.apiUrlState = new FormState(
+        this,
+        apiUrlConfigKey,
+        this.settingsProvider.ApiUrl.value
+      );
+      this.apiKeyState = new FormState(
+        this,
+        apiKeyConfigKey,
+        this.settingsProvider.ApiKey.value
+      );
+    }
+    getSections() {
+      const sections = [this.createConnectionSettings()];
+      return sections;
+    }
+    createConnectionSettings() {
+      let testButtonTitle = "Test";
+      switch (this.testState) {
+        case 1 /* Testing */:
+          testButtonTitle = "Testing...";
+          break;
+        case 2 /* Success */:
+          testButtonTitle = "Success!";
+          break;
+        case 3 /* Failed */:
+          testButtonTitle = "Failed!";
+          break;
+        default:
+          testButtonTitle = "Test";
+          break;
+      }
+      return (0, import_types5.Section)("connectionSettings", [
+        (0, import_types5.LabelRow)("connectionSettingsLabel", {
+          title: "Connection Settings",
+          subtitle: "Configure your Kavita connection settings"
+        }),
+        (0, import_types5.InputRow)("apiUrlInput", {
+          title: "Kavita URL",
+          value: this.apiUrlState.value,
+          onValueChange: this.apiUrlState.selector
+        }),
+        (0, import_types5.InputRow)("apiKeyInput", {
+          title: "Kavita API Key",
+          value: this.apiKeyState.value,
+          onValueChange: this.apiKeyState.selector
+        }),
+        (0, import_types5.ButtonRow)("testButton", {
+          title: testButtonTitle,
+          onSelect: Application.Selector(
+            this,
+            "onTest"
+          )
+        })
+      ]);
+    }
+    async onTest() {
+      try {
+        this.testState = 1 /* Testing */;
+        this.reloadForm();
+        await this.settingsProvider.extension.kavitaApi.testConnection().then(async () => {
+          this.testState = 2 /* Success */;
+          this.reloadForm();
+        }).catch((error) => {
+          this.testState = 3 /* Failed */;
+          this.reloadForm();
+          throw error;
+        });
+      } catch (error) {
+        this.testState = 3 /* Failed */;
+        this.reloadForm();
+        throw error;
+      }
+    }
+  };
+
+  // src/Kappa/utils/State.ts
+  init_buffer();
+
+  // src/Kappa/utils/GetState.ts
+  init_buffer();
+  function getState(key, defaultValue) {
+    return Application.getState(key) ?? defaultValue;
+  }
+
+  // src/Kappa/utils/State.ts
+  var State = class {
+    constructor(persistKey, defaultValue) {
+      this.persistKey = persistKey;
+      this.defaultValue = defaultValue;
+    }
+    get value() {
+      return getState(this.persistKey, this.defaultValue);
+    }
+    updateValue(value) {
+      Application.setState(value, this.persistKey);
+    }
+  };
+
+  // src/Kappa/providers/SettingsProvider.ts
+  var apiUrlConfigKey = "kavitaApiUrl";
+  var apiKeyConfigKey = "kavitaApiKey";
+  var jwtTokenConfigKey = "kavitaJwtToken";
+  var refresshTokenConfigKey = "kavitaRefreshToken";
+  var SettingsProvider2 = class {
+    constructor(extension) {
+      this.extension = extension;
+      this.apiUrlState = new State(apiUrlConfigKey, "");
+      this.apiKeyState = new State(apiKeyConfigKey, "");
+      this.jwtTokenState = new State(jwtTokenConfigKey, "");
+      this.refreshTokenState = new State(refresshTokenConfigKey, "");
+    }
+    apiUrlState;
+    apiKeyState;
+    jwtTokenState;
+    refreshTokenState;
+    get ApiUrl() {
+      return this.apiUrlState;
+    }
+    get ApiKey() {
+      return this.apiKeyState;
+    }
+    get JwtToken() {
+      return this.jwtTokenState;
+    }
+    get RefreshToken() {
+      return this.refreshTokenState;
+    }
+    async getSettingsForm() {
+      return new KavitaSettingsForm(this);
     }
   };
 
@@ -3784,6 +4143,7 @@ var source = (() => {
   var KappaExtension = class {
     chatperProvider;
     mangaProvider;
+    progressProvider;
     searchProvider;
     sectionProvider;
     settingsProvider;
@@ -3791,34 +4151,47 @@ var source = (() => {
     constructor() {
       this.chatperProvider = new ChapterProvider(this);
       this.mangaProvider = new MangaProvider(this);
+      this.progressProvider = new ProgressProvider(this);
       this.searchProvider = new SearchProvider(this);
       this.sectionProvider = new SectionProvider(this);
       this.settingsProvider = new SettingsProvider2(this);
       this.kavitaApi = new KavitaApi(this);
     }
+    getMangaProgressManagementForm(sourceManga) {
+      return this.progressProvider.getMangaProgressManagementForm(
+        sourceManga
+      );
+    }
+    getMangaProgress(sourceManga) {
+      return this.progressProvider.getMangaProgress(sourceManga);
+    }
+    processChapterReadActionQueue(actions) {
+      console.log("[processChapterReadActionQueue] entered");
+      return this.progressProvider.processChapterReadActionQueue(actions);
+    }
     getDiscoverSections() {
       return this.sectionProvider.getDiscoverSections();
     }
-    getDiscoverSectionItems(section, metadata) {
-      return this.sectionProvider.getDiscoverSectionItems(section, metadata);
+    getDiscoverSectionItems(section) {
+      return this.sectionProvider.getDiscoverSectionItems(section);
     }
     getSettingsForm() {
       return this.settingsProvider.getSettingsForm();
     }
-    getChapters(sourceManga, sinceDate) {
-      return this.chatperProvider.getChapters(sourceManga, sinceDate);
+    getChapters(sourceManga) {
+      return this.chatperProvider.getChapters(sourceManga);
     }
     getChapterDetails(chapter) {
       return this.chatperProvider.getChapterDetails(chapter);
     }
-    processTitlesForUpdates(updateManager, lastUpdateDate) {
+    processTitlesForUpdates() {
       throw new Error("Method not implemented.");
     }
     getSearchFilters() {
       return this.searchProvider.getSearchFilters();
     }
-    getSearchResults(query, metadata) {
-      return this.searchProvider.getSearchResults(query, metadata);
+    getSearchResults(query) {
+      return this.searchProvider.getSearchResults(query);
     }
     getMangaDetails(mangaId) {
       return this.mangaProvider.getMangaDetails(mangaId);
