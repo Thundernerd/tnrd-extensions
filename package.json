@@ -5,8 +5,8 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "lint": "eslint --fix --cache --cache-location 'node_modules/.cache/eslint/.eslint-cache'",
-        "lint:check": "eslint --cache --cache-location 'node_modules/.cache/eslint/.eslint-cache'",
+        "lint": "eslint --fix --cache --cache-location node_modules/.cache/eslint/.eslint-cache",
+        "lint:check": "eslint --cache --cache-location node_modules/.cache/eslint/.eslint-cache",
         "format": "prettier --write '**/*{.md,.yml,.yaml,.json,.js,.ts}' --cache",
         "format:check": "prettier --check '**/*{.md,.yml,.yaml,.json,.js,.ts}' --cache",
         "tsc": "tsc --project tsconfig.json --noEmit",
