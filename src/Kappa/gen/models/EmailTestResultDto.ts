@@ -1,7 +1,7 @@
 /* generated using openapi-typescript-codegen -- do not edit */
 /* istanbul ignore file */
 /* tslint:disable */
- 
+
 /**
  * Represents if Test Email Service URL was successful or not and if any error occured
  */

@@ -1,7 +1,7 @@
 /* generated using openapi-typescript-codegen -- do not edit */
 /* istanbul ignore file */
 /* tslint:disable */
- 
+
 import type { ExternalSeriesDto } from "./ExternalSeriesDto";
 import type { SeriesDto } from "./SeriesDto";
 

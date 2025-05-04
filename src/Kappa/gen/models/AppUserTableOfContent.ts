@@ -1,7 +1,7 @@
 /* generated using openapi-typescript-codegen -- do not edit */
 /* istanbul ignore file */
 /* tslint:disable */
- 
+
 import type { AppUser } from "./AppUser";
 import type { Chapter } from "./Chapter";
 import type { Series } from "./Series";

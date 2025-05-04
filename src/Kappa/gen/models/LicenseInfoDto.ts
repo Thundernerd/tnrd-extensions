@@ -1,7 +1,7 @@
 /* generated using openapi-typescript-codegen -- do not edit */
 /* istanbul ignore file */
 /* tslint:disable */
- 
+
 export type LicenseInfoDto = {
     /**
      * If cancelled, will represent cancellation date. If not, will represent repayment date
