@@ -25,11 +25,31 @@ export class ChapterProvider implements ChapterProviding {
 
                 const chapters: Chapter[] = [];
 
-                dto.forEach((volumne) => {
-                    volumne.chapters?.forEach((chapter) => {
+                let absoluteChapterNumber = 1;
+
+                for (const volume of dto) {
+                    if (
+                        volume.chapters === undefined ||
+                        volume.chapters === null
+                    ) {
+                        continue;
+                    }
+                    for (const chapter of volume.chapters) {
+                        let chapterName = "";
+                        const chapterNumber = absoluteChapterNumber++;
+
+                        if (
+                            volume.minNumber === undefined ||
+                            volume.minNumber < 1
+                        ) {
+                            chapterName = `Chapter ${chapter.minNumber}`;
+                        } else {
+                            chapterName = `Volume ${volume.minNumber} Chapter ${chapter.minNumber}`;
+                        }
+
                         chapters.push({
                             sourceManga: sourceManga,
-                            title: chapter.title ?? undefined,
+                            title: chapterName,
                             creationDate: chapter.createdUtc
                                 ? new Date(chapter.createdUtc)
                                 : undefined,
@@ -38,15 +58,15 @@ export class ChapterProvider implements ChapterProviding {
                                 : undefined,
                             chapterId: chapter.id!.toString(),
                             langCode: chapter.language ?? "EN",
-                            chapNum: chapter.minNumber!,
+                            chapNum: chapterNumber,
                             additionalInfo: {
                                 pages: chapter.pages!.toString(),
                                 pagesRead: chapter.pagesRead!.toString(),
                                 volumeId: chapter.volumeId!.toString(),
                             },
                         });
-                    });
-                });
+                    }
+                }
 
                 return chapters;
             })
