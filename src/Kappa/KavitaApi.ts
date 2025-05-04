@@ -298,6 +298,9 @@ export class KavitaApi {
             });
 
             if (response.status !== 200) {
+                console.log(
+                    `Failed to set progress, status code: ${response.status}`,
+                );
                 return Promise.reject(
                     new Error(
                         "Failed to set progress, status code: " +
@@ -308,6 +311,9 @@ export class KavitaApi {
 
             return true;
         } catch (error) {
+            console.log(
+                `Failed to set progress: ${String(error)}; Data: ${JSON.stringify(data)}`,
+            );
             return Promise.reject(
                 new Error("Failed to set progress", {
                     cause: error,

@@ -15,48 +15,68 @@ export class ProgressProvider implements MangaProgressProviding {
     getMangaProgressManagementForm(sourceManga: SourceManga): Promise<Form> {
         return Promise.resolve(new KavitaProgressForm(this, sourceManga));
     }
-    getMangaProgress(
+
+    async getMangaProgress(
         sourceManga: SourceManga,
     ): Promise<MangaProgress | undefined> {
-        return this.extension.kavitaApi
-            .getContinuePoint(sourceManga.mangaId)
-            .then((chapter) => {
-                if (chapter === undefined) {
-                    return Promise.reject(
-                        new Error("Failed to get manga progress"),
-                    );
-                }
+        try {
+            const hasProgress = await this.extension.kavitaApi.getHasProgress(
+                sourceManga.mangaId,
+            );
+            if (hasProgress === undefined) {
+                return Promise.reject(
+                    new Error("Failed to get manga progress"),
+                );
+            }
 
+            const chapters =
+                await this.extension.chatperProvider.getChapters(sourceManga);
+
+            if (chapters === undefined) {
+                return Promise.reject(
+                    new Error("Failed to get manga progress"),
+                );
+            }
+
+            if (!hasProgress) {
                 return Promise.resolve({
                     sourceManga: sourceManga,
-                    lastReadChapter: {
-                        chapterId: chapter.id!.toString(),
-                        sourceManga: sourceManga,
-                        title: chapter.title ?? undefined,
-                        creationDate: chapter.createdUtc
-                            ? new Date(chapter.createdUtc)
-                            : undefined,
-                        publishDate: chapter.releaseDate
-                            ? new Date(chapter.releaseDate)
-                            : undefined,
-                        langCode: chapter.language ?? "EN",
-                        chapNum: chapter.minNumber!,
-                        additionalInfo: {
-                            pages: chapter.pages!.toString(),
-                            pagesRead: chapter.pagesRead!.toString(),
-                            volumeId: chapter.volumeId!.toString(),
-                        },
-                    },
+                    lastReadChapter: chapters[0],
                 });
-            })
-            .catch((error) => {
+            }
+
+            const dto = await this.extension.kavitaApi.getContinuePoint(
+                sourceManga.mangaId,
+            );
+
+            if (dto === undefined) {
                 return Promise.reject(
-                    new Error("Failed to get manga progress", {
-                        cause: error,
-                    }),
+                    new Error("Failed to get manga progress"),
                 );
+            }
+
+            const lastReadChapter = chapters.find(
+                (item) => item.chapterId == dto.id!.toString(),
+            );
+            if (lastReadChapter === undefined) {
+                return Promise.reject(
+                    new Error("Failed to get manga progress"),
+                );
+            }
+
+            return Promise.resolve({
+                sourceManga: sourceManga,
+                lastReadChapter: lastReadChapter,
             });
+        } catch (error) {
+            return Promise.reject(
+                new Error("Failed to get manga progress", {
+                    cause: error,
+                }),
+            );
+        }
     }
+
     async processChapterReadActionQueue(
         actions: TrackedMangaChapterReadAction[],
     ): Promise<ChapterReadActionQueueProcessingResult> {
