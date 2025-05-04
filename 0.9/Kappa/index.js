@@ -3293,6 +3293,9 @@ var source = (() => {
           url: this.createUrlBuilder().addPath("reader").addPath("progress").build()
         });
         if (response.status !== 200) {
+          console.log(
+            `Failed to set progress, status code: ${response.status}`
+          );
           return Promise.reject(
             new Error(
               "Failed to set progress, status code: " + response.status
@@ -3301,6 +3304,9 @@ var source = (() => {
         }
         return true;
       } catch (error) {
+        console.log(
+          `Failed to set progress: ${String(error)}; Data: ${JSON.stringify(data)}`
+        );
         return Promise.reject(
           new Error("Failed to set progress", {
             cause: error
@@ -3705,37 +3711,55 @@ var source = (() => {
     getMangaProgressManagementForm(sourceManga) {
       return Promise.resolve(new KavitaProgressForm(this, sourceManga));
     }
-    getMangaProgress(sourceManga) {
-      return this.extension.kavitaApi.getContinuePoint(sourceManga.mangaId).then((chapter) => {
-        if (chapter === void 0) {
+    async getMangaProgress(sourceManga) {
+      try {
+        const hasProgress = await this.extension.kavitaApi.getHasProgress(
+          sourceManga.mangaId
+        );
+        if (hasProgress === void 0) {
+          return Promise.reject(
+            new Error("Failed to get manga progress")
+          );
+        }
+        const chapters = await this.extension.chatperProvider.getChapters(sourceManga);
+        if (chapters === void 0) {
+          return Promise.reject(
+            new Error("Failed to get manga progress")
+          );
+        }
+        if (!hasProgress) {
+          return Promise.resolve({
+            sourceManga,
+            lastReadChapter: chapters[0]
+          });
+        }
+        const dto = await this.extension.kavitaApi.getContinuePoint(
+          sourceManga.mangaId
+        );
+        if (dto === void 0) {
+          return Promise.reject(
+            new Error("Failed to get manga progress")
+          );
+        }
+        const lastReadChapter = chapters.find(
+          (item) => item.chapterId == dto.id.toString()
+        );
+        if (lastReadChapter === void 0) {
           return Promise.reject(
             new Error("Failed to get manga progress")
           );
         }
         return Promise.resolve({
           sourceManga,
-          lastReadChapter: {
-            chapterId: chapter.id.toString(),
-            sourceManga,
-            title: chapter.title ?? void 0,
-            creationDate: chapter.createdUtc ? new Date(chapter.createdUtc) : void 0,
-            publishDate: chapter.releaseDate ? new Date(chapter.releaseDate) : void 0,
-            langCode: chapter.language ?? "EN",
-            chapNum: chapter.minNumber,
-            additionalInfo: {
-              pages: chapter.pages.toString(),
-              pagesRead: chapter.pagesRead.toString(),
-              volumeId: chapter.volumeId.toString()
-            }
-          }
+          lastReadChapter
         });
-      }).catch((error) => {
+      } catch (error) {
         return Promise.reject(
           new Error("Failed to get manga progress", {
             cause: error
           })
         );
-      });
+      }
     }
     async processChapterReadActionQueue(actions) {
       const successfulItems = [];
