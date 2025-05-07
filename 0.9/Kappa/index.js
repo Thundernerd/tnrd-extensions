@@ -2149,7 +2149,7 @@ var source = (() => {
         promise;
         currentRequestsMade = 0;
         lastReset = Date.now();
-        imageRegex = new RegExp(/\.(png|gif|jpeg|jpg|webp)(\?|$)/gi);
+        imageRegex = new RegExp(/\.(png|gif|jpeg|jpg|webp)(\?|$)/i);
         constructor(id, options) {
           super(id);
           this.options = options;
@@ -2978,6 +2978,15 @@ var source = (() => {
     }
   });
 
+  // node_modules/@paperback/types/lib/SortingOption.js
+  var require_SortingOption = __commonJS({
+    "node_modules/@paperback/types/lib/SortingOption.js"(exports) {
+      "use strict";
+      init_buffer();
+      Object.defineProperty(exports, "__esModule", { value: true });
+    }
+  });
+
   // node_modules/@paperback/types/lib/index.js
   var require_lib = __commonJS({
     "node_modules/@paperback/types/lib/index.js"(exports) {
@@ -3023,6 +3032,7 @@ var source = (() => {
       __exportStar(require_Tag(), exports);
       __exportStar(require_TagSection(), exports);
       __exportStar(require_TrackedMangaChapterReadAction(), exports);
+      __exportStar(require_SortingOption(), exports);
     }
   });
 
@@ -3246,6 +3256,56 @@ var source = (() => {
       } catch (error) {
         return Promise.reject(
           new Error("Failed to get newly added", {
+            cause: error
+          })
+        );
+      }
+    }
+    async getLibraries() {
+      try {
+        const [, dto] = await this.sendRequest({
+          method: "GET",
+          url: this.createUrlBuilder().addPath("Library").addPath("libraries").build()
+        });
+        return Promise.resolve(dto);
+      } catch (error) {
+        return Promise.reject(
+          new Error("Failed to get libraries", {
+            cause: error
+          })
+        );
+      }
+    }
+    async getLibrary(libraryId) {
+      try {
+        const [, dto] = await this.sendRequest({
+          method: "GET",
+          url: this.createUrlBuilder().addPath("Library").addPath("library").addQuery("libraryId", libraryId).build()
+        });
+        return Promise.resolve(dto);
+      } catch (error) {
+        return Promise.reject(
+          new Error("Failed to get library", {
+            cause: error
+          })
+        );
+      }
+    }
+    async getAllSeries(libraryId) {
+      try {
+        const [, dto] = await this.sendRequest({
+          method: "POST",
+          body: {},
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json"
+          },
+          url: this.createUrlBuilder().addPath("Series").addPath("all").addQuery("PageNumber", "1").addQuery("libraryId", libraryId).build()
+        });
+        return Promise.resolve(dto);
+      } catch (error) {
+        return Promise.reject(
+          new Error("Failed to get all series", {
             cause: error
           })
         );
@@ -3868,7 +3928,7 @@ var source = (() => {
       this.extension = extension;
     }
     async getDiscoverSections() {
-      return [
+      const basicSections = [
         {
           id: "onDeck",
           title: "On Deck",
@@ -3885,6 +3945,19 @@ var source = (() => {
           type: import_types4.DiscoverSectionType.simpleCarousel
         }
       ];
+      const libraries = await this.extension.kavitaApi.getLibraries();
+      if (libraries === void 0) {
+        return basicSections;
+      }
+      const filteredLibraries = libraries?.filter((l) => l !== void 0 && l.includeInDashboard).map((l) => this.convertLibraryToSection(l));
+      return [...basicSections, ...filteredLibraries];
+    }
+    convertLibraryToSection(library) {
+      return {
+        id: library.id.toString(),
+        title: library.name,
+        type: import_types4.DiscoverSectionType.simpleCarousel
+      };
     }
     async getDiscoverSectionItems(section) {
       if (section.id === "onDeck") {
@@ -3894,7 +3967,13 @@ var source = (() => {
       } else if (section.id === "newlyAdded") {
         return await this.getNewlyAdded();
       } else {
-        return Promise.reject(new Error("Unknown section"));
+        const series = await this.extension.kavitaApi.getAllSeries(
+          section.id
+        );
+        if (series === void 0) {
+          return Promise.reject(new Error("Unable to get series"));
+        }
+        return this.getLibrarySeries(series);
       }
     }
     async getOnDeck() {
@@ -3995,6 +4074,26 @@ var source = (() => {
           })
         );
       });
+    }
+    async getLibrarySeries(series) {
+      const items = [];
+      for (const item of series) {
+        items.push({
+          type: "simpleCarouselItem",
+          mangaId: item.id.toString(),
+          title: item.name,
+          contentRating: import_types4.ContentRating.EVERYONE,
+          imageUrl: new URLBuilder(
+            this.extension.settingsProvider.ApiUrl.value
+          ).addPath("api").addPath("image").addPath("series-cover").addQuery("seriesId", item.id.toString()).addQuery(
+            "apiKey",
+            this.extension.settingsProvider.ApiKey.value
+          ).build()
+        });
+      }
+      return {
+        items
+      };
     }
   };
 

@@ -1,8 +1,8 @@
 {
-  "buildTime": "2025-05-04T22:12:57.909Z",
+  "buildTime": "2025-05-07T08:26:09.837Z",
   "builtWith": {
-    "toolchain": "1.0.0-alpha.46",
-    "types": "1.0.0-alpha.46"
+    "toolchain": "1.0.0-alpha.51",
+    "types": "1.0.0-alpha.51"
   },
   "repository": {
     "name": "TNRD's Extensions (0.9)",
@@ -12,7 +12,7 @@
     {
       "name": "Kappa",
       "description": "Kavita extension for Paperback",
-      "version": "1.1.2",
+      "version": "1.2.0",
       "icon": "kappa.png",
       "language": "🇬🇧",
       "contentRating": "SAFE",
