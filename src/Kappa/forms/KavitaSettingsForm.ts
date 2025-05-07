@@ -1,4 +1,4 @@
-import { ButtonRow, Form, InputRow, LabelRow, Section } from "@paperback/types";
+import { ButtonRow, Form, FormSectionElement, InputRow, LabelRow, Section } from "@paperback/types";
 import {
     apiKeyConfigKey,
     apiUrlConfigKey,
@@ -35,12 +35,12 @@ export class KavitaSettingsForm extends Form {
         );
     }
 
-    getSections(): Application.FormSectionElement[] {
+    getSections(): FormSectionElement[] {
         const sections = [this.createConnectionSettings()];
         return sections;
     }
 
-    private createConnectionSettings(): Application.FormSectionElement {
+    private createConnectionSettings(): FormSectionElement {
         let testButtonTitle = "Test";
         switch (this.testState) {
             case TestState.Testing:
