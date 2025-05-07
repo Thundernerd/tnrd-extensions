@@ -1,6 +1,7 @@
 import { Request, Response } from "@paperback/types";
 import {
     ChapterDto,
+    LibraryDto,
     ProgressDto,
     RecentlyAddedItemDto,
     SearchResultGroupDto,
@@ -234,6 +235,74 @@ export class KavitaApi {
         } catch (error) {
             return Promise.reject(
                 new Error("Failed to get newly added", {
+                    cause: error,
+                }),
+            );
+        }
+    }
+
+    async getLibraries(): Promise<LibraryDto[] | undefined> {
+        try {
+            const [, dto] = await this.sendRequest<LibraryDto[]>({
+                method: "GET",
+                url: this.createUrlBuilder()
+                    .addPath("Library")
+                    .addPath("libraries")
+                    .build(),
+            });
+
+            return Promise.resolve(dto);
+        } catch (error) {
+            return Promise.reject(
+                new Error("Failed to get libraries", {
+                    cause: error,
+                }),
+            );
+        }
+    }
+
+    async getLibrary(libraryId: string): Promise<LibraryDto | undefined> {
+        try {
+            const [, dto] = await this.sendRequest<LibraryDto>({
+                method: "GET",
+                url: this.createUrlBuilder()
+                    .addPath("Library")
+                    .addPath("library")
+                    .addQuery("libraryId", libraryId)
+                    .build(),
+            });
+
+            return Promise.resolve(dto);
+        } catch (error) {
+            return Promise.reject(
+                new Error("Failed to get library", {
+                    cause: error,
+                }),
+            );
+        }
+    }
+
+    async getAllSeries(libraryId: string): Promise<SeriesDto[] | undefined> {
+        try {
+            const [, dto] = await this.sendRequest<SeriesDto[]>({
+                method: "POST",
+                body: {},
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                },
+                url: this.createUrlBuilder()
+                    .addPath("Series")
+                    .addPath("all")
+                    .addQuery("PageNumber", "1")
+                    .addQuery("libraryId", libraryId)
+                    .build(),
+            });
+
+            return Promise.resolve(dto);
+        } catch (error) {
+            return Promise.reject(
+                new Error("Failed to get all series", {
                     cause: error,
                 }),
             );

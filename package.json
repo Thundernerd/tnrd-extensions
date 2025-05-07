@@ -12,7 +12,8 @@
         "tsc": "tsc --project tsconfig.json --noEmit",
         "bundle": "paperback-cli bundle",
         "serve": "paperback-cli serve",
-        "logcat": "paperback-cli logcat",
+        "logcat": "paperback-cli logcat --ip=192.168.1.228",
+        "logcat2": "paperback-cli logcat --ip=192.168.1.246",
         "dev": "paperback-cli serve --watch",
         "test": "npm run tsc && npm run lint:check && npm run format:check && npm run bundle",
         "prepare": "husky"
@@ -20,8 +21,8 @@
     "devDependencies": {
         "@eslint/js": "^9.24.0",
         "@ianvs/prettier-plugin-sort-imports": "^4.4.1",
-        "@paperback/toolchain": "^1.0.0-alpha.39",
-        "@paperback/types": "^1.0.0-alpha.39",
+        "@paperback/toolchain": "^1.0.0-alpha.51",
+        "@paperback/types": "^1.0.0-alpha.51",
         "@types/eslint": "^9.6.1",
         "eslint": "^9.24.0",
         "husky": "^9.1.7",

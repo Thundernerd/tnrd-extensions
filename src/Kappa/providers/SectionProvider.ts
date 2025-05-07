@@ -9,13 +9,15 @@ import {
     ProminentCarouselItem,
     SimpleCarouselItem,
 } from "@paperback/types";
+import { LibraryDto, SeriesDto } from "../gen";
 import { KappaExtension } from "../main";
 import { URLBuilder } from "../utils/URLBuilder";
 
 export class SectionProvider implements DiscoverSectionProviding {
     constructor(private extension: KappaExtension) {}
+
     async getDiscoverSections(): Promise<DiscoverSection[]> {
-        return [
+        const basicSections: DiscoverSection[] = [
             {
                 id: "onDeck",
                 title: "On Deck",
@@ -32,7 +34,26 @@ export class SectionProvider implements DiscoverSectionProviding {
                 type: DiscoverSectionType.simpleCarousel,
             },
         ];
+
+        const libraries = await this.extension.kavitaApi.getLibraries();
+        if (libraries === undefined) {
+            return basicSections;
+        }
+        const filteredLibraries = libraries
+            ?.filter((l) => l !== undefined && l.includeInDashboard!)
+            .map((l) => this.convertLibraryToSection(l));
+
+        return [...basicSections, ...filteredLibraries];
     }
+
+    convertLibraryToSection(library: LibraryDto): DiscoverSection {
+        return {
+            id: library.id!.toString(),
+            title: library.name!,
+            type: DiscoverSectionType.simpleCarousel,
+        };
+    }
+
     async getDiscoverSectionItems(
         section: DiscoverSection,
     ): Promise<PagedResults<DiscoverSectionItem>> {
@@ -43,7 +64,13 @@ export class SectionProvider implements DiscoverSectionProviding {
         } else if (section.id === "newlyAdded") {
             return await this.getNewlyAdded();
         } else {
-            return Promise.reject(new Error("Unknown section"));
+            const series = await this.extension.kavitaApi.getAllSeries(
+                section.id,
+            );
+            if (series === undefined) {
+                return Promise.reject(new Error("Unable to get series"));
+            }
+            return this.getLibrarySeries(series);
         }
     }
 
@@ -184,5 +211,36 @@ export class SectionProvider implements DiscoverSectionProviding {
                     }),
                 );
             });
+    }
+
+    private async getLibrarySeries(
+        series: SeriesDto[],
+    ): Promise<PagedResults<DiscoverSectionItem>> {
+        const items: SimpleCarouselItem[] = [];
+
+        for (const item of series) {
+            items.push({
+                type: "simpleCarouselItem",
+                mangaId: item.id!.toString(),
+                title: item.name!,
+                contentRating: ContentRating.EVERYONE,
+                imageUrl: new URLBuilder(
+                    this.extension.settingsProvider.ApiUrl.value,
+                )
+                    .addPath("api")
+                    .addPath("image")
+                    .addPath("series-cover")
+                    .addQuery("seriesId", item.id!.toString())
+                    .addQuery(
+                        "apiKey",
+                        this.extension.settingsProvider.ApiKey.value,
+                    )
+                    .build(),
+            });
+        }
+
+        return {
+            items: items,
+        };
     }
 }
