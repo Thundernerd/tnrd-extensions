@@ -1,4 +1,10 @@
-import { Form, FormSectionElement, LabelRow, Section, SourceManga } from "@paperback/types";
+import {
+    Form,
+    FormSectionElement,
+    LabelRow,
+    Section,
+    SourceManga,
+} from "@paperback/types";
 import { ProgressProvider } from "../providers/ProgressProvider";
 
 export class KavitaProgressForm extends Form {

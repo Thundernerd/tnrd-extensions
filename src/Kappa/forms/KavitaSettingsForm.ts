@@ -1,4 +1,11 @@
-import { ButtonRow, Form, FormSectionElement, InputRow, LabelRow, Section } from "@paperback/types";
+import {
+    ButtonRow,
+    Form,
+    FormSectionElement,
+    InputRow,
+    LabelRow,
+    Section,
+} from "@paperback/types";
 import {
     apiKeyConfigKey,
     apiUrlConfigKey,
