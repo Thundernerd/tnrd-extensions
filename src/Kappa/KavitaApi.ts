@@ -471,12 +471,7 @@ export class KavitaApi {
             )
                 .then(([response, dto]) => {
                     if (response.status !== 200) {
-                        return Promise.reject(
-                            new Error(
-                                "Failed to refresh token, status code: " +
-                                    response.status,
-                            ),
-                        );
+                        return this.authenticate();
                     }
 
                     if (dto === undefined) {
