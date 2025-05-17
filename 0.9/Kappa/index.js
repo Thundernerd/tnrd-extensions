@@ -3109,23 +3109,15 @@ var source = (() => {
     }
     async testConnection() {
       try {
-        const [response] = await Application.scheduleRequest({
-          method: "POST",
-          url: this.createUrlBuilder().addPath("Plugin").addPath("authenticate").addQuery(
-            "apiKey",
-            this.extension.settingsProvider.ApiKey.value
-          ).addQuery("pluginName", "KappaPaperback").build(),
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json"
-          }
-        });
-        if (response.status !== 200) {
+        return this.authenticate().then(() => {
+          return Promise.resolve();
+        }).catch((error) => {
           return Promise.reject(
-            new Error("Failed to connect to Kavita API")
+            new Error("Failed to test connection", {
+              cause: error
+            })
           );
-        }
-        return Promise.resolve();
+        });
       } catch (error) {
         return Promise.reject(
           new Error("Failed to test connection", {
