@@ -104,7 +104,15 @@ export class KappaExtension
     }
     async initialise(): Promise<void> {
         // Initialization logic here
-        console.log("Kappa Extension Initialized");
+        await this.kavitaApi
+            .authenticate()
+            .then(() => {
+                console.log("Kappa Extension Initialized");
+            })
+            .catch((error) => {
+                console.log(`Failed to authenticate Kavita: ${error}`);
+                throw new Error(`Failed to authenticate Kavita`);
+            });
     }
 }
 

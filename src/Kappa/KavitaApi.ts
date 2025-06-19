@@ -378,7 +378,7 @@ export class KavitaApi {
         }
     }
 
-    private async authenticate(): Promise<void> {
+    async authenticate(): Promise<void> {
         try {
             const [response, buffer] = await Application.scheduleRequest({
                 method: "POST",
