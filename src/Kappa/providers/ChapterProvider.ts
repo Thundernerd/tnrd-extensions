@@ -25,47 +25,34 @@ export class ChapterProvider implements ChapterProviding {
 
                 const chapters: Chapter[] = [];
 
-                let absoluteChapterNumber = 1;
+                const sortedChapters = dto
+                    .flatMap((x) => x.chapters ?? [])
+                    .sort((a, b) => {
+                        const aa = a.sortOrder ?? Number.POSITIVE_INFINITY;
+                        const bb = b.sortOrder ?? Number.POSITIVE_INFINITY;
+                        return aa - bb;
+                    });
 
-                for (const volume of dto) {
-                    if (
-                        volume.chapters === undefined ||
-                        volume.chapters === null
-                    ) {
-                        continue;
-                    }
-                    for (const chapter of volume.chapters) {
-                        let chapterName = "";
-                        const chapterNumber = absoluteChapterNumber++;
-
-                        if (
-                            volume.minNumber === undefined ||
-                            volume.minNumber < 1
-                        ) {
-                            chapterName = `Chapter ${chapter.minNumber}`;
-                        } else {
-                            chapterName = `Volume ${volume.minNumber} Chapter ${chapter.minNumber}`;
-                        }
-
-                        chapters.push({
-                            sourceManga: sourceManga,
-                            title: chapterName,
-                            creationDate: chapter.createdUtc
-                                ? new Date(chapter.createdUtc)
-                                : undefined,
-                            publishDate: chapter.releaseDate
-                                ? new Date(chapter.releaseDate)
-                                : undefined,
-                            chapterId: chapter.id!.toString(),
-                            langCode: chapter.language ?? "EN",
-                            chapNum: chapterNumber,
-                            additionalInfo: {
-                                pages: chapter.pages!.toString(),
-                                pagesRead: chapter.pagesRead!.toString(),
-                                volumeId: chapter.volumeId!.toString(),
-                            },
-                        });
-                    }
+                for (const chapter of sortedChapters) {
+                    chapters.push({
+                        sourceManga: sourceManga,
+                        title:
+                            chapter.titleName ?? chapter.title ?? "Chapter ?",
+                        creationDate: chapter.createdUtc
+                            ? new Date(chapter.createdUtc)
+                            : undefined,
+                        publishDate: chapter.releaseDate
+                            ? new Date(chapter.releaseDate)
+                            : undefined,
+                        chapterId: chapter.id!.toString(),
+                        langCode: chapter.language ?? "EN",
+                        chapNum: chapter.sortOrder ?? chapter.minNumber!,
+                        additionalInfo: {
+                            pages: chapter.pages!.toString(),
+                            pagesRead: chapter.pagesRead!.toString(),
+                            volumeId: chapter.volumeId!.toString(),
+                        },
+                    });
                 }
 
                 return chapters;
