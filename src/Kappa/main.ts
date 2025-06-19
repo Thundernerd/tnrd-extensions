@@ -103,6 +103,11 @@ export class KappaExtension
         return this.mangaProvider.getMangaDetails(mangaId);
     }
     async initialise(): Promise<void> {
+        const apiKey = this.settingsProvider.ApiKey.value;
+        if (apiKey == "" || apiKey == null || apiKey == undefined) {
+            return;
+        }
+
         // Initialization logic here
         await this.kavitaApi
             .authenticate()
