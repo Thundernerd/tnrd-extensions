@@ -3598,34 +3598,26 @@ var source = (() => {
           return [];
         }
         const chapters = [];
-        let absoluteChapterNumber = 1;
-        for (const volume of dto) {
-          if (volume.chapters === void 0 || volume.chapters === null) {
-            continue;
-          }
-          for (const chapter of volume.chapters) {
-            let chapterName = "";
-            const chapterNumber = absoluteChapterNumber++;
-            if (volume.minNumber === void 0 || volume.minNumber < 1) {
-              chapterName = `Chapter ${chapter.minNumber}`;
-            } else {
-              chapterName = `Volume ${volume.minNumber} Chapter ${chapter.minNumber}`;
+        const sortedChapters = dto.flatMap((x) => x.chapters ?? []).sort((a, b) => {
+          const aa = a.sortOrder ?? Number.POSITIVE_INFINITY;
+          const bb = b.sortOrder ?? Number.POSITIVE_INFINITY;
+          return aa - bb;
+        });
+        for (const chapter of sortedChapters) {
+          chapters.push({
+            sourceManga,
+            title: chapter.titleName ?? chapter.title ?? "Chapter ?",
+            creationDate: chapter.createdUtc ? new Date(chapter.createdUtc) : void 0,
+            publishDate: chapter.releaseDate ? new Date(chapter.releaseDate) : void 0,
+            chapterId: chapter.id.toString(),
+            langCode: chapter.language ?? "EN",
+            chapNum: chapter.sortOrder ?? chapter.minNumber,
+            additionalInfo: {
+              pages: chapter.pages.toString(),
+              pagesRead: chapter.pagesRead.toString(),
+              volumeId: chapter.volumeId.toString()
             }
-            chapters.push({
-              sourceManga,
-              title: chapterName,
-              creationDate: chapter.createdUtc ? new Date(chapter.createdUtc) : void 0,
-              publishDate: chapter.releaseDate ? new Date(chapter.releaseDate) : void 0,
-              chapterId: chapter.id.toString(),
-              langCode: chapter.language ?? "EN",
-              chapNum: chapterNumber,
-              additionalInfo: {
-                pages: chapter.pages.toString(),
-                pagesRead: chapter.pagesRead.toString(),
-                volumeId: chapter.volumeId.toString()
-              }
-            });
-          }
+          });
         }
         return chapters;
       }).catch((error) => {
@@ -4319,7 +4311,16 @@ var source = (() => {
       return this.mangaProvider.getMangaDetails(mangaId);
     }
     async initialise() {
-      console.log("Kappa Extension Initialized");
+      const apiKey = this.settingsProvider.ApiKey.value;
+      if (apiKey == "" || apiKey == null || apiKey == void 0) {
+        return;
+      }
+      await this.kavitaApi.authenticate().then(() => {
+        console.log("Kappa Extension Initialized");
+      }).catch((error) => {
+        console.log(`Failed to authenticate Kavita: ${error}`);
+        throw new Error(`Failed to authenticate Kavita`);
+      });
     }
   };
   var Kappa = new KappaExtension();
