@@ -36,19 +36,15 @@ export class ChapterProvider implements ChapterProviding {
 
                 const sortedChapters = dto
                     .flatMap((x) => x.chapters ?? [])
-                    .sort((a, b) => {
-                        const aa = a.sortOrder ?? Number.POSITIVE_INFINITY;
-                        const bb = b.sortOrder ?? Number.POSITIVE_INFINITY;
-                        return aa - bb;
-                    });
+                    .sort((a, b) => a.sortOrder! - b.sortOrder!);
 
                 for (const chapter of sortedChapters) {
                     let chapterVolume = 0;
-                    const vol = chapter.volumeId
+                    const volumeId = chapter.volumeId
                         ? idToVolume[chapter.volumeId]
                         : undefined;
-                    if (vol?.minNumber != null)
-                        chapterVolume = Math.max(0, vol.minNumber);
+                    if (volumeId?.minNumber != null)
+                        chapterVolume = Math.max(0, volumeId.minNumber);
 
                     chapters.push({
                         sourceManga: sourceManga,
@@ -62,12 +58,13 @@ export class ChapterProvider implements ChapterProviding {
                             : undefined,
                         chapterId: chapter.id!.toString(),
                         langCode: chapter.language ?? "EN",
-                        chapNum: chapter.sortOrder ?? chapter.minNumber!,
+                        chapNum: chapter.sortOrder!,
                         additionalInfo: {
                             pages: chapter.pages!.toString(),
                             pagesRead: chapter.pagesRead!.toString(),
                             volumeId: chapter.volumeId!.toString(),
                         },
+                        sortingIndex: chapter.sortOrder!,
                         volume: chapterVolume,
                     });
                 }
