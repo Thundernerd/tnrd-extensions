@@ -3605,16 +3605,12 @@ var source = (() => {
           {}
         );
         const chapters = [];
-        const sortedChapters = dto.flatMap((x) => x.chapters ?? []).sort((a, b) => {
-          const aa = a.sortOrder ?? Number.POSITIVE_INFINITY;
-          const bb = b.sortOrder ?? Number.POSITIVE_INFINITY;
-          return aa - bb;
-        });
+        const sortedChapters = dto.flatMap((x) => x.chapters ?? []).sort((a, b) => a.sortOrder - b.sortOrder);
         for (const chapter of sortedChapters) {
           let chapterVolume = 0;
-          const vol = chapter.volumeId ? idToVolume[chapter.volumeId] : void 0;
-          if (vol?.minNumber != null)
-            chapterVolume = Math.max(0, vol.minNumber);
+          const volumeId = chapter.volumeId ? idToVolume[chapter.volumeId] : void 0;
+          if (volumeId?.minNumber != null)
+            chapterVolume = Math.max(0, volumeId.minNumber);
           chapters.push({
             sourceManga,
             title: chapter.titleName ?? chapter.title ?? "Chapter ?",
@@ -3622,12 +3618,13 @@ var source = (() => {
             publishDate: chapter.releaseDate ? new Date(chapter.releaseDate) : void 0,
             chapterId: chapter.id.toString(),
             langCode: chapter.language ?? "EN",
-            chapNum: chapter.sortOrder ?? chapter.minNumber,
+            chapNum: chapter.sortOrder,
             additionalInfo: {
               pages: chapter.pages.toString(),
               pagesRead: chapter.pagesRead.toString(),
               volumeId: chapter.volumeId.toString()
             },
+            sortingIndex: chapter.sortOrder,
             volume: chapterVolume
           });
         }
