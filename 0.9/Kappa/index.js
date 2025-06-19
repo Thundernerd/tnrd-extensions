@@ -3597,6 +3597,13 @@ var source = (() => {
         if (dto.length === 0) {
           return [];
         }
+        const idToVolume = dto.reduce(
+          (acc, entry) => {
+            acc[entry.id] = entry;
+            return acc;
+          },
+          {}
+        );
         const chapters = [];
         const sortedChapters = dto.flatMap((x) => x.chapters ?? []).sort((a, b) => {
           const aa = a.sortOrder ?? Number.POSITIVE_INFINITY;
@@ -3604,6 +3611,10 @@ var source = (() => {
           return aa - bb;
         });
         for (const chapter of sortedChapters) {
+          let chapterVolume = 0;
+          const vol = chapter.volumeId ? idToVolume[chapter.volumeId] : void 0;
+          if (vol?.minNumber != null)
+            chapterVolume = Math.max(0, vol.minNumber);
           chapters.push({
             sourceManga,
             title: chapter.titleName ?? chapter.title ?? "Chapter ?",
@@ -3616,7 +3627,8 @@ var source = (() => {
               pages: chapter.pages.toString(),
               pagesRead: chapter.pagesRead.toString(),
               volumeId: chapter.volumeId.toString()
-            }
+            },
+            volume: chapterVolume
           });
         }
         return chapters;
