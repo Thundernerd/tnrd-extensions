@@ -4,6 +4,7 @@ import {
     ChapterProviding,
     SourceManga,
 } from "@paperback/types";
+import { VolumeDto } from "../gen";
 import { KappaExtension } from "../main";
 import { URLBuilder } from "../utils/URLBuilder";
 
@@ -23,6 +24,14 @@ export class ChapterProvider implements ChapterProviding {
                     return [];
                 }
 
+                const idToVolume = dto.reduce(
+                    (acc: Record<number, VolumeDto>, entry: VolumeDto) => {
+                        acc[entry.id!] = entry;
+                        return acc;
+                    },
+                    {},
+                );
+
                 const chapters: Chapter[] = [];
 
                 const sortedChapters = dto
@@ -34,6 +43,13 @@ export class ChapterProvider implements ChapterProviding {
                     });
 
                 for (const chapter of sortedChapters) {
+                    let chapterVolume = 0;
+                    const vol = chapter.volumeId
+                        ? idToVolume[chapter.volumeId]
+                        : undefined;
+                    if (vol?.minNumber != null)
+                        chapterVolume = Math.max(0, vol.minNumber);
+
                     chapters.push({
                         sourceManga: sourceManga,
                         title:
@@ -52,6 +68,7 @@ export class ChapterProvider implements ChapterProviding {
                             pagesRead: chapter.pagesRead!.toString(),
                             volumeId: chapter.volumeId!.toString(),
                         },
+                        volume: chapterVolume,
                     });
                 }
 
